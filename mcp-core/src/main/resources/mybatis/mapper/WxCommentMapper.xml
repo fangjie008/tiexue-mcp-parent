@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.potentfiction.mapper.WxCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxComment" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="BookName" property="bookname" jdbcType="VARCHAR" />
+    <result column="ChapterId" property="chapterid" jdbcType="INTEGER" />
+    <result column="ChapterTitle" property="chaptertitle" jdbcType="VARCHAR" />
+    <result column="Status" property="status" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="UserIcon" property="usericon" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tiexue.potentfiction.entity.WxComment" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, BookId, BookName, ChapterId, ChapterTitle, Status, UserId, UserName, UserIcon, 
+    CreateTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxComment" >
+    insert into wxcomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="bookname != null" >
+        BookName,
+      </if>
+      <if test="chapterid != null" >
+        ChapterId,
+      </if>
+      <if test="chaptertitle != null" >
+        ChapterTitle,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="usericon != null" >
+        UserIcon,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterid != null" >
+        #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="chaptertitle != null" >
+        #{chaptertitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null" >
+        #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxComment" >
+    update wxcomment
+    <set >
+      <if test="bookid != null" >
+        BookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null" >
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterid != null" >
+        ChapterId = #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="chaptertitle != null" >
+        ChapterTitle = #{chaptertitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null" >
+        UserIcon = #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

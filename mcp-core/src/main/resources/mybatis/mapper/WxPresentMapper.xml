@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiexue.potentfiction.mapper.WxPresentMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxPresent">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="Coin" jdbcType="INTEGER" property="coin" />
+    <result column="GetTime" jdbcType="TIMESTAMP" property="gettime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserId, Coin, GetTime
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxPresent">
+    insert into wxpresent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="coin != null">
+        Coin,
+      </if>
+      <if test="gettime != null">
+        GetTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="coin != null">
+        #{coin,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null">
+        #{gettime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxPresent">
+    update wxpresent
+    <set>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="coin != null">
+        Coin = #{coin,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null">
+        GetTime = #{gettime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+ </mapper>

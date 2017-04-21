@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiexue.potentfiction.mapper.WxPayMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxPay">
+    <id column="OrderNum" jdbcType="VARCHAR" property="ordernum" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="OpenId" jdbcType="VARCHAR" property="openid" />
+    <result column="BookId" jdbcType="INTEGER" property="bookid" />
+    <result column="ChapterId" jdbcType="INTEGER" property="chapterid" />
+    <result column="OrderStatus" jdbcType="INTEGER" property="orderstatus" />
+    <result column="WxOrderNum" jdbcType="VARCHAR" property="wxordernum" />
+    <result column="PayChannel" jdbcType="INTEGER" property="paychannel" />
+    <result column="PayType" jdbcType="INTEGER" property="paytype" />
+    <result column="Amount" jdbcType="INTEGER" property="amount" />
+    <result column="Count" jdbcType="INTEGER" property="count" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="Unit" jdbcType="INTEGER" property="unit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OrderNum, UserId, OpenId, BookId, ChapterId, OrderStatus, WxOrderNum, PayChannel, 
+    PayType, Amount, Count, CreateTime, Unit
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxPay">
+    insert into wxpay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ordernum != null">
+        OrderNum,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="openid != null">
+        OpenId,
+      </if>
+      <if test="bookid != null">
+        BookId,
+      </if>
+      <if test="chapterid != null">
+        ChapterId,
+      </if>
+      <if test="orderstatus != null">
+        OrderStatus,
+      </if>
+      <if test="wxordernum != null">
+        WxOrderNum,
+      </if>
+      <if test="paychannel != null">
+        PayChannel,
+      </if>
+      <if test="paytype != null">
+        PayType,
+      </if>
+      <if test="amount != null">
+        Amount,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="unit != null">
+        Unit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="wxordernum != null">
+        #{wxordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="paychannel != null">
+        #{paychannel,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null">
+        #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxPay">
+    update wxpay
+    <set>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        OpenId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null">
+        BookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        ChapterId = #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        OrderStatus = #{orderstatus,jdbcType=INTEGER},
+      </if>
+      <if test="wxordernum != null">
+        WxOrderNum = #{wxordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="paychannel != null">
+        PayChannel = #{paychannel,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null">
+        PayType = #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        Amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit != null">
+        Unit = #{unit,jdbcType=INTEGER},
+      </if>
+    </set>
+    where OrderNum = #{ordernum,jdbcType=VARCHAR}
+  </update>
+</mapper>

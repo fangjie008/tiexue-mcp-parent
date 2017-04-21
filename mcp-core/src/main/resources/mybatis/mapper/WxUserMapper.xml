@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiexue.potentfiction.mapper.WxUserMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxUser">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="HeaderIcon" jdbcType="VARCHAR" property="headericon" />
+    <result column="Signature" jdbcType="VARCHAR" property="signature" />
+    <result column="Pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="Sex" jdbcType="INTEGER" property="sex" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="Province" jdbcType="VARCHAR" property="province" />
+    <result column="UserType" jdbcType="INTEGER" property="usertype" />
+    <result column="Coin" jdbcType="INTEGER" property="coin" />
+    <result column="Deadline" jdbcType="TIMESTAMP" property="deadline" />
+    <result column="DeviceCode" jdbcType="VARCHAR" property="devicecode" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="Mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="OpenId" jdbcType="VARCHAR" property="openid" />
+    <result column="WeixinToken" jdbcType="VARCHAR" property="weixintoken" />
+    <result column="Token" jdbcType="VARCHAR" property="token" />
+    <result column="FromName" jdbcType="VARCHAR" property="fromname" />
+    <result column="LastActiveTime" jdbcType="TIMESTAMP" property="lastactivetime" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tiexue.potentfiction.entity.WxUser">
+    <result column="AutoPurchase" jdbcType="LONGVARCHAR" property="autopurchase" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Name, HeaderIcon, Signature, Pwd, Sex, City, Province, UserType, Coin, Deadline, 
+    DeviceCode, Status, Mobile, OpenId, WeixinToken, Token,FromName, LastActiveTime, CreateTime, 
+    UpdateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    AutoPurchase
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxUser">
+    insert into wxuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="headericon != null">
+        HeaderIcon,
+      </if>
+      <if test="signature != null">
+        Signature,
+      </if>
+      <if test="pwd != null">
+        Pwd,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="city != null">
+        City,
+      </if>
+      <if test="province != null">
+        Province,
+      </if>
+      <if test="usertype != null">
+        UserType,
+      </if>
+      <if test="coin != null">
+        Coin,
+      </if>
+      <if test="deadline != null">
+        Deadline,
+      </if>
+      <if test="devicecode != null">
+        DeviceCode,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="mobile != null">
+        Mobile,
+      </if>
+      <if test="openid != null">
+        OpenId,
+      </if>
+      <if test="weixintoken != null">
+        WeixinToken,
+      </if>
+      <if test="token != null">
+        Token,
+      </if>
+       <if test="fromname != null">
+        FromName,
+      </if>
+      <if test="lastactivetime != null">
+        LastActiveTime,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="autopurchase != null">
+        AutoPurchase,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headericon != null">
+        #{headericon,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="coin != null">
+        #{coin,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="devicecode != null">
+        #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixintoken != null">
+        #{weixintoken,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+       <if test="FromName != null">
+        #{fromName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastactivetime != null">
+        #{lastactivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="autopurchase != null">
+        #{autopurchase,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxUser">
+    update wxuser
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headericon != null">
+        HeaderIcon = #{headericon,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        Signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        Pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        UserType = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="coin != null">
+        Coin = #{coin,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null">
+        Deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="devicecode != null">
+        DeviceCode = #{devicecode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        Mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        OpenId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixintoken != null">
+        WeixinToken = #{weixintoken,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        Token = #{token,jdbcType=VARCHAR},
+      </if>
+       <if test="fromname != null">
+        FromName = #{fromname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastactivetime != null">
+        LastActiveTime = #{lastactivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="autopurchase != null">
+        AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

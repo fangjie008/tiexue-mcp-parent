@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.potentfiction.mapper.WxChapterMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxChapter" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="Intro" property="intro" jdbcType="VARCHAR" />
+    <result column="SortOrder" property="sortorder" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="ChapterType" property="chaptertype" jdbcType="INTEGER" />
+    <result column="Pirce" property="pirce" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="INTEGER" />
+    <result column="ContentLen" property="contentlen" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="UniqueFlag" jdbcType="VARCHAR" property="uniqueflag" />
+  </resultMap>
+  <resultMap id="ResultListMap" type="com.tiexue.potentfiction.entity.WxChapter" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="SortOrder" property="sortorder" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="ChapterType" property="chaptertype" jdbcType="INTEGER" />
+    <result column="Pirce" property="pirce" jdbcType="INTEGER" />
+    <result column="ContentLen" property="contentlen" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, BookId, Intro, SortOrder, Title, ChapterType, Pirce, Status, ContentLen, CreateTime, 
+    UpdateTime, Remark,UniqueFlag
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxChapter" >
+    insert into wxchapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="intro != null" >
+        Intro,
+      </if>
+      <if test="sortorder != null" >
+        SortOrder,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="chaptertype != null" >
+        ChapterType,
+      </if>
+      <if test="pirce != null" >
+        Pirce,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="contentlen != null" >
+        ContentLen,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="uniqueflag != null" >
+        UniqueFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="sortorder != null" >
+        #{sortorder,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="chaptertype != null" >
+        #{chaptertype,jdbcType=INTEGER},
+      </if>
+      <if test="pirce != null" >
+        #{pirce,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contentlen != null" >
+        #{contentlen,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="uniqueflag != null">
+        #{uniqueflag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxChapter" >
+    update wxchapter
+    <set >
+      <if test="bookid != null" >
+        BookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="intro != null" >
+        Intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="sortorder != null" >
+        SortOrder = #{sortorder,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="chaptertype != null" >
+        ChapterType = #{chaptertype,jdbcType=INTEGER},
+      </if>
+      <if test="pirce != null" >
+        Pirce = #{pirce,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="contentlen != null" >
+        ContentLen = #{contentlen,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="uniqueflag != null">
+        UniqueFlag = #{uniqueflag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiexue.potentfiction.mapper.WxBookMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxBook">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Intr" jdbcType="VARCHAR" property="intr" />
+    <result column="PublisherId" jdbcType="INTEGER" property="publisherid" />
+    <result column="PublisherName" jdbcType="VARCHAR" property="publishername" />
+    <result column="CoverImgs" jdbcType="VARCHAR" property="coverimgs" />
+    <result column="Tag" jdbcType="VARCHAR" property="tag" />
+    <result column="Mark" jdbcType="INTEGER" property="mark" />
+    <result column="Sort" jdbcType="INTEGER" property="sort" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+    <result column="ViewCount" jdbcType="INTEGER" property="viewcount" />
+    <result column="CommentCount" jdbcType="INTEGER" property="commentcount" />
+    <result column="DingCount" jdbcType="INTEGER" property="dingcount" />
+    <result column="CaiCount" jdbcType="INTEGER" property="caicount" />
+    <result column="ShareCount" jdbcType="INTEGER" property="sharecount" />
+    <result column="ContentLen" jdbcType="INTEGER" property="contentlen" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="UniqueFlag" jdbcType="VARCHAR" property="uniqueflag" />
+     <result column="CollectionId" jdbcType="INTEGER" property="collectionid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Name, Intr, PublisherId, PublisherName, CoverImgs, Tag, Mark, Sort, Status, ViewCount, 
+    CommentCount, DingCount, CaiCount, ShareCount, ContentLen, CreateTime, UpdateTime,UniqueFlag,CollectionId
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxBook">
+    insert into wxbook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="intr != null">
+        Intr,
+      </if>
+      <if test="publisherid != null">
+        PublisherId,
+      </if>
+      <if test="publishername != null">
+        PublisherName,
+      </if>
+      <if test="coverimgs != null">
+        CoverImgs,
+      </if>
+      <if test="tag != null">
+        Tag,
+      </if>
+      <if test="mark != null">
+        Mark,
+      </if>
+      <if test="sort != null">
+        Sort,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="viewcount != null">
+        ViewCount,
+      </if>
+      <if test="commentcount != null">
+        CommentCount,
+      </if>
+      <if test="dingcount != null">
+        DingCount,
+      </if>
+      <if test="caicount != null">
+        CaiCount,
+      </if>
+      <if test="sharecount != null">
+        ShareCount,
+      </if>
+      <if test="contentlen != null">
+        ContentLen,
+      </if>
+      <if test="createtime != null">
+        CreateTime,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+       <if test="uniqueflag != null" >
+        UniqueFlag,
+      </if>
+       <if test="collectionid != null" >
+        CollectionId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="intr != null">
+        #{intr,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherid != null">
+        #{publisherid,jdbcType=INTEGER},
+      </if>
+      <if test="publishername != null">
+        #{publishername,jdbcType=VARCHAR},
+      </if>
+      <if test="coverimgs != null">
+        #{coverimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="viewcount != null">
+        #{viewcount,jdbcType=INTEGER},
+      </if>
+      <if test="commentcount != null">
+        #{commentcount,jdbcType=INTEGER},
+      </if>
+      <if test="dingcount != null">
+        #{dingcount,jdbcType=INTEGER},
+      </if>
+      <if test="caicount != null">
+        #{caicount,jdbcType=INTEGER},
+      </if>
+      <if test="sharecount != null">
+        #{sharecount,jdbcType=INTEGER},
+      </if>
+      <if test="contentlen != null">
+        #{contentlen,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="uniqueflag != null">
+        #{uniqueflag,jdbcType=VARCHAR},
+      </if>
+       <if test="collectionid != null">
+        #{collectionid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxBook">
+    update wxbook
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="intr != null">
+        Intr = #{intr,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherid != null">
+        PublisherId = #{publisherid,jdbcType=INTEGER},
+      </if>
+      <if test="publishername != null">
+        PublisherName = #{publishername,jdbcType=VARCHAR},
+      </if>
+      <if test="coverimgs != null">
+        CoverImgs = #{coverimgs,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        Tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        Mark = #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        Sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="viewcount != null">
+        ViewCount = #{viewcount,jdbcType=INTEGER},
+      </if>
+      <if test="commentcount != null">
+        CommentCount = #{commentcount,jdbcType=INTEGER},
+      </if>
+      <if test="dingcount != null">
+        DingCount = #{dingcount,jdbcType=INTEGER},
+      </if>
+      <if test="caicount != null">
+        CaiCount = #{caicount,jdbcType=INTEGER},
+      </if>
+      <if test="sharecount != null">
+        ShareCount = #{sharecount,jdbcType=INTEGER},
+      </if>
+      <if test="contentlen != null">
+        ContentLen = #{contentlen,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="uniqueflag != null">
+        UniqueFlag = #{uniqueflag,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionid != null">
+        CollectionId = #{collectionid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

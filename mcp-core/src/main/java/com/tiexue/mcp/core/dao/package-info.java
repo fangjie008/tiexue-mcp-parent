@@ -5,4 +5,4 @@
  * @author qiaofangjie
  *
  */
-package com.tiexue.mcp.core.test;
+package com.tiexue.mcp.core.dao;
