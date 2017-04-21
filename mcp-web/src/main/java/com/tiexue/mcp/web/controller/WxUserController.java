@@ -1,4 +1,4 @@
-package com.tiexue.potentfiction.controller;
+package com.tiexue.mcp.web.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;

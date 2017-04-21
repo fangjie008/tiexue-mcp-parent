@@ -1,4 +1,4 @@
-package com.tiexue.potentfiction.controller;
+package com.tiexue.mcp.web.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
