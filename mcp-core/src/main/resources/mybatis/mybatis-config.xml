@@ -15,6 +15,6 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias alias="User" type="com.tiexue.potentfiction.entity.User" /> -->
+		<!-- <typeAlias alias="User" type="com.tiexue.mcp.core.entity.User" /> -->
 	</typeAliases>
 </configuration>

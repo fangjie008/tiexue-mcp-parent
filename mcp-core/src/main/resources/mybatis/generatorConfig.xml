@@ -26,7 +26,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<javaModelGenerator targetPackage="com.tiexue.potentfiction.entity"
+		<javaModelGenerator targetPackage="com.tiexue.mcp.core.entity"
 			targetProject="src/main/java">
 			<!-- 是否对model添加 构造函数 -->
 			<property name="constructorBased" value="false" />
@@ -48,7 +48,7 @@
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator targetPackage="com.tiexue.potentfiction.mapper"
+		<javaClientGenerator targetPackage="com.tiexue.mcp.core.mapper"
 			targetProject="src/main/java" type="MIXEDMAPPER">
 			<property name="enableSubPackages" value="" />
 			<!-- 定义Maper.java 源代码中的ByExample() 方法的可视性，可选的值有： public; private; protected; 
