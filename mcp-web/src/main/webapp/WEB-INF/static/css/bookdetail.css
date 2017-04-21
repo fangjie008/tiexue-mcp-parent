@@ -1,0 +1,128 @@
+*{margin:0;pading:0}
+body{
+	background-color: #f9f8f8;
+}
+a{
+	text-decoration: none;
+}
+.box-header{
+	margin-bottom:15px; 
+}
+
+.box-header-title{
+	height: 44px;
+	background: #32c9ba;
+	position: relative;
+	top: 0;
+	left: 0;
+	line-height: 44px;
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-size: 15px;
+}
+
+.box-header a{
+	display: block;
+	position: absolute;	
+	top: 9px;
+	background-image: url("http://cdn.xsm.meixiangdao.com/mobile/xsm/img/ico52.png");
+	background-repeat: no-repeat;
+	background-size: 26px auto;
+	width: 26px;
+	height: 26px;
+	vertical-align: text-bottom;
+}
+.btn-headback{
+	left: 11px;
+}
+
+.btn-headindex{
+	background-position:  0 -26px;
+	right: 11px;
+}
+
+.box-header-subtitle{
+	height: 40px;
+	border-bottom: 1px #e9eaeb solid;
+	background-color: #FFF;
+	line-height: 40px;
+	padding-left: 10px;
+}
+
+.box-bookinfo{
+	position: relative;
+	padding: 0 10px;
+}
+
+.box-bookinfo img{
+	width:90px;
+	height:120px;
+	border: 1px solid #eee;
+	margin-bottom: 15px;
+}
+
+.box-bookinfo-text{
+	position: absolute;
+	top: 0px;
+	left: 115px;
+	right: 0;
+	line-height: 25px;
+	font-size: 15px;
+}
+.box-bookinfo-text dt{
+	float: left;
+	color: #b7b7b7;
+}
+.box-bookinfo-text dd{
+	
+}
+
+.box-bookinfo-text dd a{
+	color:#2897ed;
+}
+
+.box-action1{
+	text-align: center;
+	padding: 0 10px;
+	margin-bottom: 15px;
+}
+
+.box-action1 a{
+	display: inline-block;
+	line-height: 40px;
+	width: 48%;
+	text-align: center;
+	border-radius: 6px;
+}
+
+.box-action1 a.btn-action1{
+	color: white;
+	background: #2bb8a5;
+}
+
+.box-action1 a.btn-action2{
+	border:1px solid #d4d4d4;
+	background: white;  
+	color: #313030;
+}
+
+.box-action1 a.btn-action3{
+	border:1px solid #d4d4d4;
+	background: #efefef;  
+	color: #7d7d87;
+}
+
+.box-action2 a{
+	display: block;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 6px;
+	border:1px solid #d4d4d4;
+	background: white;  
+}
+
+.box-action2{
+
+	padding: 0 10px;
+}
