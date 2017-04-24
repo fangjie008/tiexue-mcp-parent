@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>potentfiction</display-name>
+	<display-name>mcp-web</display-name>
 
 	<!-- 指定srping配置文件位置,spring框架会识别此参数名参数,加载对应配置文件 -->
 	<context-param>
@@ -68,7 +68,7 @@
 	  </error-page>
 	<!--  -->
 	<listener>
-		<listener-class>com.tiexue.potentfiction.listener.WxAppInitListener</listener-class>
+		<listener-class>com.tiexue.mcp.core.listener.WxAppInitListener</listener-class>
 	</listener>
 
 </web-app>
