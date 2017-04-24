@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tiexue.mcp.core.mapper.WxBookMapper">
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxBook">
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxBook">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Intr" jdbcType="VARCHAR" property="intr" />
@@ -27,7 +27,7 @@
     Id, Name, Intr, PublisherId, PublisherName, CoverImgs, Tag, Mark, Sort, Status, ViewCount, 
     CommentCount, DingCount, CaiCount, ShareCount, ContentLen, CreateTime, UpdateTime,UniqueFlag,CollectionId
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxBook">
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxBook">
     insert into wxbook
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -154,7 +154,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxBook">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxBook">
     update wxbook
     <set>
       <if test="name != null">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tiexue.potentfiction.mapper.WxUserMapper">
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxUser">
+<mapper namespace="com.tiexue.mcp.core.mapper.WxUserMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxUser">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="HeaderIcon" jdbcType="VARCHAR" property="headericon" />
@@ -25,7 +25,7 @@
     <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
 
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tiexue.potentfiction.entity.WxUser">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.WxUser">
     <result column="AutoPurchase" jdbcType="LONGVARCHAR" property="autopurchase" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -36,7 +36,7 @@
   <sql id="Blob_Column_List">
     AutoPurchase
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxUser">
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxUser">
     insert into wxuser
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxUser">
     update wxuser
     <set>
       <if test="name != null">

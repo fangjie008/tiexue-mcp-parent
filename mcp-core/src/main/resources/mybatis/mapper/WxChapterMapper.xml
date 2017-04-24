@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tiexue.potentfiction.mapper.WxChapterMapper" >
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxChapter" >
+<mapper namespace="com.tiexue.mcp.core.mapper.WxChapterMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxChapter" >
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="BookId" property="bookid" jdbcType="INTEGER" />
     <result column="Intro" property="intro" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     <result column="Remark" property="remark" jdbcType="VARCHAR" />
     <result column="UniqueFlag" jdbcType="VARCHAR" property="uniqueflag" />
   </resultMap>
-  <resultMap id="ResultListMap" type="com.tiexue.potentfiction.entity.WxChapter" >
+  <resultMap id="ResultListMap" type="com.tiexue.mcp.core.entity.WxChapter" >
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="BookId" property="bookid" jdbcType="INTEGER" />
     <result column="SortOrder" property="sortorder" jdbcType="INTEGER" />
@@ -29,7 +29,7 @@
     Id, BookId, Intro, SortOrder, Title, ChapterType, Pirce, Status, ContentLen, CreateTime, 
     UpdateTime, Remark,UniqueFlag
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxChapter" >
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxChapter" >
     insert into wxchapter
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -117,7 +117,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxChapter" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxChapter" >
     update wxchapter
     <set >
       <if test="bookid != null" >

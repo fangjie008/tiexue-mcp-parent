@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tiexue.potentfiction.mapper.WxPayMapper">
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxPay">
+<mapper namespace="com.tiexue.mcp.core.mapper.WxPayMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxPay">
     <id column="OrderNum" jdbcType="VARCHAR" property="ordernum" />
     <result column="UserId" jdbcType="INTEGER" property="userid" />
     <result column="OpenId" jdbcType="VARCHAR" property="openid" />
@@ -20,7 +20,7 @@
     OrderNum, UserId, OpenId, BookId, ChapterId, OrderStatus, WxOrderNum, PayChannel, 
     PayType, Amount, Count, CreateTime, Unit
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxPay">
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxPay">
     insert into wxpay
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="ordernum != null">
@@ -105,7 +105,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxPay">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxPay">
     update wxpay
     <set>
       <if test="userid != null">

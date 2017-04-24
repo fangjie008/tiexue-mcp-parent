@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tiexue.potentfiction.mapper.WxBookrackMapper" >
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxBookrack" >
+<mapper namespace="com.tiexue.mcp.core.mapper.WxBookrackMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxBookrack" >
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="BookId" property="bookid" jdbcType="INTEGER" />
     <result column="BookName" property="bookname" jdbcType="VARCHAR" />
@@ -11,7 +11,7 @@
     <result column="UserId" property="userid" jdbcType="INTEGER" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
-   <resultMap id="joinBookResultMap" type="com.tiexue.potentfiction.dto.WxBookrackDto" >
+   <resultMap id="joinBookResultMap" type="com.tiexue.mcp.core.dto.WxBookrackDto" >
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="BookId" property="bookid" jdbcType="INTEGER" />
     <result column="BookName" property="bookname" jdbcType="VARCHAR" />
@@ -25,7 +25,7 @@
   <sql id="Base_Column_List" >
     Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxBookrack" >
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxBookrack" >
     insert into wxbookrack
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxBookrack" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxBookrack" >
     update wxbookrack
     <set >
       <if test="bookid != null" >

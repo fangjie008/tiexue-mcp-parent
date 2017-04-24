@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tiexue.potentfiction.mapper.WxChapterSubMapper" >
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxChapterSub" >
+<mapper namespace="com.tiexue.mcp.core.mapper.WxChapterSubMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxChapterSub" >
     <result column="Id" property="id" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.tiexue.potentfiction.entity.WxChapterSub" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.WxChapterSub" extends="BaseResultMap" >
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
-    <resultMap id="AllResultMap" type="com.tiexue.potentfiction.entity.WxChapterSub" >
+    <resultMap id="AllResultMap" type="com.tiexue.mcp.core.entity.WxChapterSub" >
     <result column="Id" property="id" jdbcType="INTEGER" />
      <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Blob_Column_List" >
     Content
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxChapterSub" >
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxChapterSub" >
     insert into wxchaptersub
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tiexue.potentfiction.mapper.WxPresentMapper">
-  <resultMap id="BaseResultMap" type="com.tiexue.potentfiction.entity.WxPresent">
+<mapper namespace="com.tiexue.mcp.core.mapper.WxPresentMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxPresent">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="UserId" jdbcType="INTEGER" property="userid" />
     <result column="Coin" jdbcType="INTEGER" property="coin" />
@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
     Id, UserId, Coin, GetTime
   </sql>
-  <insert id="insertSelective" parameterType="com.tiexue.potentfiction.entity.WxPresent">
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxPresent">
     insert into wxpresent
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -41,7 +41,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.potentfiction.entity.WxPresent">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxPresent">
     update wxpresent
     <set>
       <if test="userid != null">
