@@ -75,7 +75,7 @@
 	</profiles>
 
 	<build>
-		<finalName>${name}-${version}</finalName>
+
 		<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 		<resources>
 			<resource>
