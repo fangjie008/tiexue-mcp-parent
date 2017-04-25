@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiexue.mcp.core.mapper.McpBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.McpBaseInfo">
+    <id column="CPId" jdbcType="INTEGER" property="cpid" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="ContName" jdbcType="VARCHAR" property="contname" />
+    <result column="ContEmail" jdbcType="VARCHAR" property="contemail" />
+    <result column="ContQQ" jdbcType="VARCHAR" property="contqq" />
+    <result column="ContPhone" jdbcType="VARCHAR" property="contphone" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="ZipCode" jdbcType="VARCHAR" property="zipcode" />
+    <result column="BankName" jdbcType="VARCHAR" property="bankname" />
+    <result column="BankAccountName" jdbcType="VARCHAR" property="bankaccountname" />
+    <result column="BankAccountNum" jdbcType="VARCHAR" property="bankaccountnum" />
+    <result column="RegisterTime" jdbcType="TIMESTAMP" property="registertime" />
+    <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="AppKey" jdbcType="VARCHAR" property="appkey" />
+    <result column="InterfaceUrl1" jdbcType="VARCHAR" property="interfaceurl1" />
+    <result column="InterfaceUrl2" jdbcType="VARCHAR" property="interfaceurl2" />
+    <result column="InterfaceUrl3" jdbcType="VARCHAR" property="interfaceurl3" />
+    <result column="InterfaceUrl4" jdbcType="VARCHAR" property="interfaceurl4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CPId, Name, ContName, ContEmail, ContQQ, ContPhone, Address, ZipCode, BankName, BankAccountName, 
+    BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, InterfaceUrl1, InterfaceUrl2, 
+    InterfaceUrl3, InterfaceUrl4
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpBaseInfo">
+    insert into McpBaseInfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        CPId,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="contname != null">
+        ContName,
+      </if>
+      <if test="contemail != null">
+        ContEmail,
+      </if>
+      <if test="contqq != null">
+        ContQQ,
+      </if>
+      <if test="contphone != null">
+        ContPhone,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="zipcode != null">
+        ZipCode,
+      </if>
+      <if test="bankname != null">
+        BankName,
+      </if>
+      <if test="bankaccountname != null">
+        BankAccountName,
+      </if>
+      <if test="bankaccountnum != null">
+        BankAccountNum,
+      </if>
+      <if test="registertime != null">
+        RegisterTime,
+      </if>
+      <if test="lastlogintime != null">
+        LastLoginTime,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="appkey != null">
+        AppKey,
+      </if>
+      <if test="interfaceurl1 != null">
+        InterfaceUrl1,
+      </if>
+      <if test="interfaceurl2 != null">
+        InterfaceUrl2,
+      </if>
+      <if test="interfaceurl3 != null">
+        InterfaceUrl3,
+      </if>
+      <if test="interfaceurl4 != null">
+        InterfaceUrl4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contname != null">
+        #{contname,jdbcType=VARCHAR},
+      </if>
+      <if test="contemail != null">
+        #{contemail,jdbcType=VARCHAR},
+      </if>
+      <if test="contqq != null">
+        #{contqq,jdbcType=VARCHAR},
+      </if>
+      <if test="contphone != null">
+        #{contphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null">
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountname != null">
+        #{bankaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountnum != null">
+        #{bankaccountnum,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl1 != null">
+        #{interfaceurl1,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl2 != null">
+        #{interfaceurl2,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl3 != null">
+        #{interfaceurl3,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl4 != null">
+        #{interfaceurl4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpBaseInfo">
+    update McpBaseInfo
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contname != null">
+        ContName = #{contname,jdbcType=VARCHAR},
+      </if>
+      <if test="contemail != null">
+        ContEmail = #{contemail,jdbcType=VARCHAR},
+      </if>
+      <if test="contqq != null">
+        ContQQ = #{contqq,jdbcType=VARCHAR},
+      </if>
+      <if test="contphone != null">
+        ContPhone = #{contphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        ZipCode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null">
+        BankName = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountname != null">
+        BankAccountName = #{bankaccountname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountnum != null">
+        BankAccountNum = #{bankaccountnum,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null">
+        RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        LastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        AppKey = #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl1 != null">
+        InterfaceUrl1 = #{interfaceurl1,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl2 != null">
+        InterfaceUrl2 = #{interfaceurl2,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl3 != null">
+        InterfaceUrl3 = #{interfaceurl3,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceurl4 != null">
+        InterfaceUrl4 = #{interfaceurl4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CPId = #{cpid,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

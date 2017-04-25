@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.McpBookMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.McpBook" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CPId" property="cpid" jdbcType="INTEGER" />
+    <result column="CPName" property="cpname" jdbcType="VARCHAR" />
+    <result column="CPBId" property="cpbid" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Subhead" property="subhead" jdbcType="VARCHAR" />
+    <result column="Author" property="author" jdbcType="VARCHAR" />
+    <result column="ChannelType" property="channeltype" jdbcType="INTEGER" />
+    <result column="Classify" property="classify" jdbcType="INTEGER" />
+    <result column="Tags" property="tags" jdbcType="VARCHAR" />
+    <result column="KeyWords" property="keywords" jdbcType="VARCHAR" />
+    <result column="Actors" property="actors" jdbcType="VARCHAR" />
+    <result column="BookStatus" property="bookstatus" jdbcType="INTEGER" />
+    <result column="CoverImg" property="coverimg" jdbcType="VARCHAR" />
+    <result column="Intro" property="intro" jdbcType="VARCHAR" />
+    <result column="PublishTime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="Words" property="words" jdbcType="INTEGER" />
+    <result column="ChapterCount" property="chaptercount" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="PutawayTime" property="putawaytime" jdbcType="TIMESTAMP" />
+    <result column="ChargeMode" property="chargemode" jdbcType="INTEGER" />
+    <result column="Price" property="price" jdbcType="INTEGER" />
+    <result column="FeeChapter" property="feechapter" jdbcType="INTEGER" />
+    <result column="PutAwayStatus" property="putawaystatus" jdbcType="INTEGER" />
+    <result column="AuditStatus" property="auditstatus" jdbcType="INTEGER" />
+    <result column="AuditInfo" property="auditinfo" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, KeyWords, 
+    Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, UpdateTime, 
+    PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, AuditInfo, 
+    CreateTime
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpBook" >
+    insert into McpBook
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="cpid != null" >
+        CPId,
+      </if>
+      <if test="cpname != null" >
+        CPName,
+      </if>
+      <if test="cpbid != null" >
+        CPBId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="subhead != null" >
+        Subhead,
+      </if>
+      <if test="author != null" >
+        Author,
+      </if>
+      <if test="channeltype != null" >
+        ChannelType,
+      </if>
+      <if test="classify != null" >
+        Classify,
+      </if>
+      <if test="tags != null" >
+        Tags,
+      </if>
+      <if test="keywords != null" >
+        KeyWords,
+      </if>
+      <if test="actors != null" >
+        Actors,
+      </if>
+      <if test="bookstatus != null" >
+        BookStatus,
+      </if>
+      <if test="coverimg != null" >
+        CoverImg,
+      </if>
+      <if test="intro != null" >
+        Intro,
+      </if>
+      <if test="publishtime != null" >
+        PublishTime,
+      </if>
+      <if test="words != null" >
+        Words,
+      </if>
+      <if test="chaptercount != null" >
+        ChapterCount,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="putawaytime != null" >
+        PutawayTime,
+      </if>
+      <if test="chargemode != null" >
+        ChargeMode,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="feechapter != null" >
+        FeeChapter,
+      </if>
+      <if test="putawaystatus != null" >
+        PutAwayStatus,
+      </if>
+      <if test="auditstatus != null" >
+        AuditStatus,
+      </if>
+      <if test="auditinfo != null" >
+        AuditInfo,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cpid != null" >
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="cpname != null" >
+        #{cpname,jdbcType=VARCHAR},
+      </if>
+      <if test="cpbid != null" >
+        #{cpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subhead != null" >
+        #{subhead,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="channeltype != null" >
+        #{channeltype,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null" >
+        #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="actors != null" >
+        #{actors,jdbcType=VARCHAR},
+      </if>
+      <if test="bookstatus != null" >
+        #{bookstatus,jdbcType=INTEGER},
+      </if>
+      <if test="coverimg != null" >
+        #{coverimg,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="words != null" >
+        #{words,jdbcType=INTEGER},
+      </if>
+      <if test="chaptercount != null" >
+        #{chaptercount,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawaytime != null" >
+        #{putawaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargemode != null" >
+        #{chargemode,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="feechapter != null" >
+        #{feechapter,jdbcType=INTEGER},
+      </if>
+      <if test="putawaystatus != null" >
+        #{putawaystatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditstatus != null" >
+        #{auditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditinfo != null" >
+        #{auditinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpBook" >
+    update McpBook
+    <set >
+      <if test="cpid != null" >
+        CPId = #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="cpname != null" >
+        CPName = #{cpname,jdbcType=VARCHAR},
+      </if>
+      <if test="cpbid != null" >
+        CPBId = #{cpbid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subhead != null" >
+        Subhead = #{subhead,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="channeltype != null" >
+        ChannelType = #{channeltype,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null" >
+        Classify = #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null" >
+        Tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        KeyWords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="actors != null" >
+        Actors = #{actors,jdbcType=VARCHAR},
+      </if>
+      <if test="bookstatus != null" >
+        BookStatus = #{bookstatus,jdbcType=INTEGER},
+      </if>
+      <if test="coverimg != null" >
+        CoverImg = #{coverimg,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null" >
+        Intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        PublishTime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="words != null" >
+        Words = #{words,jdbcType=INTEGER},
+      </if>
+      <if test="chaptercount != null" >
+        ChapterCount = #{chaptercount,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="putawaytime != null" >
+        PutawayTime = #{putawaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargemode != null" >
+        ChargeMode = #{chargemode,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="feechapter != null" >
+        FeeChapter = #{feechapter,jdbcType=INTEGER},
+      </if>
+      <if test="putawaystatus != null" >
+        PutAwayStatus = #{putawaystatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditstatus != null" >
+        AuditStatus = #{auditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditinfo != null" >
+        AuditInfo = #{auditinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.McpSettlementMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.McpSettlement" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CPId" property="cpid" jdbcType="INTEGER" />
+    <result column="Consume" property="consume" jdbcType="INTEGER" />
+    <result column="Month" property="month" jdbcType="DATE" />
+    <result column="DivideConsume" property="divideconsume" jdbcType="INTEGER" />
+    <result column="SettlementStatus" property="settlementstatus" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, CPId, Consume, Month, DivideConsume, SettlementStatus, CreateTime, UpdateTime
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpSettlement" >
+    insert into McpSettlement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="cpid != null" >
+        CPId,
+      </if>
+      <if test="consume != null" >
+        Consume,
+      </if>
+      <if test="month != null" >
+        Month,
+      </if>
+      <if test="divideconsume != null" >
+        DivideConsume,
+      </if>
+      <if test="settlementstatus != null" >
+        SettlementStatus,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cpid != null" >
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="consume != null" >
+        #{consume,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=DATE},
+      </if>
+      <if test="divideconsume != null" >
+        #{divideconsume,jdbcType=INTEGER},
+      </if>
+      <if test="settlementstatus != null" >
+        #{settlementstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpSettlement" >
+    update McpSettlement
+    <set >
+      <if test="cpid != null" >
+        CPId = #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="consume != null" >
+        Consume = #{consume,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        Month = #{month,jdbcType=DATE},
+      </if>
+      <if test="divideconsume != null" >
+        DivideConsume = #{divideconsume,jdbcType=INTEGER},
+      </if>
+      <if test="settlementstatus != null" >
+        SettlementStatus = #{settlementstatus,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

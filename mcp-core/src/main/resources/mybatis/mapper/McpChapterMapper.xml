@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.McpChapterMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.McpChapter" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Words" property="words" jdbcType="INTEGER" />
+    <result column="BookId" property="bookid" jdbcType="INTEGER" />
+    <result column="BookName" property="bookname" jdbcType="VARCHAR" />
+    <result column="AuditStatus" property="auditstatus" jdbcType="INTEGER" />
+    <result column="AuditInfo" property="auditinfo" jdbcType="VARCHAR" />
+    <result column="CPId" property="cpid" jdbcType="INTEGER" />
+    <result column="CPBookId" property="cpbookid" jdbcType="VARCHAR" />
+    <result column="CPChapterId" property="cpchapterid" jdbcType="VARCHAR" />
+    <result column="Order" property="order" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="IsVip" property="isvip" jdbcType="INTEGER" />
+    <result column="Price" property="price" jdbcType="INTEGER" />
+    <result column="Md5" property="md5" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.McpChapter" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, 
+    Order, UpdateTime, CreateTime, IsVip, Price, Md5
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpChapter" >
+    insert into McpChapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="words != null" >
+        Words,
+      </if>
+      <if test="bookid != null" >
+        BookId,
+      </if>
+      <if test="bookname != null" >
+        BookName,
+      </if>
+      <if test="auditstatus != null" >
+        AuditStatus,
+      </if>
+      <if test="auditinfo != null" >
+        AuditInfo,
+      </if>
+      <if test="cpid != null" >
+        CPId,
+      </if>
+      <if test="cpbookid != null" >
+        CPBookId,
+      </if>
+      <if test="cpchapterid != null" >
+        CPChapterId,
+      </if>
+      <if test="order != null" >
+        Order,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="isvip != null" >
+        IsVip,
+      </if>
+      <if test="price != null" >
+        Price,
+      </if>
+      <if test="md5 != null" >
+        Md5,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="words != null" >
+        #{words,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="auditstatus != null" >
+        #{auditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditinfo != null" >
+        #{auditinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpid != null" >
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="cpbookid != null" >
+        #{cpbookid,jdbcType=VARCHAR},
+      </if>
+      <if test="cpchapterid != null" >
+        #{cpchapterid,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvip != null" >
+        #{isvip,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpChapter" >
+    update McpChapter
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="words != null" >
+        Words = #{words,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null" >
+        BookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null" >
+        BookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="auditstatus != null" >
+        AuditStatus = #{auditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditinfo != null" >
+        AuditInfo = #{auditinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cpid != null" >
+        CPId = #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="cpbookid != null" >
+        CPBookId = #{cpbookid,jdbcType=VARCHAR},
+      </if>
+      <if test="cpchapterid != null" >
+        CPChapterId = #{cpchapterid,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        Order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvip != null" >
+        IsVip = #{isvip,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="md5 != null" >
+        Md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
