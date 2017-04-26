@@ -22,13 +22,13 @@ public interface WxChapterMapper {
         "insert into wxchapter (Id, BookId, ",
         "Intro, SortOrder, ",
         "Title, ChapterType, ",
-        "Pirce, Status, ContentLen, ",
+        "Pirce, Status, ContentLen,ShowType ",
         "CreateTime, UpdateTime, ",
         "Remark,UniqueFlag)",
         "values (#{id,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, ",
         "#{intro,jdbcType=VARCHAR}, #{sortorder,jdbcType=INTEGER}, ",
         "#{title,jdbcType=VARCHAR}, #{chaptertype,jdbcType=INTEGER}, ",
-        "#{pirce,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{contentlen,jdbcType=INTEGER}, ",
+        "#{pirce,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{contentlen,jdbcType=INTEGER}, #{showtype,jdbcType=INTEGER} ",
         "#{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, ",
         "#{remark,jdbcType=VARCHAR},#{uniqueflag,jdbcType=VARCHAR})"
     })
@@ -38,7 +38,7 @@ public interface WxChapterMapper {
 
     @Select({
         "select",
-        "Id, BookId, Intro, SortOrder, Title, ChapterType, Pirce, Status, ContentLen, ",
+        "Id, BookId, Intro, SortOrder, Title, ChapterType, Pirce, Status, ContentLen,ShowType, ",
         "CreateTime, UpdateTime, Remark,UniqueFlag",
         "from wxchapter",
         "where Id = #{id,jdbcType=INTEGER} and Status=#{status}"
@@ -47,7 +47,7 @@ public interface WxChapterMapper {
     WxChapter selectByPrimaryKey(@Param("id") Integer id,@Param("status")Integer status);
     
     @Select({"select",
-        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen ",
+        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen,ShowType ",
         "from wxchapter",
         "where BookId = #{bookId,jdbcType=INTEGER} and Status=#{status}",
         " order by SortOrder asc,Id asc  LIMIT #{pageNo},#{pageSize}"})
@@ -66,6 +66,7 @@ public interface WxChapterMapper {
           "Pirce = #{pirce,jdbcType=INTEGER},",
           "Status = #{status,jdbcType=INTEGER},",
           "ContentLen = #{contentlen,jdbcType=INTEGER},",
+          "ShowType = #{showtype,jdbcType=INTEGER},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "UpdateTime = #{updatetime,jdbcType=TIMESTAMP},",
           "Remark = #{remark,jdbcType=VARCHAR},",
@@ -81,7 +82,7 @@ public interface WxChapterMapper {
     
     //获取第一章内容
     @Select({"select  ",
-        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen ",
+        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen,ShowType ",
         "from wxchapter",
         "where bookId=#{bookId} and Status=#{status}",
         " order by SortOrder asc,Id asc  LIMIT 0,1 "})
@@ -90,7 +91,7 @@ public interface WxChapterMapper {
     
     //获取上一章内容
     @Select({"select  ",
-        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen ",
+        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen,ShowType ",
         "from wxchapter",
         "where bookId=#{bookId} and SortOrder < #{chapterId,jdbcType=INTEGER} and Status=#{status}",
         " order by SortOrder desc,Id desc  LIMIT 0,1 "})
@@ -99,7 +100,7 @@ public interface WxChapterMapper {
     
     //获取下一章内容
     @Select({"select ",
-        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen ",
+        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen,ShowType ",
         "from wxchapter",
         "where bookId=#{bookId} and SortOrder > #{chapterId,jdbcType=INTEGER} and Status=#{status}",
         " order by SortOrder asc,Id asc    LIMIT 0,1 "})
@@ -108,7 +109,7 @@ public interface WxChapterMapper {
     
     //获取最新一章内容
     @Select({"select  ",
-        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen ",
+        "Id, BookId, SortOrder, Title, ChapterType, Pirce,ContentLen,ShowType ",
         "from wxchapter",
         "where bookId=#{bookId} and Status=#{status}",
         " order by SortOrder desc,Id desc   LIMIT 0,1 "})

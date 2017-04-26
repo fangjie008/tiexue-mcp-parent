@@ -21,6 +21,8 @@ public class WxChapter {
     private Integer status;
     //章节字节		
     private Integer contentlen;
+    //章节号
+    private Integer showtype;
     //创建时间
     private Date createtime;
     //修改时间
@@ -130,6 +132,14 @@ public class WxChapter {
 
 	public void setUniqueflag(String uniqueflag) {
 		this.uniqueflag = uniqueflag;
+	}
+
+	public Integer getShowtype() {
+		return showtype;
+	}
+
+	public void setShowtype(Integer showtype) {
+		this.showtype = showtype;
 	}
     
 }

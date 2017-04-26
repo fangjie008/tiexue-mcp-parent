@@ -20,6 +20,8 @@ public class WxChapterDto {
     private Integer status;
     //章节字节		
     private Integer contentlen;
+    //章节类型
+    private Integer showtype;
     public Integer getId() {
         return id;
     }
@@ -90,6 +92,14 @@ public class WxChapterDto {
 
 	public void setChaptertypeName(String chaptertypeName) {
 		this.chaptertypeName = chaptertypeName;
+	}
+
+	public Integer getShowtype() {
+		return showtype;
+	}
+
+	public void setShowtype(Integer showtype) {
+		this.showtype = showtype;
 	}
 
 
