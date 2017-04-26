@@ -354,6 +354,7 @@ public class WxChapterSubController {
 		int bookId = 0;
 		int chapterId = 0;
 		String tag="";
+		WxChapter chapterModel=null;
 		if (chapterIdStr != null && !chapterIdStr.isEmpty()) {
 		    chapterId = Integer.parseInt(chapterIdStr);
 			if (bookIdStr != null && !bookIdStr.isEmpty()) {
@@ -370,7 +371,7 @@ public class WxChapterSubController {
 				tag=book.getTag();
 			}
 			// 章节数据
-			WxChapter chapterModel = chapterService.selectByPrimaryKey(chapterId, EnumType.ChapterStatus_OnLine);
+		    chapterModel = chapterService.selectByPrimaryKey(chapterId, EnumType.ChapterStatus_OnLine);
 			if (chapterModel == null)
 				return "wxChapterSub/index";
 			else
@@ -420,7 +421,12 @@ public class WxChapterSubController {
 		if((from_name==null||from_name.isEmpty())&&fm!=null&&!fm.isEmpty()){
 			CookieUtils.addcookie("from_name", 1*365*24*60*60, response,fm);
 		}//逍遥医圣在都市||监狱风云||苗疆蛊事||1980之他来自未来
-		if((bookId==26795&&chapterId>=67995)||(bookId==26794&&chapterId>=67678)||(bookId==26779&&chapterId>=49561)||(bookId==26777&&chapterId>=17553)){
+//		if((bookId==26795&&chapterId>=67995)||(bookId==26794&&chapterId>=67678)||(bookId==26779&&chapterId>=49561)||(bookId==26777&&chapterId>=17553)){
+//			String url="/wxChapterSub/index?bookId="+bookId+"&chapterId="+chapterId+"&fm="+fm;
+//			CookieUtils.addcookie("readMark_Show", 1*365*24*60*60, response,url);
+//			return "/wxChapterSub/focusQR";
+//		}
+		if(chapterModel!=null&&chapterModel.getShowtype()==1){
 			String url="/wxChapterSub/index?bookId="+bookId+"&chapterId="+chapterId+"&fm="+fm;
 			CookieUtils.addcookie("readMark_Show", 1*365*24*60*60, response,url);
 			return "/wxChapterSub/focusQR";
