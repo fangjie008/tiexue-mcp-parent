@@ -66,14 +66,14 @@ layui.use(['layer', 'element', 'util'], function () {
         var flag    = getTitleId(card, title);                  // 是否有该选项卡存在
         // 大于0就是有该选项卡了
         if(flag > 0){
-            id = flag;
+        	id = flag;
         	$("#iframe_"+id).attr("src",src);
         }else{
             if(src){
                 //新增
                 element.tabAdd(card, {
                     title: '<span>'+title+'</span>'
-                    ,content: '<iframe id="#iframe_"'+id+'" src="' + src + '" frameborder="0"></iframe>'
+                    ,content: '<iframe id="iframe_'+id+'" src="' + src + '" frameborder="0"></iframe>'
                     ,id: id
                 });
                 // 关闭弹窗
@@ -82,8 +82,6 @@ layui.use(['layer', 'element', 'util'], function () {
         }
         // 切换相应的ID tab
         element.tabChange(card, id);
-        // 提示信息
-        layer.msg(title);
     }
 
     // 根据导航栏text获取lay-id
