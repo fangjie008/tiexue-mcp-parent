@@ -34,8 +34,7 @@
                 <a class="name" href="javascript:;"><img src="<%=path%>/static/image/code.png" alt="logo"> Admin </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" href-url="<%=path%>/static/demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                    <dd><a href="javascript:;" href-url="<%=path%>/static/demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                    <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
+                    <dd><a href="<%=path%>/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
             </li>
         </ul>
@@ -83,12 +82,9 @@
     <!-- footer -->
     <div class="layui-footer my-footer">
         <p>五彩小说合作平台</p>
-        <p>2017 © copyright </p>
+        <p>2017 ©copyright </p>
     </div>
 </div>
-
-
-
 <script type="text/javascript" src="<%=path%>/static/frame/layui/layui.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/index.js"></script>
 </body>

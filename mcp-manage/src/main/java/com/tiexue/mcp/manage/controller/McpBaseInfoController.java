@@ -12,6 +12,9 @@ public class McpBaseInfoController {
 	//日志
 	private static Logger logger=Logger.getLogger(McpBaseInfoController.class);
 	
+	
+	
+	
 	/**
 	 * 获取基础信息
 	 */
@@ -19,5 +22,23 @@ public class McpBaseInfoController {
 	public String getbaseInfo(HttpServletRequest request,HttpServletResponse response){
 		return "mcpBaseInfo/model";
 	}
+	
+	/**
+	 * 获取基础信息
+	 */
+	@RequestMapping("add")
+	public String addbaseInfo(HttpServletRequest request,HttpServletResponse response){
+		return "mcpBaseInfo/add";
+	}
+	
+	
+	/**
+	 * 获取基础信息
+	 */
+	@RequestMapping("show")
+	public String showbaseInfo(HttpServletRequest request,HttpServletResponse response){
+		return "mcpBaseInfo/show";
+	}
+	
 
 }
