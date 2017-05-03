@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.List;
+
 import com.tiexue.mcp.core.entity.McpBook;
 
 public interface IMcpBookService {
@@ -15,4 +17,7 @@ public interface IMcpBookService {
     int updateByPrimaryKeySelective(McpBook record);
 
     int updateByPrimaryKey(McpBook record);
+    
+    List<McpBook> getList(Integer cpId);
+    
 }

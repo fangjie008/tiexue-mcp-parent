@@ -1,8 +1,13 @@
 package com.tiexue.mcp.core.mapper;
 
 import com.tiexue.mcp.core.entity.McpBook;
+import com.tiexue.mcp.core.entity.WxBook;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -58,6 +63,18 @@ public interface McpBookMapper {
     @ResultMap("BaseResultMap")
     McpBook selectByPrimaryKey(Integer id);
 
+    @Select({
+        "select",
+        "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
+        "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
+        "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
+        "AuditInfo, CreateTime",
+        "from McpBook",
+        "where CPId = ${CPId} "
+    })
+    @ResultMap("BaseResultMap")
+    List<McpBook> getList(@Param("CPId")Integer cpId);
+    
     int updateByPrimaryKeySelective(McpBook record);
 
     @Update({

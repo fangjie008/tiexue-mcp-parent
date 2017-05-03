@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -42,4 +44,13 @@ public class McpBookServiceImpl implements IMcpBookService {
     public int updateByPrimaryKey(McpBook record){
     	return mcpBookMapper.updateByPrimaryKey(record);
     }
+	
+	/**
+	 * 查询合作方其下所有书籍信息列表
+	 * 目前暂时不分页
+	 * */
+	@Override
+	public List<McpBook> getList(Integer cpId) {
+		return mcpBookMapper.getList(cpId);
+	}
 }
