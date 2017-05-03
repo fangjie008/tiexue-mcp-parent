@@ -25,7 +25,10 @@
         </div>
 	</div>
 	<div class="layui-form-item">
-		<label class='layui-form-label'></label>
+		<label class='layui-form-label'>联系人姓名</label>
+		<div class="layui-input-block">
+			<input type="text" name="contName"  autocomplete="off" placeholder="请输入联系人姓名" lay-verify="required" class="layui-input">
+		</div>
 	</div>
 </form>
 <script type="text/javascript">

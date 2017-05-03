@@ -68,7 +68,7 @@
 	  </error-page>
 	<!--  -->
 	<listener>
-		<listener-class>com.tiexue.mcp.core.listener.WxAppInitListener</listener-class>
+		<listener-class>com.tiexue.mcp.web.listener.WxAppInitListener</listener-class>
 	</listener>
 
 </web-app>

@@ -1,4 +1,4 @@
-package com.tiexue.mcp.core.listener;
+package com.tiexue.mcp.web.listener;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContextEvent;
