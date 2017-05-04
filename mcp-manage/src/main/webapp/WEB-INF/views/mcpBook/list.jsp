@@ -10,26 +10,52 @@
 <title>图书管理</title>
 </head>
 <body>
-	<p>图书管理1</p>
+	<fieldset class="layui-elem-field layui-field-title"
+		style="margin-top: 20px;">
+		<legend>图书列表</legend>
+	</fieldset>
+	<table class="layui-table">
+		<colgroup>
+			<col width="150">
+			<col width="150">
+			<col width="200">
+			<col>
+		</colgroup>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>书名</th>
+				<th>作者</th>
+				<th>作品状态</th>
+				<th>是否收费</th>
+				<th>章节数</th>
+				<th>审核状态</th>
+				<th>审核意见</th>
+				<th>上架状态</th>
+				<th>章节信息</th>
+			</tr>
+		</thead>
+		<tbody>
 
-	<ul class="menu">
-		<c:if test="${mcpBooksDtos==null||fn:length(mcpBooksDtos)<=0}">
-			<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-		</c:if>
-		<c:forEach items="${mcpBooks}" var="mcpBooksDto">
-			<li><a class="chapter"
-				href="<%=path%>/mcpbook/detail?bookId=${mcpBooksDto.id}">${mcpBooksDto.name}</a>
-				<span class="fn-right c999">${mcpBooksDto.author}</span> <span
-				class="fn-right c999">${mcpBooksDto.bookstatus}</span> <span
-				class="fn-right c999">${mcpBooksDto.chargemode}</span> <span
-				class="fn-right c999">${mcpBooksDto.chaptercount}</span> <span
-				class="fn-right c999">${mcpBooksDto.bookstatus}</span> <span
-				class="fn-right c999">${mcpBooksDto.auditstatus}</span> <span
-				class="fn-right c999">${mcpBooksDto.auditinfo}</span> <span
-				class="fn-right c999">${mcpBooksDto.putawaystatus}</span></li>
-		</c:forEach>
-
-	</ul>
+			<c:if test="${mcpBooksDtos==null||fn:length(mcpBooksDtos)<=0}">
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				<c:forEach items="${mcpBooks}" var="mcpBooksDto">
+					<tr>
+						<td>${mcpBooksDto.id}</td>
+						<td><a class="chapter"
+							href="<%=path%>/mcpbook/detail?bookId=${mcpBooksDto.id}">${mcpBooksDto.name}</a></td>
+						<td>${mcpBooksDto.author}</td>
+						<td>${mcpBooksDto.bookstatus}</td>
+						<td>${mcpBooksDto.chargemode}</td>
+						<td>${mcpBooksDto.chaptercount}</td>
+						<td>${mcpBooksDto.bookstatus}</td>
+						<td>${mcpBooksDto.auditstatus}</td>
+						<td>${mcpBooksDto.auditinfo}</td>
+						<td>${mcpBooksDto.putawaystatus}</td>
+				</c:forEach>
+			</c:if>
+		</tbody>
+	</table>
 
 
 </body>
