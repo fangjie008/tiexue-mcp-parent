@@ -175,7 +175,6 @@ public class EnumType {
     };
 
     
-    
     /**
      * 跳转到登录页面
      */
@@ -191,5 +190,6 @@ public class EnumType {
 
 	
 	public static final String Des_Key="abc123bca321";
+	
 			
 }

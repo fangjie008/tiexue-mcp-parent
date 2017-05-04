@@ -2,6 +2,8 @@ package com.tiexue.mcp.core.dto;
 
 import java.util.Date;
 
+import com.tiexue.mcp.core.entity.McpConstants;
+
 public class McpBookDto {
 	private Integer id;
 
@@ -18,8 +20,10 @@ public class McpBookDto {
 	private String author;
 
 	private Integer channeltype;
+	private String channeltypeDes;
 
 	private Integer classify;
+	private String classifyDes;
 
 	private String tags;
 
@@ -28,6 +32,7 @@ public class McpBookDto {
 	private String actors;
 
 	private Integer bookstatus;
+	private String bookstatusDes;
 
 	private String coverimg;
 
@@ -44,14 +49,17 @@ public class McpBookDto {
 	private Date putawaytime;
 
 	private Integer chargemode;
+	private String chargemodeDes;
 
 	private Integer price;
 
 	private Integer feechapter;
 
 	private Integer putawaystatus;
+	private String putawaystatusDes;
 
 	private Integer auditstatus;
+	private String auditstatusDes;
 
 	private String auditinfo;
 
@@ -119,16 +127,42 @@ public class McpBookDto {
 
 	public void setChanneltype(Integer channeltype) {
 		this.channeltype = channeltype;
+		String channelTypeDes_T = McpConstants.McpChannelTypeList.get(channeltype);
+		if (channelTypeDes_T == null) {
+			channelTypeDes_T = "频道错误";
+		}
+		setChanneltypeDes(channelTypeDes_T);
 	}
-
+	public String getChanneltypeDes(){
+		return channeltypeDes;
+	}
+	public void setChanneltypeDes(String channeltypeDes){
+		this.channeltypeDes = channeltypeDes;
+	}
+	
+	
+	
 	public Integer getClassify() {
 		return classify;
 	}
 
 	public void setClassify(Integer classify) {
 		this.classify = classify;
+		String classifyDes_T = McpConstants.ClassifyList.get(classify);
+		if (classifyDes_T == null) {
+			classifyDes_T = "未知类型";
+		}
+		setClassifyDes(classifyDes_T);
 	}
 
+	public String getClassifyDes(){
+		return classifyDes;
+	}
+	public void setClassifyDes(String classifyDes){
+		this.classifyDes = classifyDes;
+	}
+	
+	
 	public String getTags() {
 		return tags;
 	}
@@ -159,7 +193,23 @@ public class McpBookDto {
 
 	public void setBookstatus(Integer bookstatus) {
 		this.bookstatus = bookstatus;
+		String bookstatusDes_T = McpConstants.BookStatusList.get(bookstatus);
+		if (bookstatusDes_T == null) {
+			bookstatusDes_T = "未知状态";
+		}
+		setBookstatusDes(bookstatusDes_T);
 	}
+	
+	public String getBookstatusDes(){
+		return bookstatusDes;
+	}
+	public void setBookstatusDes(String bookstatusDes){
+		this.bookstatusDes = bookstatusDes;
+	}
+	
+	
+	
+	
 
 	public String getCoverimg() {
 		return coverimg;
@@ -223,8 +273,23 @@ public class McpBookDto {
 
 	public void setChargemode(Integer chargemode) {
 		this.chargemode = chargemode;
+		String chargemodeDes_T = McpConstants.ChargeModeList.get(chargemode);
+		if (chargemodeDes_T == null) {
+			chargemodeDes_T = "未知类型";
+		}
+		setChargemodeDes(chargemodeDes_T);
 	}
 
+
+	public String getChargemodeDes(){
+		return chargemodeDes;
+	}
+	public void setChargemodeDes(String chargemodeDes){
+		this.chargemodeDes = chargemodeDes;
+	}
+	
+	
+	
 	public Integer getPrice() {
 		return price;
 	}
@@ -247,7 +312,20 @@ public class McpBookDto {
 
 	public void setPutawaystatus(Integer putawaystatus) {
 		this.putawaystatus = putawaystatus;
+		String putawaystatusDes_T = McpConstants.PutAwayStatusList.get(putawaystatus);
+		if (putawaystatusDes_T == null) {
+			putawaystatusDes_T = "未知上架状态";
+		}
+		setPutawaystatusDes(putawaystatusDes_T);
 	}
+	
+	public String getPutawaystatusDes(){
+		return putawaystatusDes;
+	}
+	public void setPutawaystatusDes(String putawaystatusDes){
+		this.putawaystatusDes = putawaystatusDes;
+	}
+	
 
 	public Integer getAuditstatus() {
 		return auditstatus;
@@ -255,8 +333,21 @@ public class McpBookDto {
 
 	public void setAuditstatus(Integer auditstatus) {
 		this.auditstatus = auditstatus;
+		String auditstatusDes_T = McpConstants.AuditStatusList.get(auditstatus);
+		if (auditstatusDes_T == null) {
+			auditstatusDes_T = "未知类型";
+		}
+		setAuditstatusDes(auditstatusDes_T);
 	}
 
+	public String getAuditstatusDes(){
+		return auditstatusDes;
+	}
+	public void setAuditstatusDes(String auditstatusDes){
+		this.auditstatusDes = auditstatusDes;
+	}
+	
+	
 	public String getAuditinfo() {
 		return auditinfo;
 	}

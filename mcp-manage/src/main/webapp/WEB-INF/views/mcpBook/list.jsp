@@ -45,13 +45,14 @@
 						<td><a class="chapter"
 							href="<%=path%>/mcpbook/detail?bookId=${mcpBooksDto.id}">${mcpBooksDto.name}</a></td>
 						<td>${mcpBooksDto.author}</td>
-						<td>${mcpBooksDto.bookstatus}</td>
-						<td>${mcpBooksDto.chargemode}</td>
+						<td>${mcpBooksDto.bookstatusDes}</td>
+						<td>${mcpBooksDto.chargemodeDes}</td>
 						<td>${mcpBooksDto.chaptercount}</td>
-						<td>${mcpBooksDto.bookstatus}</td>
-						<td>${mcpBooksDto.auditstatus}</td>
+						<td>${mcpBooksDto.auditstatusDes}</td>
 						<td>${mcpBooksDto.auditinfo}</td>
-						<td>${mcpBooksDto.putawaystatus}</td>
+						<td>${mcpBooksDto.putawaystatusDes}</td>
+						<td><a class="chapter"
+							href="<%=path%>/mcpchapter/list?bookId=${mcpBooksDto.id}">章节信息</a></td>
 				</c:forEach>
 			</c:if>
 		</tbody>
