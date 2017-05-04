@@ -17,3 +17,5 @@
 <link rel="icon" href="<%=path%>/static/image/code.png">
 <script type="text/javascript" src="<%=path%>/static/frame/layui/layui.js"></script>
 <script type="text/javascript" src="<%=path%>/static/js/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="<%=path%>/static/js/jquery/jquery.form.js"></script>
+

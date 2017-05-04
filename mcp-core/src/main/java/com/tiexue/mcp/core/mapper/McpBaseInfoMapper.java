@@ -1,8 +1,12 @@
 package com.tiexue.mcp.core.mapper;
 
 import com.tiexue.mcp.core.entity.McpBaseInfo;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -76,4 +80,16 @@ public interface McpBaseInfoMapper {
         "where CPId = #{cpid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpBaseInfo record);
+    
+    
+    @Select({
+        "select",
+        "CPId, Name, ContName, ContEmail, ContQQ, ContPhone, Address, ZipCode, BankName, ",
+        "BankAccountName, BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, ",
+        "InterfaceUrl1, InterfaceUrl2, InterfaceUrl3, InterfaceUrl4",
+        "from McpBaseInfo",
+        "where ${strWhere}"
+    })
+    @ResultMap("BaseResultMap")
+    List<McpBaseInfo> getList(@Param("strWhere")String strWhere);
 }

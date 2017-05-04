@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -43,4 +45,9 @@ public class McpBaseInfoServiceImpl implements IMcpBaseInfoService {
     public int updateByPrimaryKey(McpBaseInfo record){
     	return mcpBaseMapp.updateByPrimaryKey(record);
     }
+	
+	@Override
+    public List<McpBaseInfo> getList(String strWhere){
+		return mcpBaseMapp.getList(strWhere);
+	}
 }

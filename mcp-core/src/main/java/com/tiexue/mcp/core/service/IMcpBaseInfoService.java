@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.List;
+
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 
 public interface IMcpBaseInfoService {
@@ -17,4 +19,6 @@ public interface IMcpBaseInfoService {
     int updateByPrimaryKeySelective(McpBaseInfo record);
 
     int updateByPrimaryKey(McpBaseInfo record);
+    
+    List<McpBaseInfo> getList(String strWhere);
 }

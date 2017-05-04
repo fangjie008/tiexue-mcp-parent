@@ -48,7 +48,7 @@
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>功能</a>
                     <dl class="layui-nav-child">
                        
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/model">
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list">
                         <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
                          <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbook/list">
                         <i class="layui-icon">&#xe621;</i>作品管理</a></dd>
