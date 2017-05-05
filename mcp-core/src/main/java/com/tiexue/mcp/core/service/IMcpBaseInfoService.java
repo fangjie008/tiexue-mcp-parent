@@ -20,5 +20,7 @@ public interface IMcpBaseInfoService {
 
     int updateByPrimaryKey(McpBaseInfo record);
     
-    List<McpBaseInfo> getList(String strWhere);
+    List<McpBaseInfo> getList(String strWhere,Integer pStart,Integer pSize);
+    
+    int getCount(String strWhere);
 }

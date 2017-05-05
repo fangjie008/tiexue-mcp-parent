@@ -156,7 +156,7 @@ layui.use(['form','element','layer'], function(){
         	success:function(data){
         		if(data.ok){
         			alert(data.msg);
-        			location.href = '<%=path%>/mcpbaseinfo/list';
+        			location.href = '<%=path%>/mcpbaseinfo/list?pindex='+"${pindex}";
         		}else{
         			alert(data.msg);
         		}

@@ -49,17 +49,40 @@
     </c:forEach>
     </tbody>
 </table>
-
+<div class="layui-form">
+    <span id="form_page"></span>
+    &nbsp;&nbsp;每页&nbsp;${paging.psize}&nbsp;行,共&nbsp;${paging.ptotalpages}&nbsp;页,共&nbsp;${paging.pcount}&nbsp;条数据
+</div>
 <script type="text/javascript">
-    layui.use(['element','layer'], function(){
+//当前页   
+var pindex=1;
+    layui.use(['element','layer','laypage'], function(){
         var $ = layui.jquery,element = layui.element,layer = layui.layer;
+        var laypage = layui.laypage;
+        pindex = "${paging.pindex}";// 当前页
+        var ptotalpages = "${paging.ptotalpages}";// 总页数
+        var pcount = "${paging.pcount}";// 总记录数
+        var psize = "${paging.psize}";// 每一页的记录数
+        // 分页
+        laypage({
+            cont : 'form_page', // 页面上的id
+            pages : ptotalpages,//总页数
+            curr : pindex,//当前页。
+            skip : true,
+            jump : function(obj, first) {
 
+                $("#pindex").val(obj.curr);//设置当前页
+                //防止无限刷新,
+                //只有监听到的页面index 和当前页不一样是才出发分页查询
+                if (pindex!=""&&pindex!=""&&(obj.curr != pindex)) {
+                	location.href='<%=path%>/mcpbaseinfo/list?pindex='+obj.curr;
+                }
+            }
+        });
     });
-    function show(cpid){
-    	location.href='<%=path%>/mcpbaseinfo/show?cpid='+cpid;
-    }
+
     function edit(cpid){
-    	location.href='<%=path%>/mcpbaseinfo/add?cpid='+cpid;
+    	location.href='<%=path%>/mcpbaseinfo/add?cpid='+cpid+'&pindex='+pindex;
     }
     function deleteBaseInfo(cpid){
     	$.ajax({
@@ -69,7 +92,7 @@
     	    ,success:function(data){
     	    	if(data.ok){
         			alert(data.msg);
-        			location.href = '<%=path%>/mcpbaseinfo/list';
+        			location.href ='<%=path%>/mcpbaseinfo/list?pindex='+pindex;
         		}else{
         			alert(data.msg);
         		}
@@ -80,6 +103,8 @@
     				
     	});
     }
+    
+    
 </script>
 </body>
 </html>

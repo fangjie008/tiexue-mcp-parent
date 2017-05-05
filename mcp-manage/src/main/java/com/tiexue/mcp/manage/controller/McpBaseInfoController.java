@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.aspectj.weaver.ast.Var;
+import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tiexue.mcp.core.dto.McpBaseInfoDto;
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
+import com.tiexue.mcp.manage.dto.Paging;
 @Controller
 @RequestMapping("mcpbaseinfo")
 public class McpBaseInfoController {
@@ -27,6 +30,7 @@ public class McpBaseInfoController {
 	@Resource
 	IMcpBaseInfoService mcpBaseInfoService;
 	
+	private static final int psize=15;
 	
 	/**
 	 * 获取基础信息列表
@@ -34,8 +38,28 @@ public class McpBaseInfoController {
 	@RequestMapping("/list")
 	public String getbaseInfo(HttpServletRequest request,HttpServletResponse response){
 		try {
-			List<McpBaseInfo> baseInfos= mcpBaseInfoService.getList("1=1");
+			int pindex=1;
+			String pindexStr=request.getParameter("pindex");
+			if(pindexStr!=null&&!pindexStr.isEmpty()){
+				pindex=Integer.parseInt(pindexStr);
+			}
+			int pStart=(pindex-1)*psize;
+			int pcount=mcpBaseInfoService.getCount(" 1=1");
+			//如果最后一页只有一条数据，则在删除时取上一页数据
+			if(pStart>=pcount){
+				pStart=pStart-psize;
+			}
+			List<McpBaseInfo> baseInfos= mcpBaseInfoService.getList("1=1",pStart,psize);
+			Paging paging=new Paging();
+			paging.setPcount(pcount);
+			paging.setPsize(psize);
+			paging.calcPtotalpages();
+			if(pindex>paging.getPtotalpages()){
+				pindex=paging.getPtotalpages();
+			}
+				paging.setPindex(pindex);
 			request.setAttribute("baseInfos",baseInfos);
+			request.setAttribute("paging",paging);
 		} catch (Exception e) {
 			logger.error("mcpbaseinfo/list error:"+e.getMessage());
 		}
@@ -49,12 +73,14 @@ public class McpBaseInfoController {
 	@RequestMapping("/add")
 	public String addbaseInfo(HttpServletRequest request,HttpServletResponse response){
 	    String cpidStr=request.getParameter("cpid");
+	    String pindexStr=request.getParameter("pindex");
 	    try {
 	    	if(cpidStr!=null&&!cpidStr.isEmpty()){
 		    	int cpid=Integer.parseInt(cpidStr);
 		        McpBaseInfo mcpBaseInfo=mcpBaseInfoService.selectByPrimaryKey(cpid);
 		    	request.setAttribute("mcpBaseInfo", mcpBaseInfo);
 		    }
+	    	request.setAttribute("pindex", pindexStr==null?"1":pindexStr);
 		} catch (Exception e) {
 			logger.error("mcpbaseinfo/list error:"+e.getMessage());
 		}   

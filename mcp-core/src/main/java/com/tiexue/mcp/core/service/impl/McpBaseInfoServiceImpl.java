@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBaseInfo;
@@ -47,7 +48,12 @@ public class McpBaseInfoServiceImpl implements IMcpBaseInfoService {
     }
 	
 	@Override
-    public List<McpBaseInfo> getList(String strWhere){
-		return mcpBaseMapp.getList(strWhere);
+    public List<McpBaseInfo> getList(String strWhere,Integer pStart,Integer pSize){
+		return mcpBaseMapp.getList(strWhere,pStart,pSize);
+	}
+	
+	@Override
+    public int getCount(String strWhere){
+		return mcpBaseMapp.getCount(strWhere);
 	}
 }

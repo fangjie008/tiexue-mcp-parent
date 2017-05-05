@@ -88,8 +88,11 @@ public interface McpBaseInfoMapper {
         "BankAccountName, BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, ",
         "InterfaceUrl1, InterfaceUrl2, InterfaceUrl3, InterfaceUrl4",
         "from McpBaseInfo",
-        "where ${strWhere}"
+        "where ${strWhere} limit ${pStart},${pSize}"
     })
     @ResultMap("BaseResultMap")
-    List<McpBaseInfo> getList(@Param("strWhere")String strWhere);
+    List<McpBaseInfo> getList(@Param("strWhere")String strWhere,@Param("pStart")Integer pStart,@Param("pSize")Integer pSize);
+    
+    @Select({"select count(1) from McpBaseInfo where ${strWhere}"})
+    int getCount(@Param("strWhere")String strWhere);
 }
