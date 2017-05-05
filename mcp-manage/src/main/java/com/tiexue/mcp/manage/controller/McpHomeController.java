@@ -21,6 +21,10 @@ public class McpHomeController {
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request,HttpServletResponse response){
+		String userName = request.getParameter("account");
+		String password = request.getParameter("password");
+		System.out.println("userName is:"+ userName + ";password is:" + password);  
+		boolean flag = checkUser(userName, password);
 		return "/homePage";
 	}
 	
@@ -47,4 +51,8 @@ public class McpHomeController {
 		return "mcpHome/edit";
 	}
 	
+	
+	private boolean checkUser(String userName, String password){
+		return true;
+	}
 }
