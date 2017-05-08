@@ -1,6 +1,9 @@
 package com.tiexue.mcp.core.mapper;
 
 import com.tiexue.mcp.core.entity.McpChapter;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.ResultMap;
@@ -39,12 +42,22 @@ public interface McpChapterMapper {
     @Select({
         "select",
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
-        "Order, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
         "from McpChapter",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     @ResultMap("ResultMapWithBLOBs")
     McpChapter selectByPrimaryKey(Integer id);
+    
+    @Select({"select",
+        "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "from McpChapter",
+        "where BookId = #{bookId,jdbcType=INTEGER}"})
+    @ResultMap("BaseResultMap")
+    List<McpChapter> selectList(Integer bookId);
+    
+    
 
     int updateByPrimaryKeySelective(McpChapter record);
 

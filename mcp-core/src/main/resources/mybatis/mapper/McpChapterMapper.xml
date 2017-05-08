@@ -22,6 +22,7 @@
   <resultMap id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.McpChapter" extends="BaseResultMap" >
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+ 
   <sql id="Base_Column_List" >
     Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, 
     Order, UpdateTime, CreateTime, IsVip, Price, Md5

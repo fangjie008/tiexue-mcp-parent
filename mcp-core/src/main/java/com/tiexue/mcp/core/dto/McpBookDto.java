@@ -335,7 +335,7 @@ public class McpBookDto {
 		this.auditstatus = auditstatus;
 		String auditstatusDes_T = McpConstants.AuditStatusList.get(auditstatus);
 		if (auditstatusDes_T == null) {
-			auditstatusDes_T = "未知类型";
+			auditstatusDes_T = "未知状态";
 		}
 		setAuditstatusDes(auditstatusDes_T);
 	}

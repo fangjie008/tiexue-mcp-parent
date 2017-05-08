@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -50,6 +52,11 @@ public class McpChapterServiceImpl implements IMcpChapterService {
 	@Override
 	public int updateByPrimaryKey(McpChapter record) {
 		return mcpChapterMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<McpChapter> selectList(Integer bookId) {
+		return mcpChapterMapper.selectList(bookId);
 	}
 
 

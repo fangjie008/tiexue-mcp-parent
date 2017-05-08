@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.List;
+
 import com.tiexue.mcp.core.entity.McpChapter;
 
 public interface IMcpChapterService {
@@ -17,4 +19,6 @@ public interface IMcpChapterService {
     int updateByPrimaryKeyWithBLOBs(McpChapter record);
 
     int updateByPrimaryKey(McpChapter record);
+    
+    List<McpChapter> selectList(Integer bookId);
 }

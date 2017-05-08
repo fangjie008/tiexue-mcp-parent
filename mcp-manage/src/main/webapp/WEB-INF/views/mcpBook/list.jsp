@@ -37,7 +37,7 @@
 		</thead>
 		<tbody>
 
-			<c:if test="${mcpBooksDtos==null||fn:length(mcpBooksDtos)<=0}">
+			<c:if test="${mcpBooks!=null&&fn:length(mcpBooks)>0}">
 				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				<c:forEach items="${mcpBooks}" var="mcpBooksDto">
 					<tr>
