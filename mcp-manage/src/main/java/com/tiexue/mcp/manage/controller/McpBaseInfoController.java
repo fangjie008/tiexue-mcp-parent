@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tiexue.mcp.base.util.Md5Utils;
 import com.tiexue.mcp.core.dto.McpBaseInfoDto;
 import com.tiexue.mcp.core.entity.McpBaseInfo;
+import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
 import com.tiexue.mcp.manage.dto.Paging;
 @Controller
@@ -35,7 +37,7 @@ public class McpBaseInfoController {
 	/**
 	 * 获取基础信息列表
 	 */
-	@RequestMapping("/list")
+	@RequestMapping("/list.do")
 	public String getbaseInfo(HttpServletRequest request,HttpServletResponse response){
 		try {
 			int pindex=1;
@@ -70,7 +72,7 @@ public class McpBaseInfoController {
 	/**
 	 * 新增或修改信息
 	 */
-	@RequestMapping("/add")
+	@RequestMapping("/add.do")
 	public String addbaseInfo(HttpServletRequest request,HttpServletResponse response){
 	    String cpidStr=request.getParameter("cpid");
 	    String pindexStr=request.getParameter("pindex");
@@ -94,7 +96,7 @@ public class McpBaseInfoController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@RequestMapping(value="/save.do",method=RequestMethod.POST)
     @ResponseBody
 	public String saveData(HttpServletRequest request,HttpServletResponse response,McpBaseInfoDto mcpBaseInfoDto){
 		JSONObject jObject=new JSONObject();
@@ -107,6 +109,9 @@ public class McpBaseInfoController {
 			}
 			
 			if(mcpBaseInfoDto.getCpid()==null||mcpBaseInfoDto.getCpid()<=0){
+				//默认密码为wucai321
+				String password=Md5Utils.ToBit32("wucai321",McpConstants.Mcp_Md5_Key);
+				mcpBaseInfoDto.setPassword(password);
 				baseInfo=mcpBaseInfoDto.initMcpBaseInfo();
 				int addNum= mcpBaseInfoService.insert(baseInfo);
 				if(addNum>0){
@@ -150,7 +155,7 @@ public class McpBaseInfoController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/deleteModel",method=RequestMethod.POST)
+	@RequestMapping(value="/deleteModel.do",method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteModel(HttpServletRequest request,HttpServletResponse response){
 		String cpidStr= request.getParameter("cpid");

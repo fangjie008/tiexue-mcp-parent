@@ -17,7 +17,7 @@
 
 <div class="my-btn-box">
 <span class="f1">
-	<a class="layui-btn btn-add btn-default"  href="<%=path%>/mcpbaseinfo/add">新增基础信息</a>
+	<a class="layui-btn btn-add btn-default"  href="<%=path%>/mcpbaseinfo/add.do">新增基础信息</a>
 </span>
 </div>
 <table id="dateTable" class="layui-table">
@@ -75,26 +75,30 @@ var pindex=1;
                 //防止无限刷新,
                 //只有监听到的页面index 和当前页不一样是才出发分页查询
                 if (pindex!=""&&pindex!=""&&(obj.curr != pindex)) {
-                	location.href='<%=path%>/mcpbaseinfo/list?pindex='+obj.curr;
+                	location.href='<%=path%>/mcpbaseinfo/list.do?pindex='+obj.curr;
                 }
             }
         });
     });
 
     function edit(cpid){
-    	location.href='<%=path%>/mcpbaseinfo/add?cpid='+cpid+'&pindex='+pindex;
+    	location.href='<%=path%>/mcpbaseinfo/add.do?cpid='+cpid+'&pindex='+pindex;
     }
     function deleteBaseInfo(cpid){
     	$.ajax({
-    		url:'<%=path%>/mcpbaseinfo/deleteModel?cpid='+cpid
+    		url:'<%=path%>/mcpbaseinfo/deleteModel.do?cpid='+cpid
     	    ,type:"post"
     	    ,dataType:"json"
     	    ,success:function(data){
     	    	if(data.ok){
         			alert(data.msg);
-        			location.href ='<%=path%>/mcpbaseinfo/list?pindex='+pindex;
+        			location.href ='<%=path%>/mcpbaseinfo/list.do?pindex='+pindex;
         		}else{
         			alert(data.msg);
+        			//登录超时
+        			if(data.loginStatus!=undefined&&data.loginStatus=="-1"){
+        				location.href = '<%=path%>/';
+        			}
         		}
     	    },
     	    error:function(e){

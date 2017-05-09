@@ -1,11 +1,21 @@
 package com.tiexue.mcp.manage.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.tiexue.mcp.base.util.CyptoUtils;
+import com.tiexue.mcp.base.util.Md5Utils;
+import com.tiexue.mcp.core.entity.McpBaseInfo;
+import com.tiexue.mcp.core.entity.McpConstants;
+import com.tiexue.mcp.core.service.IMcpBaseInfoService;
 
 @Controller
 @RequestMapping("/mcphome")
@@ -13,20 +23,71 @@ public class McpHomeController {
 
 	//日志
 	private static Logger logger=Logger.getLogger(McpHomeController.class); 
+	@Resource 
+	IMcpBaseInfoService mcpBaseInfoSer;
 	/**
 	 * 登录后入口
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws Exception 
 	 */
-	@RequestMapping("/index")
-	public String index(HttpServletRequest request,HttpServletResponse response){
-		String userName = request.getParameter("account");
+	@RequestMapping("/login")
+	@ResponseBody
+	public String index(HttpServletRequest request,HttpServletResponse response) {
+		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("userName is:"+ userName + ";password is:" + password);  
-		boolean flag = checkUser(userName, password);
-		return "/homePage";
+		JSONObject jObject=new JSONObject();
+		try {
+			logger.error("userName is:"+ userName + ";password is:" + password);  
+			String passwordMd5= Md5Utils.ToBit32(password,McpConstants.Mcp_Md5_Key).toLowerCase();
+			McpBaseInfo mcpBaseInfo= mcpBaseInfoSer.getModelByName(userName);
+			if(mcpBaseInfo==null||mcpBaseInfo.getCpid()<=0){
+				jObject.put("state", "error");
+				jObject.put("msg", "登录名不存在");
+			}
+			else if(mcpBaseInfo.getPassword().toLowerCase().equals(passwordMd5)){
+				jObject.put("state", "ok");
+				jObject.put("msg", "登录成功");
+				HttpSession session=request.getSession();
+				session.setAttribute("userId", mcpBaseInfo.getCpid().toString());
+				//以秒为单位，即在没有活动30分钟后，session将失效
+				session.setMaxInactiveInterval(60*60);
+			}
+			else{
+				jObject.put("state", "error");
+				jObject.put("msg", "密码错误");
+			}
+			
+		} catch (Exception e) {
+			logger.error("login error"+e.getMessage());
+			jObject.put("state", "error");
+			jObject.put("msg", "登录报错");
+		}
+		return jObject.toString();
 	}
+	
+	
+	
+	/**
+	 * 主页
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/homepage")
+	public String homePage(HttpServletRequest request,HttpServletResponse response){
+		HttpSession session= request.getSession();
+		String userIdStr= (String)session.getAttribute("userId");
+		int userId=0;
+		if(userIdStr!=null&&!userIdStr.isEmpty()){
+			userId=Integer.parseInt(userIdStr);
+			McpBaseInfo baseInfo= mcpBaseInfoSer.selectByPrimaryKey(userId);
+			request.setAttribute("baseInfo", baseInfo);
+		}
+		return "/mcpHome/homePage";
+	}
+	
 	
 	
 	/**
@@ -46,7 +107,7 @@ public class McpHomeController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping("edit")
+	@RequestMapping("edit.do")
 	public String loginEdit(HttpServletRequest request,HttpServletResponse response){
 		return "mcpHome/edit";
 	}

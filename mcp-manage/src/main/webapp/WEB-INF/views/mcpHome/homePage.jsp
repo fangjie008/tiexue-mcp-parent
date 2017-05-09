@@ -31,9 +31,8 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><img src="<%=path%>/static/image/code.png" alt="logo"> Admin </a>
+                <a class="name" href="javascript:;"><img src="<%=path%>/static/image/code.png" alt="logo"> ${baseInfo.contname} </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="<%=path%>/static/demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
                     <dd><a href="<%=path%>/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
             </li>
@@ -48,14 +47,12 @@
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>功能</a>
                     <dl class="layui-nav-child">
                        
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list">
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list.do">
                         <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
                          <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbook/list">
                         <i class="layui-icon">&#xe621;</i>作品管理</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcphome/edit">
                         <i class="layui-icon">&#xe621;</i>修改密码</a></dd>
-      <%--                   <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/static/demo/tab-card.html">
-                        <i class="layui-icon">&#xe621;</i>系统消息</a></dd> --%>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/data">
                         <i class="layui-icon">&#xe621;</i>运营数据</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/list">

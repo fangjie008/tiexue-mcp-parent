@@ -2,6 +2,8 @@ package com.tiexue.mcp.core.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 
 public interface IMcpBaseInfoService {
@@ -23,4 +25,6 @@ public interface IMcpBaseInfoService {
     List<McpBaseInfo> getList(String strWhere,Integer pStart,Integer pSize);
     
     int getCount(String strWhere);
+    
+    McpBaseInfo getModelByName(@Param("Name")String name);
 }

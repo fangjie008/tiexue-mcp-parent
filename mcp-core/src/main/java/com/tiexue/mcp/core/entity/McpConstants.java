@@ -110,5 +110,12 @@ public class McpConstants {
     	put(Classify_Yingshi, "影视");	
     }};
     
-    
+    /**
+     * Des加密秘钥
+     */
+	public static final String Mcp_Des_Key="abc123bca321";
+	 /**
+     * Md5加密秘钥
+     */
+	public static final String Mcp_Md5_Key="0505bcaasd";
 }

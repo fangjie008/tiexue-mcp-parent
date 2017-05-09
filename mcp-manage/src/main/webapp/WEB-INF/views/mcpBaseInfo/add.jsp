@@ -150,15 +150,19 @@ layui.use(['form','element','layer'], function(){
     $(".layui-form").submit(function(){
     	 //your function l例如 表单验证
     	 $(this).ajaxSubmit({
-    		url:'<%=path%>/mcpbaseinfo/save',
+    		url:'<%=path%>/mcpbaseinfo/save.do',
     		type:"POST",
     		dataType:"json",
         	success:function(data){
         		if(data.ok){
         			alert(data.msg);
-        			location.href = '<%=path%>/mcpbaseinfo/list?pindex='+"${pindex}";
+        			location.href = '<%=path%>/mcpbaseinfo/list.do?pindex='+"${pindex}";
         		}else{
         			alert(data.msg);
+        			//登录超时
+        			if(data.loginStatus!=undefined&&data.loginStatus=="-1"){
+        				location.href = '<%=path%>/';
+        			}
         		}
         	
         	},

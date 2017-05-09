@@ -56,4 +56,11 @@ public class McpBaseInfoServiceImpl implements IMcpBaseInfoService {
     public int getCount(String strWhere){
 		return mcpBaseMapp.getCount(strWhere);
 	}
+	
+	
+	@Override
+    public McpBaseInfo getModelByName(@Param("Name")String name){
+		return mcpBaseMapp.getModelByName(name);
+	}
+
 }

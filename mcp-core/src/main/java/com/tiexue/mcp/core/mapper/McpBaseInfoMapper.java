@@ -95,4 +95,17 @@ public interface McpBaseInfoMapper {
     
     @Select({"select count(1) from McpBaseInfo where ${strWhere}"})
     int getCount(@Param("strWhere")String strWhere);
+    
+    
+    @Select({
+        "select",
+        "CPId, Name, ContName, ContEmail, ContQQ, ContPhone, Address, ZipCode, BankName, ",
+        "BankAccountName, BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, ",
+        "InterfaceUrl1, InterfaceUrl2, InterfaceUrl3, InterfaceUrl4",
+        "from McpBaseInfo",
+        "where Name=#{Name} limit 0,1"
+    })
+    @ResultMap("BaseResultMap")
+    McpBaseInfo getModelByName(@Param("Name")String name);
+    
 }
