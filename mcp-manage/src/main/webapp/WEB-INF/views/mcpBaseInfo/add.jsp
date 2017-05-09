@@ -23,14 +23,14 @@
 		<label class="layui-form-label">合作者Id
 		</label>
 		 <div class="layui-input-inline">
-            <input type="text" name="cpid"  value="${mcpBaseInfo.cpid}"   readonly="true"  class="layui-input">
+            <input type="text" id="cpid" name="cpid"  value="${mcpBaseInfo.cpid}"   readonly="true"  class="layui-input">
         </div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">合作者名称
 		</label>
 		 <div class="layui-input-block">
-            <input type="text" name="name"  value="${mcpBaseInfo.name}" autocomplete="off" placeholder="请输入合作者名称" lay-verify="name"
+            <input type="text" id="name" name="name"  value="${mcpBaseInfo.name}" autocomplete="off" placeholder="请输入合作者名称" lay-verify="name"
                   class="layui-input">
         </div>
 	</div>
@@ -138,6 +138,7 @@ layui.use(['form','element','layer'], function(){
             if(value.length < 2){
                 return '合作者名称至少得2个字符啊';
             }
+            
         }
         ,contemail:[/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ,'邮编格式不正确']
         ,contqq:[/^\d{5,20}$/,'qq号必须是数字']
@@ -149,6 +150,12 @@ layui.use(['form','element','layer'], function(){
 });
     $(".layui-form").submit(function(){
     	 //your function l例如 表单验证
+    	 var isOk=checkName();
+    	 if(!isOk){
+    		 return false; 
+    	 }
+    		
+    	 
     	 $(this).ajaxSubmit({
     		url:'<%=path%>/mcpbaseinfo/save.do',
     		type:"POST",
@@ -172,6 +179,34 @@ layui.use(['form','element','layer'], function(){
         	});   
          return false;   //防止表单自动提交  
     });  
+    
+    function checkName(){
+    	var isOk=true;
+    	var cpid=$("#cpid").val();
+    	var name=$("#name").val();
+        $.ajax({
+        	url:'<%=path%>/mcpbaseinfo/checkName',
+        	type:"POST",
+        	async:false,
+    		dataType:"json",
+    		data:{'name':name,'cpid':cpid},
+        	success:function(data){
+        		if(data.ok==true||data.ok=="true"){
+        			alert("合作者名称已存在！");
+        			isOk=false;
+        		}
+        		else{
+        			isOk=true;
+        		}
+        		
+        	},
+        	error:function(data){
+        		isOk=true;
+        	}
+         
+        });
+        return isOk;
+    }
 </script>
 </body>
 </html>

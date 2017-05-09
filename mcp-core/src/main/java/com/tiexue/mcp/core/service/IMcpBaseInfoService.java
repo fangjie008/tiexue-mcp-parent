@@ -26,5 +26,10 @@ public interface IMcpBaseInfoService {
     
     int getCount(String strWhere);
     
-    McpBaseInfo getModelByName(@Param("Name")String name);
+    McpBaseInfo getModelByName(String name);
+    
+    McpBaseInfo checkModelByName(String name,int cpid);
+    
+    
+    int updatePassword(int cpid,String password);
 }

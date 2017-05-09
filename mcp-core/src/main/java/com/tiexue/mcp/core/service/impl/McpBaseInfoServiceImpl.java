@@ -59,8 +59,18 @@ public class McpBaseInfoServiceImpl implements IMcpBaseInfoService {
 	
 	
 	@Override
-    public McpBaseInfo getModelByName(@Param("Name")String name){
+    public McpBaseInfo getModelByName(String name){
 		return mcpBaseMapp.getModelByName(name);
+	}
+	
+	@Override
+    public McpBaseInfo checkModelByName(String name,int cpid){
+		return mcpBaseMapp.checkModelByName(name,cpid);
+	}
+	
+	@Override
+    public int updatePassword(int cpid,String password){
+		return mcpBaseMapp.updatePassword(cpid,password);
 	}
 
 }

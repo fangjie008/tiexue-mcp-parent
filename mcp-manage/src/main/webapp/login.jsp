@@ -27,13 +27,11 @@
 						<input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
 					</div>
 					<div class="layui-form-item">
-						<div class="layui-form-item">
-							<button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
-                            <i class="layui-icon">&#xe650;</i> 登录
-                        </button>
-						</div>
-						<div class="beg-clear"></div>
+						<button class="layui-btn" style="width:100%" lay-submit lay-filter="login">
+                           <i class="layui-icon">&#xe650;</i>&nbsp;&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;&nbsp;
+                       </button>
 					</div>
+
 				</form>
 			</div>
 			<footer>

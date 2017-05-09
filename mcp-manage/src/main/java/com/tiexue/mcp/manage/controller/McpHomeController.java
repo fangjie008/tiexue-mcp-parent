@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -109,11 +110,70 @@ public class McpHomeController {
 	 */
 	@RequestMapping("edit.do")
 	public String loginEdit(HttpServletRequest request,HttpServletResponse response){
+		HttpSession session= request.getSession();
+		String userIdStr= (String)session.getAttribute("userId");
+		int userId=0;
+		if(userIdStr!=null&&!userIdStr.isEmpty()){
+			userId=Integer.parseInt(userIdStr);
+			McpBaseInfo baseInfo= mcpBaseInfoSer.selectByPrimaryKey(userId);
+			request.setAttribute("baseInfo", baseInfo);
+		}
 		return "mcpHome/edit";
 	}
 	
-	
-	private boolean checkUser(String userName, String password){
-		return true;
+	/**
+	 * 保存修改的密码
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/savepassword.do",method=RequestMethod.POST)
+    @ResponseBody
+	public String savePassword(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		JSONObject jObject=new JSONObject();
+		String password=request.getParameter("password");
+		String cpidStr=request.getParameter("cpid");
+		int cpid=0;
+		if(password!=null&&cpidStr!=null){
+			if(!cpidStr.isEmpty()){
+				cpid=Integer.parseInt(cpidStr);
+			}
+			password= Md5Utils.ToBit32(password,McpConstants.Mcp_Md5_Key);
+			int resultNum= mcpBaseInfoSer.updatePassword(cpid,password);
+			if(resultNum>0){
+				jObject.put("ok", true);
+				jObject.put("msg", "保存成功");
+			}
+			else{
+				jObject.put("ok", false);
+				jObject.put("msg","保存失败");
+			}
+		}
+		return jObject.toString();
 	}
+	/**
+	 * 验证密码是否正确
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("check")
+	@ResponseBody
+	public String checkPassword(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		JSONObject jObject=new JSONObject();
+		String oldpassword=request.getParameter("oldpassword");
+		String md5password=request.getParameter("md5password");
+		if(oldpassword!=null&&md5password!=null){
+			oldpassword= Md5Utils.ToBit32(oldpassword,McpConstants.Mcp_Md5_Key).toLowerCase();
+			if(oldpassword.equals(md5password.toLowerCase())){
+				jObject.put("ok", true);
+			}
+			else{
+				jObject.put("ok", false);
+			}
+		}
+		return jObject.toString();
+	}
+	
 }

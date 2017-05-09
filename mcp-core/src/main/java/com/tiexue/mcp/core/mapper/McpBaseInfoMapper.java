@@ -108,4 +108,23 @@ public interface McpBaseInfoMapper {
     @ResultMap("BaseResultMap")
     McpBaseInfo getModelByName(@Param("Name")String name);
     
+    
+    @Select({
+        "select",
+        "CPId, Name, ContName, ContEmail, ContQQ, ContPhone, Address, ZipCode, BankName, ",
+        "BankAccountName, BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, ",
+        "InterfaceUrl1, InterfaceUrl2, InterfaceUrl3, InterfaceUrl4",
+        "from McpBaseInfo",
+        "where Name=#{Name} and CPId<>#{cpid} limit 0,1"
+    })
+    @ResultMap("BaseResultMap")
+    McpBaseInfo checkModelByName(@Param("Name")String name,@Param("cpid")int cpid);
+    
+    @Update({
+        "update McpBaseInfo",
+        " set Password = #{password,jdbcType=VARCHAR}",
+        " where CPId = #{cpid,jdbcType=INTEGER}"
+    })
+    int updatePassword(@Param("cpid")int cpid,@Param("password")String password);
+    
 }

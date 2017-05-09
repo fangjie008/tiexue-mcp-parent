@@ -11,6 +11,7 @@ import org.aspectj.apache.bcel.classfile.Constant;
 import org.aspectj.weaver.ast.Var;
 import org.junit.runner.Request;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -179,6 +180,31 @@ public class McpBaseInfoController {
 			jObject.put("msg","删除失败");
 		}
 		return jObject.toJSONString();
+	}
+	
+	
+	@RequestMapping(value="/checkName",method=RequestMethod.POST)
+	@ResponseBody
+	public String checkName(HttpServletRequest request,HttpServletResponse response){
+		JSONObject jObject=new JSONObject();
+		String name= request.getParameter("name");
+		String cpidStr= request.getParameter("cpid");
+		if(name!=null){
+			int cpid=0;
+			if(cpidStr!=null&&!cpidStr.isEmpty()){
+				cpid=Integer.parseInt(cpidStr);
+			}
+			McpBaseInfo mcpBaseInfo= mcpBaseInfoService.checkModelByName(name, cpid);
+			if(mcpBaseInfo!=null&&mcpBaseInfo.getName().equals(name)){
+				jObject.put("ok",true);
+			}
+			else{
+				jObject.put("ok",false);
+			}
+		}
+		
+		return jObject.toString();
+		
 	}
 	
 
