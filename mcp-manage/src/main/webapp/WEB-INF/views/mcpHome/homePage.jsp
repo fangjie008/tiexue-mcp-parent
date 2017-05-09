@@ -51,7 +51,7 @@
                         <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
                          <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbook/list">
                         <i class="layui-icon">&#xe621;</i>作品管理</a></dd>
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcphome/edit">
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcphome/edit.do">
                         <i class="layui-icon">&#xe621;</i>修改密码</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/data">
                         <i class="layui-icon">&#xe621;</i>运营数据</a></dd>
