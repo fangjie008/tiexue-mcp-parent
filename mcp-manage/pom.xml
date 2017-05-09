@@ -42,12 +42,6 @@
 			<groupId>com.tiexue</groupId>
 			<artifactId>mcp-core</artifactId>
 			<version>${version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>servlet-api</artifactId>
-					<groupId>javax.servlet</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 
