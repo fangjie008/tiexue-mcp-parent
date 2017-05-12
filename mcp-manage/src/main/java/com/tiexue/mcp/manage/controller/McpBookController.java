@@ -6,8 +6,10 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,32 +32,30 @@ public class McpBookController {
 	IMcpBookService mcpBookSer;
 	
 	/**
-	 * 获取第三方的图书信息
-	 * 逻辑:需要判断用户是否登录,登录的话需要拿到用户的Id信息,然后根据id查询对应的图书列表数据
-	 * 前期先不分页
+	 * 获取第三方的图书信息 逻辑:需要判断用户是否登录,登录的话需要拿到用户的Id信息,然后根据id查询对应的图书列表数据 前期先不分页
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("list")
-	public String getMcpBookList(HttpServletRequest request,HttpServletResponse response){
-		//todo:权限判断
-		//每个合作方可以查看自己的作品列表
-		String cpIdStr = "1";//request.getParameter("cpId");
-		if(cpIdStr!=""){
-			int cpId = 1;
-			try {
-				cpId = Integer.parseInt(cpIdStr);
-			} catch (NumberFormatException e) {
-				cpId =1;
-			}
-			
-			List<McpBook> mcpBooks= mcpBookSer.getList(cpId);
-			
-			List<McpBookDto> mcpBooksDtos = toMcpBookListDto(mcpBooks);
-			request.setAttribute("mcpBooks", mcpBooksDtos);
+	public String getMcpBookList(HttpServletRequest request, HttpServletResponse response) {
+		// todo:权限判断
+		// 每个合作方可以查看自己的作品列表
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		if (userId == null || userId.isEmpty()) {
+			String contextPath = request.getContextPath();
+			return "redirect:/login.jsp";
 		}
-		
+		int cpId = 0;
+		try {
+			cpId = Integer.parseInt(userId);
+		} catch (NumberFormatException e) {
+		}
+		List<McpBook> mcpBooks = mcpBookSer.getList(cpId);
+		List<McpBookDto> mcpBooksDtos = toMcpBookListDto(mcpBooks);
+		request.setAttribute("mcpBooks", mcpBooksDtos);
 		return "mcpBook/list";
 	}
 	

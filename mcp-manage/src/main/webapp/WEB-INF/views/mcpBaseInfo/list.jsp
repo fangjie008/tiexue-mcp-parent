@@ -23,7 +23,6 @@
 <table id="dateTable" class="layui-table">
     <thead>
     <tr>
-        <th><input type="checkbox" class="my-checkbox" /></th>
         <th>合作者名称</th>
         <th>联系人姓名</th>
         <th>联系人邮箱</th>
@@ -35,7 +34,6 @@
     <tbody>
     <c:forEach items="${baseInfos}" var="info">
     <tr>
-        <td><input type="checkbox" class="my-checkbox" data-id="1" /></td>
         <td>${info.name}</td>
         <td>${info.contname}</td>
         <td>${info.contemail}</td>

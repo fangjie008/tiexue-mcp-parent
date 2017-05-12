@@ -33,7 +33,7 @@ public class McpBaseInfoController {
 	@Resource
 	IMcpBaseInfoService mcpBaseInfoService;
 	
-	private static final int psize=15;
+	private static final int psize=10;
 	
 	/**
 	 * 获取基础信息列表

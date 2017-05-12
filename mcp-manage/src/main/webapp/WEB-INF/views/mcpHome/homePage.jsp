@@ -12,7 +12,7 @@
 <div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
     <!-- header -->
     <div class="layui-header my-header">
-        <a href="home/index">
+        <a href="<%=path%>/mcphome/homepage">
             <!--<img class="my-header-logo" src="" alt="logo">-->
             <div class="my-header-logo">五彩小说合作平台</div>
         </a>
