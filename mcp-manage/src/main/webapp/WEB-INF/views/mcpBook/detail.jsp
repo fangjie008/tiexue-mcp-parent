@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/views/include/global.jsp"%>
 <title>图书详情信息</title>
 </head>
-<body>
+<body class="body">
 
 	<fieldset class="layui-elem-field layui-field-title">
 		<legend>
@@ -132,6 +132,11 @@
 						readonly="true" class="layui-input">
 				</div>
 			</div>
+			<div class="layui-form-item">
+	            <div class="layui-input-block">
+	            	<button type="reset" onclick="javascript:history.go(-1);" class="layui-btn layui-btn-primary btn-back">返回</button>
+	            </div>
+            </div>
 		</c:if>
 	</form>
 </body>

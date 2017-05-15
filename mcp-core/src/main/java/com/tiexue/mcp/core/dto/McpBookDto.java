@@ -38,15 +38,15 @@ public class McpBookDto {
 
 	private String intro;
 
-	private Date publishtime;
+	private String publishtime;
 
 	private Integer words;
 
 	private Integer chaptercount;
 
-	private Date updatetime;
+	private String updatetime;
 
-	private Date putawaytime;
+	private String putawaytime;
 
 	private Integer chargemode;
 	private String chargemodeDes;
@@ -63,7 +63,7 @@ public class McpBookDto {
 
 	private String auditinfo;
 
-	private Date createtime;
+	private String createtime;
 
 	public Integer getId() {
 		return id;
@@ -227,11 +227,11 @@ public class McpBookDto {
 		this.intro = intro == null ? null : intro.trim();
 	}
 
-	public Date getPublishtime() {
+	public String getPublishtime() {
 		return publishtime;
 	}
 
-	public void setPublishtime(Date publishtime) {
+	public void setPublishtime(String publishtime) {
 		this.publishtime = publishtime;
 	}
 
@@ -251,19 +251,19 @@ public class McpBookDto {
 		this.chaptercount = chaptercount;
 	}
 
-	public Date getUpdatetime() {
+	public String getUpdatetime() {
 		return updatetime;
 	}
 
-	public void setUpdatetime(Date updatetime) {
+	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
 
-	public Date getPutawaytime() {
+	public String getPutawaytime() {
 		return putawaytime;
 	}
 
-	public void setPutawaytime(Date putawaytime) {
+	public void setPutawaytime(String putawaytime) {
 		this.putawaytime = putawaytime;
 	}
 
@@ -356,11 +356,11 @@ public class McpBookDto {
 		this.auditinfo = auditinfo == null ? null : auditinfo.trim();
 	}
 
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 }

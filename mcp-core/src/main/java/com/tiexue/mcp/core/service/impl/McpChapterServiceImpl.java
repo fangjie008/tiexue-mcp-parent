@@ -55,8 +55,12 @@ public class McpChapterServiceImpl implements IMcpChapterService {
 	}
 
 	@Override
-	public List<McpChapter> selectList(Integer bookId) {
-		return mcpChapterMapper.selectList(bookId);
+	public List<McpChapter> selectList(Integer bookId,Integer pStart,Integer pSize) {
+		return mcpChapterMapper.selectList(bookId,pStart,pSize);
+	}
+	
+	public int getCount(String strWhere){
+		return mcpChapterMapper.getCount(strWhere);
 	}
 
 

@@ -70,10 +70,10 @@ public interface McpBookMapper {
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
         "AuditInfo, CreateTime",
         "from McpBook",
-        "where CPId = ${CPId} "
+        "where CPId = ${CPId} limit ${pStart},${pSize}"
     })
     @ResultMap("BaseResultMap")
-    List<McpBook> getList(@Param("CPId")Integer cpId);
+    List<McpBook> getList(@Param("CPId")Integer cpId,@Param("pStart")Integer pStart,@Param("pSize")Integer pSize);
     
     int updateByPrimaryKeySelective(McpBook record);
 
@@ -108,4 +108,8 @@ public interface McpBookMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpBook record);
+    
+    
+    @Select({"select count(1) from McpBook where ${strWhere}"})
+    int getCount(@Param("strWhere")String strWhere);
 }

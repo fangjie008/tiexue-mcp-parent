@@ -18,6 +18,7 @@ public interface IMcpBookService {
 
     int updateByPrimaryKey(McpBook record);
     
-    List<McpBook> getList(Integer cpId);
+    List<McpBook> getList(Integer cpId,Integer pStart,Integer pSize);
     
+    int getCount(String strWhere);
 }

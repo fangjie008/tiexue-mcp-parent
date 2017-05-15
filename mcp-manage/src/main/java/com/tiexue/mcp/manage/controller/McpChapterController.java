@@ -16,6 +16,7 @@ import com.tiexue.mcp.core.dto.McpChapterDto;
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
 import com.tiexue.mcp.core.service.IMcpChapterService;
+import com.tiexue.mcp.manage.dto.Paging;
 
 @Controller
 @RequestMapping("mcpchapter")
@@ -25,7 +26,7 @@ public class McpChapterController {
 
 	@Resource
 	IMcpChapterService mcpChapterSer;
-	
+	private static final int psize=10;
 	/**
 	 * 获取章节信息
 	 * 
@@ -37,19 +38,39 @@ public class McpChapterController {
 	public String getChapterList(HttpServletRequest request, HttpServletResponse response) {
 		// 根据传入的小说id,查找章节列表信息,显示到页面中
 		// todo:权限判断
-		String bookIdStr = "1";// request.getParameter("cpId");
+		String bookIdStr = request.getParameter("bookId");
 		if (bookIdStr != "") {
-			int bookId = 1;
+			int bookId = 0;
 			try {
 				bookId = Integer.parseInt(bookIdStr);
 			} catch (NumberFormatException e) {
-				bookId = 1;
+				bookId = 0;
 			}
-
-			List<McpChapter> mcpChapters = mcpChapterSer.selectList(bookId);
-
+			//分页信息
+			int pindex=1;
+			String pindexStr=request.getParameter("pindex");
+			if(pindexStr!=null&&!pindexStr.isEmpty()){
+				pindex=Integer.parseInt(pindexStr);
+			}
+			int pStart=(pindex-1)*psize;
+			int pcount=mcpChapterSer.getCount(" BookId="+bookId);
+			//如果最后一页只有一条数据，则在删除时取上一页数据
+ 			if(pStart>0&&pStart>=pcount){
+				pStart=pStart-psize;
+			}
+			Paging paging=new Paging();
+			paging.setPcount(pcount);
+			paging.setPsize(psize);
+			paging.calcPtotalpages();
+			if(pindex>paging.getPtotalpages()){
+				pindex=paging.getPtotalpages();
+			}
+			paging.setPindex(pindex);
+			List<McpChapter> mcpChapters = mcpChapterSer.selectList(bookId,pStart,psize);
 			List<McpChapterDto> mcpChapterDtos = toMcpChapterListDto(mcpChapters);
 			request.setAttribute("mcpChapters", mcpChapterDtos);
+			request.setAttribute("paging",paging);
+			request.setAttribute("bookId",bookId);
 		}
 
 		return "mcpChapter/list";
@@ -58,7 +79,7 @@ public class McpChapterController {
 	@RequestMapping("detail")
 	public String detail(HttpServletRequest request, HttpServletResponse response) {
 		//todo:权限判断,是否有查看此书的权限,管理员及拥有此图书的合作方
-		String chapterIdStr = "1";// request.getParameter("bookid");
+		String chapterIdStr =request.getParameter("chapterId");
 		if(chapterIdStr !=""){
 			int chapterId = 1;
 			try{

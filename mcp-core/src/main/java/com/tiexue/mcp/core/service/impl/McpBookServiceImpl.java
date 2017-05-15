@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBook;
@@ -50,7 +51,11 @@ public class McpBookServiceImpl implements IMcpBookService {
 	 * 目前暂时不分页
 	 * */
 	@Override
-	public List<McpBook> getList(Integer cpId) {
-		return mcpBookMapper.getList(cpId);
+	public List<McpBook> getList(Integer cpId,Integer pStart,Integer pSize) {
+		return mcpBookMapper.getList(cpId,pStart,pSize);
+	}
+	
+	public int getCount(String strWhere){
+		return mcpBookMapper.getCount(strWhere);
 	}
 }

@@ -13,6 +13,7 @@ import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tiexue.mcp.base.util.DateUtil;
 import com.tiexue.mcp.core.dto.McpBookDto;
 import com.tiexue.mcp.core.dto.PageUserDto;
 import com.tiexue.mcp.core.dto.WxBookDto;
@@ -21,6 +22,7 @@ import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.service.IMcpBookService;
 import com.tiexue.mcp.core.service.IWxBookService;
+import com.tiexue.mcp.manage.dto.Paging;
 
 @Controller
 @RequestMapping("mcpbook")
@@ -30,6 +32,7 @@ public class McpBookController {
 	
 	@Resource
 	IMcpBookService mcpBookSer;
+	private static final int psize=10;
 	
 	/**
 	 * 获取第三方的图书信息 逻辑:需要判断用户是否登录,登录的话需要拿到用户的Id信息,然后根据id查询对应的图书列表数据 前期先不分页
@@ -53,9 +56,30 @@ public class McpBookController {
 			cpId = Integer.parseInt(userId);
 		} catch (NumberFormatException e) {
 		}
-		List<McpBook> mcpBooks = mcpBookSer.getList(cpId);
+		//分页信息
+		int pindex=1;
+		String pindexStr=request.getParameter("pindex");
+		if(pindexStr!=null&&!pindexStr.isEmpty()){
+			pindex=Integer.parseInt(pindexStr);
+		}
+		int pStart=(pindex-1)*psize;
+		int pcount=mcpBookSer.getCount(" CPId="+cpId);
+		//如果最后一页只有一条数据，则在删除时取上一页数据
+		if(pStart>0&&pStart>=pcount){
+			pStart=pStart-psize;
+		}
+		Paging paging=new Paging();
+		paging.setPcount(pcount);
+		paging.setPsize(psize);
+		paging.calcPtotalpages();
+		if(pindex>paging.getPtotalpages()){
+			pindex=paging.getPtotalpages();
+		}
+		paging.setPindex(pindex);
+		List<McpBook> mcpBooks = mcpBookSer.getList(cpId,pStart,psize);
 		List<McpBookDto> mcpBooksDtos = toMcpBookListDto(mcpBooks);
 		request.setAttribute("mcpBooks", mcpBooksDtos);
+		request.setAttribute("paging",paging);
 		return "mcpBook/list";
 	}
 	
@@ -65,7 +89,7 @@ public class McpBookController {
 	@RequestMapping("detail")
 	public String mcpBookDetail(HttpServletRequest request, HttpServletResponse response){
 		//todo:权限判断,是否有查看此书的权限,管理员及拥有此图书的合作方
-		String bookIdStr = "1";// request.getParameter("bookid");
+		String bookIdStr =request.getParameter("bookId");
 		if(bookIdStr !=""){
 			int bookId = 1;
 			try{
@@ -120,16 +144,16 @@ public class McpBookController {
 			mcpBookDto.setCpbid(book.getCpbid());
 			mcpBookDto.setCpid(book.getCpid());
 			mcpBookDto.setCpname(book.getCpname());
-			mcpBookDto.setCreatetime(book.getCreatetime());
+			mcpBookDto.setCreatetime(DateUtil.date2Str(book.getCreatetime()));
 			mcpBookDto.setFeechapter(book.getFeechapter());
 			mcpBookDto.setIntro(book.getIntro());
 			mcpBookDto.setKeywords(book.getKeywords());
 			mcpBookDto.setPrice(book.getPrice());
-			mcpBookDto.setPublishtime(book.getPublishtime());
-			mcpBookDto.setPutawaytime(book.getPutawaytime());
+			mcpBookDto.setPublishtime(DateUtil.date2Str(book.getPublishtime()));
+			mcpBookDto.setPutawaytime(DateUtil.date2Str(book.getPutawaytime()));
 			mcpBookDto.setSubhead(book.getSubhead());
 			mcpBookDto.setTags(book.getTags());
-			mcpBookDto.setUpdatetime(book.getUpdatetime());
+			mcpBookDto.setUpdatetime(DateUtil.date2Str(book.getUpdatetime()));
 			mcpBookDto.setWords(book.getWords());
 			mcpBookDto.setName(book.getName());
 			mcpBookDto.setAuthor(book.getAuthor());

@@ -49,7 +49,7 @@ public class McpBaseInfoController {
 			int pStart=(pindex-1)*psize;
 			int pcount=mcpBaseInfoService.getCount(" 1=1");
 			//如果最后一页只有一条数据，则在删除时取上一页数据
-			if(pStart>=pcount){
+			if(pStart>0&&pStart>=pcount){
 				pStart=pStart-psize;
 			}
 			List<McpBaseInfo> baseInfos= mcpBaseInfoService.getList("1=1",pStart,psize);

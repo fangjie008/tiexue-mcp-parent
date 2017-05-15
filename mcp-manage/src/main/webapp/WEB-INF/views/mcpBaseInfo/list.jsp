@@ -72,7 +72,7 @@ var pindex=1;
                 $("#pindex").val(obj.curr);//设置当前页
                 //防止无限刷新,
                 //只有监听到的页面index 和当前页不一样是才出发分页查询
-                if (pindex!=""&&pindex!=""&&(obj.curr != pindex)) {
+                if (pindex!=""&&pindex!="0"&&(obj.curr != pindex)) {
                 	location.href='<%=path%>/mcpbaseinfo/list.do?pindex='+obj.curr;
                 }
             }

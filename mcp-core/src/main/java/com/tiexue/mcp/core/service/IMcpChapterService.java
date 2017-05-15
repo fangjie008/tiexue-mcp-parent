@@ -20,5 +20,7 @@ public interface IMcpChapterService {
 
     int updateByPrimaryKey(McpChapter record);
     
-    List<McpChapter> selectList(Integer bookId);
+    List<McpChapter> selectList(Integer bookId,Integer pStart,Integer pSize);
+    
+    int getCount(String strWhere);
 }

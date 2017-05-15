@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -53,9 +54,9 @@ public interface McpChapterMapper {
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
         "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
         "from McpChapter",
-        "where BookId = #{bookId,jdbcType=INTEGER}"})
+        "where BookId = #{bookId,jdbcType=INTEGER} limit ${pStart},${pSize}"})
     @ResultMap("BaseResultMap")
-    List<McpChapter> selectList(Integer bookId);
+    List<McpChapter> selectList(@Param("bookId")Integer bookId,@Param("pStart")Integer pStart,@Param("pSize")Integer pSize);
     
     
 
@@ -103,4 +104,7 @@ public interface McpChapterMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpChapter record);
+    
+    @Select({"select count(1) from McpChapter where ${strWhere}"})
+    int getCount(@Param("strWhere")String strWhere);
 }
