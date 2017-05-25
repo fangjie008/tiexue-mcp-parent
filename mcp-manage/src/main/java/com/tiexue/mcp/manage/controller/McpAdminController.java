@@ -208,13 +208,6 @@ public class McpAdminController {
 		return "redirect:/admin/list";
 	}
 
-	/**
-	 * 修改用户
-	 **/
-	@RequestMapping("edit")
-	public String editUser(String username, String password, String intro, String roles) {
-		return "mcpAdmin/edit";
-	}
 
 	/**
 	 * 查询单个用户
