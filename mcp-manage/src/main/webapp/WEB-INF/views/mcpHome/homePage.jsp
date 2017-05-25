@@ -57,6 +57,8 @@
                         <i class="layui-icon">&#xe621;</i>运营数据</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/list">
                         <i class="layui-icon">&#xe621;</i>结算数据</a></dd>
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/admin/list">
+                        <i class="layui-icon">&#xe621;</i>用户管理</a></dd>
                        
                     </dl>
                 </li>

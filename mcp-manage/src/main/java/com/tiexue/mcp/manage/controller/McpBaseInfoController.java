@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.aspectj.apache.bcel.classfile.Constant;
 import org.aspectj.weaver.ast.Var;
 import org.junit.runner.Request;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import com.tiexue.mcp.core.dto.McpBaseInfoDto;
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
+import com.tiexue.mcp.core.shiro.PasswordHelper;
 import com.tiexue.mcp.manage.dto.Paging;
 @Controller
 @RequestMapping("mcpbaseinfo")
@@ -34,6 +37,9 @@ public class McpBaseInfoController {
 	IMcpBaseInfoService mcpBaseInfoService;
 	
 	private static final int psize=10;
+	
+	@Autowired
+    private PasswordHelper passwordHelper;
 	
 	/**
 	 * 获取基础信息列表
@@ -111,7 +117,8 @@ public class McpBaseInfoController {
 			
 			if(mcpBaseInfoDto.getCpid()==null||mcpBaseInfoDto.getCpid()<=0){
 				//默认密码为wucai321
-				String password=Md5Utils.ToBit32("wucai321",McpConstants.Mcp_Md5_Key);
+				//String password=Md5Utils.ToBit32("wucai321",McpConstants.Mcp_Md5_Key);
+				String password=passwordHelper.encryptPassword("wucai321");
 				mcpBaseInfoDto.setPassword(password);
 				baseInfo=mcpBaseInfoDto.initMcpBaseInfo();
 				int addNum= mcpBaseInfoService.insert(baseInfo);

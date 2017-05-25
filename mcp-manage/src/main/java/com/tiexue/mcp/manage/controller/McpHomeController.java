@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +20,7 @@ import com.tiexue.mcp.base.util.Md5Utils;
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
+import com.tiexue.mcp.core.shiro.PasswordHelper;
 
 @Controller
 @RequestMapping("/mcphome")
@@ -26,6 +30,11 @@ public class McpHomeController {
 	private static Logger logger=Logger.getLogger(McpHomeController.class); 
 	@Resource 
 	IMcpBaseInfoService mcpBaseInfoSer;
+	
+	@Autowired
+    private PasswordHelper passwordHelper;
+	
+	
 	/**
 	 * 登录后入口
 	 * @param request
@@ -76,6 +85,7 @@ public class McpHomeController {
 	 * @param response
 	 * @return
 	 */
+	@RequiresUser
 	@RequestMapping("/homepage")
 	public String homePage(HttpServletRequest request,HttpServletResponse response){
 		HttpSession session= request.getSession();
@@ -97,6 +107,7 @@ public class McpHomeController {
 	 * @param response
 	 * @return
 	 */
+	@RequiresAuthentication
 	@RequestMapping("/welcome")
 	public String welcome(HttpServletRequest request,HttpServletResponse response){
 		return "/mcpHome/welcome";
@@ -138,7 +149,9 @@ public class McpHomeController {
 			if(!cpidStr.isEmpty()){
 				cpid=Integer.parseInt(cpidStr);
 			}
-			password= Md5Utils.ToBit32(password,McpConstants.Mcp_Md5_Key);
+			//password= Md5Utils.ToBit32(password,McpConstants.Mcp_Md5_Key);
+			//加密方法统一
+			password=passwordHelper.encryptPassword(password);
 			int resultNum= mcpBaseInfoSer.updatePassword(cpid,password);
 			if(resultNum>0){
 				jObject.put("ok", true);

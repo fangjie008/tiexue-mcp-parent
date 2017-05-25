@@ -13,6 +13,7 @@ import com.tiexue.mcp.core.entity.WxPresent;
 import com.tiexue.mcp.core.entity.WxUser;
 import com.tiexue.mcp.core.mapper.WxPresentMapper;
 import com.tiexue.mcp.core.service.IWxPresentService;
+import com.tiexue.mcp.core.service.IWxUserService;
 
 
 @Service("wxPresentSer")
@@ -23,7 +24,7 @@ public class WxPresentServiceImpl implements IWxPresentService {
     @Resource
     WxPresentMapper presentSerMap;
     @Resource
-    WxUserServiceImpl wxUserSerImpl;
+    IWxUserService wxUserSerImpl;
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return presentSerMap.deleteByPrimaryKey(id);

@@ -13,6 +13,7 @@ import com.tiexue.mcp.core.entity.WxChapter;
 import com.tiexue.mcp.core.entity.WxConsume;
 import com.tiexue.mcp.core.entity.WxUser;
 import com.tiexue.mcp.core.service.IUserConsService;
+import com.tiexue.mcp.core.service.IWxUserService;
 
 /**
  * 用户消费操作
@@ -23,7 +24,7 @@ import com.tiexue.mcp.core.service.IUserConsService;
 public class UserConsServiceImpl implements IUserConsService {
 
 	@Resource
-	WxUserServiceImpl userSerImpl;
+	IWxUserService wxUserService;
 	@Resource
 	WxConsumeServiceImpl consSerImpl;
 	@Resource
@@ -34,7 +35,7 @@ public class UserConsServiceImpl implements IUserConsService {
 	public ResultMsg consDeal(int userId, int bookId, String bookName, WxChapter chapterModel) {
 		ResultMsg resultMsg = new ResultMsg();
 		// 用户信息
-		WxUser userModel = userSerImpl.selectByPrimaryKey(userId);
+		WxUser userModel = wxUserService.selectByPrimaryKey(userId);
 		if (userModel == null) {
 			resultMsg.setStatus(false);
 			resultMsg.setMsg("跳转到登录页面");
@@ -85,7 +86,7 @@ public class UserConsServiceImpl implements IUserConsService {
 			userModel.setCoin(userModel.getCoin() - chapterModel.getPirce());
 			userModel.setUpdatetime(new Date());
 			// 更新小说币并增加记录
-			boolean dealRes = userSerImpl.updateCoin(userModel, cons);
+			boolean dealRes = wxUserService.updateCoin(userModel, cons);
 			if (dealRes) {
 				resultMsg.setStatus(true);
 				resultMsg.setMsg("支付成功");
@@ -101,7 +102,7 @@ public class UserConsServiceImpl implements IUserConsService {
 	
 	public boolean consumeRecord(int userId, int bookId, int chapterId, boolean autoPay) {
 		// 用户信息
-		WxUser userModel = userSerImpl.selectByPrimaryKey(userId);
+		WxUser userModel = wxUserService.selectByPrimaryKey(userId);
 		// 获取图书信息
 		WxBook book = bookSerImpl.selectByPrimaryKey(bookId);
 		// 章节数据
@@ -134,7 +135,7 @@ public class UserConsServiceImpl implements IUserConsService {
 			userModel.setAutopurchase(bookIds);
 		}
 		// 更新小说币并增加记录
-		boolean dealRes = userSerImpl.updateCoin(userModel, cons);
+		boolean dealRes = wxUserService.updateCoin(userModel, cons);
 		return dealRes;
 
 	}

@@ -13,33 +13,6 @@
 						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<!-- 自动扫描 -->
-	<context:component-scan base-package="com.tiexue.mcp.core" />
-
-	<!-- enable autowire -->
-	<context:annotation-config />
-
-   <!-- 解决返回JSON数据乱码，且要放在tx:annotation-driven前，否则不管用 -->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-				<list>
-					<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-						<property name="supportedMediaTypes">
-							<list>
-								<value>text/html;charset=UTF-8</value>
-							</list>
-						</property>
-					</bean>
-				</list>
-			</property>
-	</bean>
-
-	<!-- 引入配置文件 jdbc配置 -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:jdbc.properties" />
-	</bean>
-
 	<!-- Druid连接池引入 -->
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -94,7 +67,6 @@
 	
 	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-
 
 </beans>
 						

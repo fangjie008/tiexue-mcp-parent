@@ -63,12 +63,10 @@
 		</javaClientGenerator>
 
 
-<!--       <table tableName="wxpay" domainObjectName="WxPay"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false">
-		</table> -->
-<table tableName="demo" domainObjectName="Demo"
+		<!-- <table tableName="wxpay" domainObjectName="WxPay" enableCountByExample="false" 
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			selectByExampleQueryId="false"> </table> -->
+		<table tableName="McpAdmin" domainObjectName="McpAdmin"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">
