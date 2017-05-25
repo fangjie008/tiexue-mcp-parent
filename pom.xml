@@ -136,5 +136,6 @@
 		<module>mcp-core</module>
 		<module>mcp-web</module>
 		<module>mcp-manage</module>
+		<module>mcp-task</module>
 	</modules>
 </project>
