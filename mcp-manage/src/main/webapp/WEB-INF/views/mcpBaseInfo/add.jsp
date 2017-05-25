@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	</form>
-	<script type="text/javascript">
+<script type="text/javascript">
 layui.use(['form','element','layer'], function(){
     var $ = layui.jquery,element = layui.element,layer = layui.layer;
     var  form = layui.form();
@@ -177,8 +177,7 @@ layui.use(['form','element','layer'], function(){
     	var cpid=$("#cpid").val();
     	var name=$("#name").val();
         $.ajax({
-        	url:'<%=path%>
-		/mcpbaseinfo/checkName',
+        	url:'<%=path%>/mcpbaseinfo/checkName',
 				type : "POST",
 				async : false,
 				dataType : "json",
@@ -202,6 +201,6 @@ layui.use(['form','element','layer'], function(){
 			});
 			return isOk;
 		}
-	</script>
+</script>
 </body>
 </html>

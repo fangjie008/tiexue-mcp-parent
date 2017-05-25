@@ -58,4 +58,8 @@ public class McpBookServiceImpl implements IMcpBookService {
 	public int getCount(String strWhere){
 		return mcpBookMapper.getCount(strWhere);
 	}
+	@Override
+	public McpBook selectByCpBId(String cpBId) {
+		return mcpBookMapper.selectByCpBId(cpBId);
+	}
 }

@@ -142,7 +142,7 @@ public class McpAdminController {
 	 **/
 	@RequiresRoles("admin")
 	@ResponseBody
-	@RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String doUpdate(McpAdmin user, RedirectAttributes redirectAttributes) {
 		JSONObject jObject = new JSONObject();
 		try {

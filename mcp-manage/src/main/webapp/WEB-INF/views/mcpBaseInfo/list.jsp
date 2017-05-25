@@ -19,7 +19,6 @@
 	<table id="dateTable" class="layui-table">
 		<thead>
 			<tr>
-				<th><input type="checkbox" class="my-checkbox" /></th>
 				<th>合作者名称</th>
 				<th>联系人姓名</th>
 				<th>联系人邮箱</th>
@@ -31,7 +30,6 @@
 		<tbody>
 			<c:forEach items="${baseInfos}" var="info">
 				<tr>
-					<td><input type="checkbox" class="my-checkbox" data-id="1" /></td>
 					<td>${info.name}</td>
 					<td>${info.contname}</td>
 					<td>${info.contemail}</td>
@@ -65,7 +63,6 @@ var pindex=1;
             curr : pindex,//当前页。
             skip : true,
             jump : function(obj, first) {
-
                 $("#pindex").val(obj.curr);//设置当前页
                 //防止无限刷新,
                 //只有监听到的页面index 和当前页不一样是才出发分页查询
@@ -92,8 +89,7 @@ var pindex=1;
         			alert(data.msg);
         			//登录超时
         			if(data.loginStatus!=undefined&&data.loginStatus=="-1"){
-        				location.href = '<%=path%>
-		/';
+        				location.href = '<%=path%>/';
 						}
 					}
 				},

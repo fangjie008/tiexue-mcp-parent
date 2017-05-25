@@ -130,6 +130,28 @@ public class DateUtil {
 		}
 		return date2Str(date, DEFAULT_FORMAT);
 	}
+	
+	/**
+	 * 时间戳转换为日期
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Date timestamp2Date(String time) {
+		Date date = null;
+		if (null != time) {
+			try {
+				long lg=new Long(time);
+				date = new Date(lg);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+		return date;
+	}
+	
+	
 	/**
 	 * 时间戳转换为字符串
 	 * 

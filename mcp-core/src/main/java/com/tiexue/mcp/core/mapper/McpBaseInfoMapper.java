@@ -127,4 +127,15 @@ public interface McpBaseInfoMapper {
     })
     int updatePassword(@Param("cpid")int cpid,@Param("password")String password);
     
+    @Select({
+        "select",
+        "CPId, Name, ContName, ContEmail, ContQQ, ContPhone, Address, ZipCode, BankName, ",
+        "BankAccountName, BankAccountNum, RegisterTime, LastLoginTime, Password, AppKey, ",
+        "InterfaceUrl1, InterfaceUrl2, InterfaceUrl3, InterfaceUrl4",
+        "from McpBaseInfo",
+        "where ${strWhere} "
+    })
+    @ResultMap("BaseResultMap")
+    List<McpBaseInfo> getAllList(@Param("strWhere")String strWhere);
+    
 }

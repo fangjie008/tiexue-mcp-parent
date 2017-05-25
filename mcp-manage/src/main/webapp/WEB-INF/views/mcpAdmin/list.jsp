@@ -47,6 +47,15 @@
 			</c:forEach>
 		</tbody>
 	</table>
+<script type="text/javascript">
+//当前页   
+var pindex=1;
+    layui.use(['element','layer','laypage'], function(){
+        var $ = layui.jquery,element = layui.element,layer = layui.layer;
+        var laypage = layui.laypage;
+    });
 
+
+	</script>
 </body>
 </html>

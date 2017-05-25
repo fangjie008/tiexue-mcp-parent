@@ -73,4 +73,10 @@ public class McpBaseInfoServiceImpl implements IMcpBaseInfoService {
 		return mcpBaseMapp.updatePassword(cpid,password);
 	}
 
+	@Override
+	public List<McpBaseInfo> getAllList(String strWhere) {
+		// TODO Auto-generated method stub
+		return mcpBaseMapp.getAllList(strWhere);
+	}
+
 }

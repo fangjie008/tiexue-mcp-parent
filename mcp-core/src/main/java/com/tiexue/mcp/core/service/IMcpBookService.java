@@ -2,6 +2,8 @@ package com.tiexue.mcp.core.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tiexue.mcp.core.entity.McpBook;
 
 public interface IMcpBookService {
@@ -21,4 +23,6 @@ public interface IMcpBookService {
     List<McpBook> getList(Integer cpId,Integer pStart,Integer pSize);
     
     int getCount(String strWhere);
+    
+    McpBook selectByCpBId(String cpBId);
 }

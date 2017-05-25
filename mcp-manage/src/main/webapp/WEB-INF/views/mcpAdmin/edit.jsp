@@ -65,33 +65,30 @@ layui.use(['form','element','layer'], function(){
     });
 
 });
-    $(".layui-form").submit(function(){
-    	 //your function l例如 表单验证
-    	 var isOk=checkName();
-    	 if(!isOk){
-    		 return false; 
-    	 }
+ $(".layui-form").submit(function(){
+ 	 //your function l例如 表单验证
 
-    	 $(this).ajaxSubmit({
-    		url:'<%=path%>/admin/doAddUser',
-    		type:"POST",
-    		dataType:"json",
-        	success:function(data){
-        		if(data.ok){
-        			alert(data.msg);
-        			location.href = '<%=path%>/admin/list';
-        		}else{
-        			alert(data.msg);
-        			location.href = '<%=path%>/admin/list';
-        		}
-        	
-        	},
-        	error:function(data){
-        		alert('保存失败');
-        	}
-        	});   
-         return false;   //防止表单自动提交  
-    });  
+ 	 $(this).ajaxSubmit({
+ 		url:'<%=path%>/admin/update',
+ 		type:"POST",
+ 		dataType:"json",
+     	success:function(data){
+     		if(data.ok){
+     			alert(data.msg);
+     			location.href = '<%=path%>/admin/list';
+     		}else{
+     			alert(data.msg);
+     			location.href = '<%=path%>/admin/list';
+     		}
+     	
+     	},
+     	error:function(data){
+     		alert('保存失败');
+     	}
+ 	 });
+     return false;   //防止表单自动提交  
+});   
+        
 
 	</script>
 </body>

@@ -32,4 +32,6 @@ public interface IMcpBaseInfoService {
     
     
     int updatePassword(int cpid,String password);
+    
+    List<McpBaseInfo> getAllList(String strWhere);
 }

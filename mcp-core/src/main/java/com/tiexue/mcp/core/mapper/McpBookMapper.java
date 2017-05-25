@@ -112,4 +112,17 @@ public interface McpBookMapper {
     
     @Select({"select count(1) from McpBook where ${strWhere}"})
     int getCount(@Param("strWhere")String strWhere);
+    
+    
+    @Select({
+        "select",
+        "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
+        "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
+        "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
+        "AuditInfo, CreateTime",
+        "from McpBook",
+        "where CPBId = #{CPBId}"
+    })
+    @ResultMap("BaseResultMap")
+    McpBook selectByCpBId(@Param("cpBId")String cpBId);
 }
