@@ -40,6 +40,8 @@ public class PluginGeneral {
 	protected String appkey;
 	//合作方Id
 	protected Integer cpId;
+	//合作名称
+	protected String cpName;
 	//存放书籍列表信息		
 	protected HashMap<String,TaskBook> bookMap=null;
 	//存放章节列表信息
@@ -49,7 +51,7 @@ public class PluginGeneral {
 	//存放当前采集的章节信息
 	protected TaskChapter currentChapter=null;
 	@Resource
-	ITaskBookService iTaskBookService;
+	ITaskBookService taskBookService;
 	@Resource
 	ITaskChapterService iTaskChapterService;
 	
@@ -66,6 +68,7 @@ public class PluginGeneral {
 			this.interfaceUrl=baseInfo.getInterfaceurl1();
 			this.appkey=baseInfo.getAppkey();
 			this.cpId=baseInfo.getCpid();
+			this.cpName=baseInfo.getName();
 		}
 	}
 
@@ -97,10 +100,11 @@ public class PluginGeneral {
 			currentTask.setAppkey(appkey);
 			currentTask.setUrl(baseUrl);
 			currentTask.setCpId(cpId);
+			currentTask.setCpName(cpName);
 			currentTask.load(true);
 		} catch (Exception e) {
 			logger.error("startTask error."+e.getMessage()+". url:"+baseUrl);
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -129,6 +133,7 @@ public class PluginGeneral {
 		if(bookMap==null)
 			return;
 		for(Map.Entry<String, TaskBook> entry: bookMap.entrySet()){
+			//添加采集书籍内容的url地址
 			scheduleList.add(entry.getKey());
 		}
 		this.bookMap=bookMap;
@@ -138,13 +143,26 @@ public class PluginGeneral {
 	 * @param taskbook
 	 */
 	private void parseBookInfo(TaskBook taskbook){
-		if(taskbook==null||taskbook.getCpbid()!=null)
+		if(taskbook==null||taskbook.getCpbid()==null)
 			return;
-		McpBook mcpBook= iTaskBookService.selectByCpBId(taskbook.getCpbid());
+		McpBook mcpBook= taskBookService.selectByCpBId(taskbook.getCpbid());
+		//书籍已经采集且有更新
 		if(mcpBook!=null&&!currentTask.isUpdateBook(mcpBook)){
-			iTaskBookService.update(mcpBook,taskbook);
-		}else{
-			iTaskBookService.insert(taskbook);
+			taskBookService.update(mcpBook,taskbook);
+		}
+		//书籍未采集，需要保存到数据库中
+		else{
+			McpBook bMcpBook=taskBookService.insert(taskbook);
+			if(bMcpBook!=null&&bMcpBook.getId()!=null&&bMcpBook.getId()>0){
+				if(taskbook.getChaptersurl()!=null){
+					//添加采集章节列表的url地址
+					scheduleList.add(taskbook.getChaptersurl());
+				}
+				//给存放临时书籍的字段赋值
+				tempBook=bMcpBook;
+			}else{
+				//插入失败，不进行下边的操作
+			}
 		}
 	}
 }

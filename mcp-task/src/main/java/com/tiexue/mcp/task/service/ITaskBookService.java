@@ -26,6 +26,6 @@ public interface ITaskBookService {
 	 * @param record
 	 * @return
 	 */
-	int update(McpBook record,TaskBook taskBook);
+	McpBook update(McpBook record,TaskBook taskBook);
 
 }

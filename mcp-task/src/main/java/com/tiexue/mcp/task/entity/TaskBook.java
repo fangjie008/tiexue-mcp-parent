@@ -90,7 +90,8 @@ public class TaskBook {
 	 * 更新时间
 	 */
 	private Date updatetime;
-
+	private String subhead;
+    private String tags;
 	public String getUrl() {
 		return url;
 	}
@@ -210,6 +211,18 @@ public class TaskBook {
 	}
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+	}
+	public String getSubhead() {
+		return subhead;
+	}
+	public void setSubhead(String subhead) {
+		this.subhead = subhead;
+	}
+	public String getTags() {
+		return tags;
+	}
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 	
 }

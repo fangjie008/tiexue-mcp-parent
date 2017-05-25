@@ -32,6 +32,8 @@ public abstract class PageBase {
 	private String appkey;
 	//合作方Id
 	private Integer cpId;
+	//合作方名称
+	private String cpName;
 	//存放书籍列表信息
 	protected HashMap<String,TaskBook> bookMap=null;
 	//存放章节列表信息
@@ -69,6 +71,15 @@ public abstract class PageBase {
 
 	public void setCpId(Integer cpId) {
 		this.cpId = cpId;
+	}
+	
+
+	public String getCpName() {
+		return cpName;
+	}
+
+	public void setCpName(String cpName) {
+		this.cpName = cpName;
 	}
 
 	/**

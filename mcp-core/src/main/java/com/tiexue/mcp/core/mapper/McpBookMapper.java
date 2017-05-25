@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -47,6 +48,7 @@ public interface McpBookMapper {
         "#{putawaystatus,jdbcType=INTEGER}, #{auditstatus,jdbcType=INTEGER}, ",
         "#{auditinfo,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys = true, keyProperty = "Id")
     int insert(McpBook record);
 
     int insertSelective(McpBook record);

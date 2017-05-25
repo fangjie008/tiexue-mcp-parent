@@ -77,9 +77,15 @@ public class SyncNovelManage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		PluginGeneral pgGeneral = new PluginGeneral("com.tiexue.mcp.task.plugin.EPageTieXueDuShu",
-				mcpBaseInfo);
-		pgGeneral.execute(1);
+		try {
+			PluginGeneral pgGeneral = new PluginGeneral("com.tiexue.mcp.task.plugin.EPageTieXueDuShu",
+					mcpBaseInfo);
+			pgGeneral.execute(1);
+		} catch (Exception e) {
+			logger.info("EPageTieXueDuShu error. url: "+mcpBaseInfo.getInterfaceurl1()+e.getMessage());
+			e.printStackTrace();
+		}
+	
 
 	}
 	

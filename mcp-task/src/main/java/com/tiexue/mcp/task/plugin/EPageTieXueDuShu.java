@@ -123,7 +123,7 @@ public class EPageTieXueDuShu extends PageBase {
 			Element titleEle=e.element("title");
 			if(titleEle!=null){
 				String title=titleEle.getStringValue();
-				book.setCpname(title);;
+				book.setName(title);;
 			}
 			Element urlEle=e.element("url");
 			if(urlEle!=null){
@@ -204,7 +204,10 @@ public class EPageTieXueDuShu extends PageBase {
         if(isvip!=null||isvip=="0"){
         	bookInfo.setChargemode(McpConstants.ChargeMode_Free);
         }
+        //自带属性必须加上
         bookInfo.setCpid(getCpId());
+        //自带属性必须加上
+        bookInfo.setCpname(getCpName());
 	 	return bookInfo;
 	}
 

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PropertyReloader {
 
-	@Resource(name = "propertyConfigurer")
+	@Resource(name = "customizedPropertyConfigurer")
 	private CustomizedPropertyConfigurer customizedPropertyConfigurer;
 
 	@Scheduled(initialDelay = 10 * 60 * 1000, fixedDelay = 5 * 60 * 1000)
