@@ -1,0 +1,100 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro Security Configuration</description>
+
+	<!-- 基于Form表单的身份验证过滤器 <bean id="formAuthenticationFilter" class="com.tiexue.mcp.manage.filter.FormAuthenticationCaptchaFilter"> 
+		<property name="usernameParam" value="username" /> <property name="passwordParam" 
+		value="password" /> <property name="loginUrl" value="login" /> </bean> -->
+
+
+	<!-- filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- shiro 的核心安全接口 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 要求登录时的链接 -->
+		<property name="loginUrl" value="login.jsp" />
+		<!-- 登陆成功后要跳转的连接 -->
+		<property name="successUrl" value="mcphome/homepage" />
+		<!-- 未授权时要跳转的连接 -->
+		<property name="unauthorizedUrl" value="${back.adminPath}/unauthorized" />
+		<!-- 引用Shiro Filter -->
+		<!-- <property name="filters"> <map> <entry key="authc" value-ref="formAuthenticationFilter" 
+			/> </map> </property> -->
+		<!-- shiro 连接约束配置 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/static/** = anon
+				/** = anon
+				<!-- /**/** =anon ${back.adminPath}/logout = logout ${back.adminPath}/unauthorized 
+					= anon /login.jsp = anon /**=user -->
+			</value>
+		</property>
+	</bean>
+
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userAuthRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+	</bean>
+
+	<!-- Realm实现 -->
+	<bean id="userAuthRealm" class="com.tiexue.mcp.core.shiro.UserAuthRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher" />
+		<property name="cachingEnabled" value="true" />
+		<!-- <property name="authenticationCachingEnabled" value="true" /> <property 
+			name="authenticationCacheName" value="authenticationCache" /> <property name="authorizationCachingEnabled" 
+			value="true" /> <property name="authorizationCacheName" value="authorizationCache" 
+			/> -->
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher"
+		class="com.tiexue.mcp.manage.credentials.RetryLimitHashedCredentialsMatcher">
+		<constructor-arg ref="shiroEhcacheManager" />
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="2" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+	</bean>
+
+
+	<!-- 缓存管理器 使用Ehcache实现 -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+	</bean>
+
+	<!-- 捕获异常后跳转页面 -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException"> 
+					../../login
+				</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException"> 
+					../../login
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+
+</beans>
