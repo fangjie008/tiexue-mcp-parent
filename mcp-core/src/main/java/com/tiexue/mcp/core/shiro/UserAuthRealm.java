@@ -20,6 +20,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,9 +118,13 @@ public class UserAuthRealm extends AuthorizingRealm {
 		subject.setMcpAdmin(userAdmin);
 		subject.setMcpBaseInfo(userCp);
 
-//		if (!password.equals(subject.getPassword())) {
-//			throw new UnknownAccountException();
-//		}
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		session.setAttribute("user", subject);
+
+		// if (!password.equals(subject.getPassword())) {
+		// throw new UnknownAccountException();
+		// }
 		// UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		// ShiroUser shiroUser = new ShiroUser(user.getId(),
 		// user.getUsername(), user.getUsername());
@@ -127,95 +132,96 @@ public class UserAuthRealm extends AuthorizingRealm {
 		System.out.print("this is testing");
 
 		// 用户密码验证,交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
-		SimpleAuthenticationInfo authInfo = new SimpleAuthenticationInfo(subject.getUserName(), subject.getPassword(), ByteSource.Util.bytes(""), subject.getUserName());
+		SimpleAuthenticationInfo authInfo = new SimpleAuthenticationInfo(subject.getUserName(), subject.getPassword(),
+				ByteSource.Util.bytes(""), subject.getUserName());
 		return authInfo;
 	}
 
-//	/**
-//	 * 设置用户session
-//	 */
-//	private void initSession(McpAdmin user) {
-//		logger.info("sessionTimeOut:" + SessionConstants.sessionTimeOut);
-//		Session session = SecurityUtils.getSubject().getSession();
-//		session.setTimeout(SessionConstants.sessionTimeOut);
-//		session.setAttribute(SessionConstants.SESSION_USER_KEY, user);
-//	}
-//
-//	/**
-//	 * 设定Password校验.
-//	 */
-//	@PostConstruct
-//	public void initCredentialsMatcher() {
-//		/**
-//		 * 自定义密码验证
-//		 */
-//		 setCredentialsMatcher(new CustomizedCredentialsMatcher());
-//	}
-//
-//	/**
-//	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
-//	 */
-//	public static class ShiroUser implements Serializable {
-//		private static final long serialVersionUID = -1373760761780840081L;
-//		public Long id;
-//		public String username;
-//		public String name;
-//
-//		public ShiroUser(Long id, String username, String name) {
-//			this.id = id;
-//			this.username = username;
-//			this.name = name;
-//		}
-//
-//		public Long getId() {
-//			return id;
-//		}
-//
-//		public String getName() {
-//			return name;
-//		}
-//
-//		/**
-//		 * 本函数输出将作为默认的<shiro:principal/>输出.
-//		 */
-//		@Override
-//		public String toString() {
-//			return username;
-//		}
-//
-//		/**
-//		 * 重载hashCode.
-//		 */
-//		@Override
-//		public int hashCode() {
-//			return Objects.hashCode(username);
-//		}
-//
-//		/**
-//		 * 重载equals.
-//		 */
-//		@Override
-//		public boolean equals(Object obj) {
-//			if (this == obj) {
-//				return true;
-//			}
-//			if (obj == null) {
-//				return false;
-//			}
-//			if (getClass() != obj.getClass()) {
-//				return false;
-//			}
-//			ShiroUser other = (ShiroUser) obj;
-//			if (username == null) {
-//				if (other.username != null) {
-//					return false;
-//				}
-//			} else if (!username.equals(other.username)) {
-//				return false;
-//			}
-//			return true;
-//		}
-//	}
+	// /**
+	// * 设置用户session
+	// */
+	// private void initSession(McpAdmin user) {
+	// logger.info("sessionTimeOut:" + SessionConstants.sessionTimeOut);
+	// Session session = SecurityUtils.getSubject().getSession();
+	// session.setTimeout(SessionConstants.sessionTimeOut);
+	// session.setAttribute(SessionConstants.SESSION_USER_KEY, user);
+	// }
+	//
+	// /**
+	// * 设定Password校验.
+	// */
+	// @PostConstruct
+	// public void initCredentialsMatcher() {
+	// /**
+	// * 自定义密码验证
+	// */
+	// setCredentialsMatcher(new CustomizedCredentialsMatcher());
+	// }
+	//
+	// /**
+	// * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
+	// */
+	// public static class ShiroUser implements Serializable {
+	// private static final long serialVersionUID = -1373760761780840081L;
+	// public Long id;
+	// public String username;
+	// public String name;
+	//
+	// public ShiroUser(Long id, String username, String name) {
+	// this.id = id;
+	// this.username = username;
+	// this.name = name;
+	// }
+	//
+	// public Long getId() {
+	// return id;
+	// }
+	//
+	// public String getName() {
+	// return name;
+	// }
+	//
+	// /**
+	// * 本函数输出将作为默认的<shiro:principal/>输出.
+	// */
+	// @Override
+	// public String toString() {
+	// return username;
+	// }
+	//
+	// /**
+	// * 重载hashCode.
+	// */
+	// @Override
+	// public int hashCode() {
+	// return Objects.hashCode(username);
+	// }
+	//
+	// /**
+	// * 重载equals.
+	// */
+	// @Override
+	// public boolean equals(Object obj) {
+	// if (this == obj) {
+	// return true;
+	// }
+	// if (obj == null) {
+	// return false;
+	// }
+	// if (getClass() != obj.getClass()) {
+	// return false;
+	// }
+	// ShiroUser other = (ShiroUser) obj;
+	// if (username == null) {
+	// if (other.username != null) {
+	// return false;
+	// }
+	// } else if (!username.equals(other.username)) {
+	// return false;
+	// }
+	// return true;
+	// }
+	// }
 
 	@Override
 	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {

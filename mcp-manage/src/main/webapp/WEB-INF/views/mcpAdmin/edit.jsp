@@ -18,14 +18,14 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户Id</label>
 			<div class="layui-input-inline">
-				<input type="text" id="cpid" name="cpid" value="${mcpAdmin.id}" readonly="true" class="layui-input">
+				<input type="text" id="id" name="id" value="${mcpAdmin.id}" readonly="true" class="layui-input">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名</label>
 			<div class="layui-input-block">
-				<input type="text" id="username" name="username" value="${mcpAdmin.name}" autocomplete="off" lay-verify="name" class="layui-input" readonly="true">
+				<input type="text" id="name" name="name" value="${mcpAdmin.name}" autocomplete="off" lay-verify="name" class="layui-input" readonly="true">
 			</div>
 		</div>
 

@@ -29,6 +29,7 @@
 				<th>用户名</th>
 				<th>类型(1:管理员,2:权限用户)</th>
 				<th>角色列表</th>
+				<th>备注</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -38,6 +39,7 @@
 					<td>${user.name}</td>
 					<td>${user.type}</td>
 					<td>${user.auth}</td>
+					<td>${user.intro}</td>
 					<td>
 						<a class="layui-btn layui-btn-small layui-btn-normal" href="${pageContext.request.contextPath}/admin/${user.id}/update">修改</a> 
 						<a class="layui-btn layui-btn-small layui-btn-danger" href="${pageContext.request.contextPath}/admin/${user.id}/del">删除</a> 
