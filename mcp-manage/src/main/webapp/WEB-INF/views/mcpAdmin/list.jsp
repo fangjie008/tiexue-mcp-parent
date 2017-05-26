@@ -42,8 +42,8 @@
 					<td>${user.intro}</td>
 					<td>
 						<a class="layui-btn layui-btn-small layui-btn-normal" href="${pageContext.request.contextPath}/admin/${user.id}/update">修改</a> 
-						<a class="layui-btn layui-btn-small layui-btn-danger" href="${pageContext.request.contextPath}/admin/${user.id}/del">删除</a> 
-						<a class="layui-btn layui-btn-small layui-btn-normal" href="${pageContext.request.contextPath}/admin/${user.id}/changePassword">改密</a>
+						<a class="layui-btn layui-btn-small layui-btn-danger" onclick="deleteUser('${user.id}')" href="#">删除</a> 
+						<a class="layui-btn layui-btn-small layui-btn-normal" href="${pageContext.request.contextPath}/admin/${user.id}/changepassword">改密</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -58,6 +58,28 @@ var pindex=1;
     });
 
 
+    function deleteUser(id){
+    	$.ajax({
+    		url:'<%=path%>/admin/' + id + '/del'
+    	    ,type:"post"
+    	    ,dataType:"json"
+    	    ,success:function(data){
+    	    	if(data.ok){
+        			alert(data.msg);
+        			location.href ='<%=path%>/admin/list';
+        		}else{
+        			alert(data.msg);
+        			//超时
+        			location.href ='<%=path%>/admin/list';
+				}
+    	    },
+				error : function(e) {
+					alert('失败');
+				}
+    	    
+			});
+		}
+    
 	</script>
 </body>
 </html>

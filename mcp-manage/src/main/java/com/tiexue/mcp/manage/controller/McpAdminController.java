@@ -179,17 +179,29 @@ public class McpAdminController {
 	 **/
 	@RequiresRoles("admin")
 	@RequestMapping(value = "/{id}/del", method = RequestMethod.POST)
+	@ResponseBody
 	public String doDelUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-		mcpAdminSer.del(id);
-		redirectAttributes.addFlashAttribute("msg", "删除成功");
-		return "redirect:/admin/list";
+		//mcpAdminSer.del(id);
+		//redirectAttributes.addFlashAttribute("msg", "删除成功");
+		//return "redirect:/admin/list";
+		JSONObject jObject=new JSONObject();
+		try {
+			mcpAdminSer.del(id);
+			jObject.put("ok",true);
+			jObject.put("msg", "删除成功");
+		} catch (Exception e) {
+			logger.error("error:"+e.getMessage());
+			jObject.put("ok",false);
+			jObject.put("msg","删除失败");
+		}
+		return jObject.toJSONString();
 	}
 
 	/**
 	 * 修改密码
 	 **/
 	@RequiresRoles("admin")
-	@RequestMapping(value = "/{id}/changePassword", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/changepassword", method = RequestMethod.GET)
 	public String showChangePassword(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("user", mcpAdminSer.getById(id));
 		model.addAttribute("op", "修改密码");
@@ -200,7 +212,7 @@ public class McpAdminController {
 	 * 修改密码-操作
 	 **/
 	@RequiresRoles("admin")
-	@RequestMapping(value = "/{id}/changePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}/changepassword", method = RequestMethod.POST)
 	public String doChangePassword(@PathVariable("id") Integer id, String newPassword,
 			RedirectAttributes redirectAttributes) {
 		mcpAdminSer.changePassword(id, newPassword);
