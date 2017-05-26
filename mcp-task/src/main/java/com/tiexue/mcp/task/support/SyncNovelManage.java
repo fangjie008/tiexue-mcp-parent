@@ -2,24 +2,18 @@ package com.tiexue.mcp.task.support;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContextEvent;
 
 import org.apache.log4j.Logger;
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
+import com.tiexue.mcp.core.service.IMcpBookService;
+import com.tiexue.mcp.core.service.IMcpChapterService;
 import com.tiexue.mcp.task.plugin.PluginGeneral;
+
 
 /**
  * 同步小说入口
@@ -31,8 +25,14 @@ public class SyncNovelManage {
 
 	private static Logger logger=Logger.getLogger(SyncNovelManage.class);
 	
+
+	
 	@Resource
 	IMcpBaseInfoService iMcpBaseInfoService;
+	@Resource
+	IMcpBookService iMcpBookService;
+	@Resource
+    IMcpChapterService iMcpChapterService;
 	
 	private static List<McpBaseInfo> mcpBaseInfos;
 	/**
@@ -44,10 +44,10 @@ public class SyncNovelManage {
 	}
 	
 	/**
-	 * 开始同步小说。每个站点用一个线程
+	 * 开始同步小说。
 	 */
 	@SuppressWarnings("unused")
-	private static void start(){
+	private  void start(){
 		if(mcpBaseInfos!=null){
 			for(McpBaseInfo mcpBaseInfo:mcpBaseInfos){
 				if(mcpBaseInfo.getInterfaceurl1()!=null&&!mcpBaseInfo.getInterfaceurl1().isEmpty()){
@@ -68,7 +68,7 @@ public class SyncNovelManage {
 	
 	
 	@SuppressWarnings("unused")
-	private static void executeTieXueDuShu(McpBaseInfo mcpBaseInfo) {
+	private  void executeTieXueDuShu(McpBaseInfo mcpBaseInfo) {
 
 		logger.info("EPageTieXueDuShu start"+new Date());
 		try {
@@ -80,6 +80,8 @@ public class SyncNovelManage {
 		try {
 			PluginGeneral pgGeneral = new PluginGeneral("com.tiexue.mcp.task.plugin.EPageTieXueDuShu",
 					mcpBaseInfo);
+			pgGeneral.setiMcpBookService(iMcpBookService);
+			pgGeneral.setiMcpChapterService(iMcpChapterService);
 			pgGeneral.execute(1);
 		} catch (Exception e) {
 			logger.info("EPageTieXueDuShu error. url: "+mcpBaseInfo.getInterfaceurl1()+e.getMessage());
@@ -90,7 +92,7 @@ public class SyncNovelManage {
 	}
 	
 	@SuppressWarnings("unused")
-	private static void executeDefault(McpBaseInfo mcpBaseInfo) {
+	private  void executeDefault(McpBaseInfo mcpBaseInfo) {
 //		Thread thread=new Thread(mcpBaseInfo.getName());
 //		thread.start();
 	}

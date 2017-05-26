@@ -1,31 +1,28 @@
-package com.tiexue.mcp.task.service.impl;
+package com.tiexue.mcp.task.util;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpConstants;
-import com.tiexue.mcp.core.service.IMcpBookService;
 import com.tiexue.mcp.task.entity.TaskBook;
-import com.tiexue.mcp.task.service.ITaskBookService;
 
-@Service("TaskBookService")
-public class TaskBookServiceImpl implements ITaskBookService {
 
-	@Resource
-	IMcpBookService mcpBookService;
-	@Override
-	public McpBook insert(TaskBook record) {
+public class ConvertBook {
+
+	/**
+	 * 把采集的需要新增的书籍信息转化成McpBook对象
+	 * @param record
+	 * @return
+	 */
+	public static McpBook toMcpBookDaoForInsert(TaskBook record) {
 		if(record==null)
 			return null;
 		McpBook mcpBook=new McpBook();
 		//新增的书审核状态默认为未审核
 		mcpBook.setAuditstatus(McpConstants.AuditStatus_UnAudit);
 		mcpBook.setAuditinfo("");
-		mcpBook.setActors(record.getAuthor()==null?"":record.getAuthor());
+		mcpBook.setAuthor(record.getAuthor()==null?"":record.getAuthor());
+		mcpBook.setActors(record.getActors()==null?"":record.getActors());
 		mcpBook.setBookstatus(record.getBookstatus()==null?0:record.getBookstatus());
 		mcpBook.setChanneltype(record.getChanneltype()==null?0:record.getChanneltype());
 		mcpBook.setChaptercount(record.getChaptercount()==null?0:record.getChaptercount());
@@ -49,24 +46,17 @@ public class TaskBookServiceImpl implements ITaskBookService {
 		mcpBook.setTags(record.getTags()==null?"":record.getTags());
 		mcpBook.setUpdatetime(record.getUpdatetime()==null?new Date():record.getUpdatetime());
 		mcpBook.setWords(record.getWords()==null?0:record.getWords());
-		int id= mcpBookService.insert(mcpBook);
-		if(id>0){
-			mcpBook.setId(id);
-		}
-		else{
-			mcpBook.setId(0);
-		}
+	
 		return mcpBook;
 	}
 
-	@Override
-	public McpBook selectByCpBId(String cpBid) {
-		return mcpBookService.selectByCpBId(cpBid);
-	}
-
-
-	@Override
-	public McpBook update(McpBook oldRecord, TaskBook taskBook) {
+	/**
+	 *  把采集的需要更新的书籍信息转化成McpBook对象
+	 * @param oldRecord
+	 * @param taskBook
+	 * @return
+	 */
+	public static McpBook toMcpBookDaoForUpdate(McpBook oldRecord, TaskBook taskBook) {
 		if(taskBook==null)
 			return oldRecord;
 		McpBook mcpBook=new McpBook();
@@ -100,10 +90,7 @@ public class TaskBookServiceImpl implements ITaskBookService {
 			mcpBook.setUpdatetime(taskBook.getUpdatetime());
 		if(taskBook.getWords()!=null)
 			mcpBook.setWords(taskBook.getWords());
-		int id= mcpBookService.updateByPrimaryKey(mcpBook);
 		return mcpBook;
 	}
-
-	
 
 }

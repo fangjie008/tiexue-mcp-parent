@@ -25,4 +25,16 @@ public interface IMcpBookService {
     int getCount(String strWhere);
     
     McpBook selectByCpBId(String cpBId);
+    /**
+     * 新增采集的书籍
+     * @param record
+     * @return
+     */
+    McpBook taskInsert(McpBook record);
+    /**
+     * 更新采集的书籍
+     * @param record
+     * @return
+     */
+	McpBook taskUpdate(McpBook record);
 }

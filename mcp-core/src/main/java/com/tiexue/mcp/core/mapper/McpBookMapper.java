@@ -126,5 +126,5 @@ public interface McpBookMapper {
         "where CPBId = #{CPBId}"
     })
     @ResultMap("BaseResultMap")
-    McpBook selectByCpBId(@Param("cpBId")String cpBId);
+    McpBook selectByCpBId(@Param("CPBId")String cpBId);
 }

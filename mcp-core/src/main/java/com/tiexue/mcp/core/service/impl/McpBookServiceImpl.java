@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,8 +9,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBook;
+import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.core.mapper.McpBookMapper;
 import com.tiexue.mcp.core.service.IMcpBookService;
+
 
 /**
  * 作品管理
@@ -62,4 +65,25 @@ public class McpBookServiceImpl implements IMcpBookService {
 	public McpBook selectByCpBId(String cpBId) {
 		return mcpBookMapper.selectByCpBId(cpBId);
 	}
+	@Override
+	public McpBook taskInsert(McpBook record) {
+		if(record==null)
+			return null;
+		int id= mcpBookMapper.insert(record);
+		if(id>0){
+			record.setId(id);
+		}
+		else{
+			record.setId(0);
+		}
+		return record;
+	}
+	@Override
+	public McpBook taskUpdate(McpBook record) {
+		if(record==null)
+			return record;
+		int id= mcpBookMapper.updateByPrimaryKey(record);
+		return record;
+	}
+	
 }

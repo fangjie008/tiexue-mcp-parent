@@ -90,6 +90,10 @@ public class TaskBook {
 	 * 更新时间
 	 */
 	private Date updatetime;
+	/**
+	 * 小说的主角
+	 */
+    private String actors;
 	private String subhead;
     private String tags;
 	public String getUrl() {
@@ -223,6 +227,12 @@ public class TaskBook {
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	public String getActors() {
+		return actors;
+	}
+	public void setActors(String actors) {
+		this.actors = actors;
 	}
 	
 }

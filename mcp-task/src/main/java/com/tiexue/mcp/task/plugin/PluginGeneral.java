@@ -5,17 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.entity.McpBook;
+import com.tiexue.mcp.core.service.IMcpBookService;
+import com.tiexue.mcp.core.service.IMcpChapterService;
 import com.tiexue.mcp.task.entity.McpTaskConstants;
 import com.tiexue.mcp.task.entity.TaskBook;
 import com.tiexue.mcp.task.entity.TaskChapter;
-import com.tiexue.mcp.task.service.ITaskBookService;
-import com.tiexue.mcp.task.service.ITaskChapterService;
+import com.tiexue.mcp.task.util.ConvertBook;
+
 
 
 /**
@@ -50,11 +50,26 @@ public class PluginGeneral {
 	protected McpBook tempBook=null;
 	//存放当前采集的章节信息
 	protected TaskChapter currentChapter=null;
-	@Resource
-	ITaskBookService taskBookService;
-	@Resource
-	ITaskChapterService iTaskChapterService;
-	
+	//保存书籍的方法
+	IMcpBookService iMcpBookService;
+	//保存章节的方法
+    IMcpChapterService iMcpChapterService;
+	public IMcpBookService getiMcpBookService() {
+		return iMcpBookService;
+	}
+
+	public void setiMcpBookService(IMcpBookService iMcpBookService) {
+		this.iMcpBookService = iMcpBookService;
+	}
+
+	public IMcpChapterService getiMcpChapterService() {
+		return iMcpChapterService;
+	}
+
+	public void setiMcpChapterService(IMcpChapterService iMcpChapterService) {
+		this.iMcpChapterService = iMcpChapterService;
+	}
+
 	/**
 	 * 构造方法
 	 * @param pageNme
@@ -145,14 +160,16 @@ public class PluginGeneral {
 	private void parseBookInfo(TaskBook taskbook){
 		if(taskbook==null||taskbook.getCpbid()==null)
 			return;
-		McpBook mcpBook= taskBookService.selectByCpBId(taskbook.getCpbid());
+		McpBook mcpBook= iMcpBookService.selectByCpBId(taskbook.getCpbid());
 		//书籍已经采集且有更新
 		if(mcpBook!=null&&!currentTask.isUpdateBook(mcpBook)){
-			taskBookService.update(mcpBook,taskbook);
+			mcpBook=ConvertBook.toMcpBookDaoForUpdate(mcpBook, taskbook);
+			iMcpBookService.taskUpdate(mcpBook);
 		}
 		//书籍未采集，需要保存到数据库中
 		else{
-			McpBook bMcpBook=taskBookService.insert(taskbook);
+			mcpBook=ConvertBook.toMcpBookDaoForInsert(taskbook);
+			McpBook bMcpBook=iMcpBookService.taskInsert(mcpBook);
 			if(bMcpBook!=null&&bMcpBook.getId()!=null&&bMcpBook.getId()>0){
 				if(taskbook.getChaptersurl()!=null){
 					//添加采集章节列表的url地址
