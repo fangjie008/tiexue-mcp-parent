@@ -30,14 +30,10 @@ public abstract class PageBase {
 	private String url;
 	// 接口秘钥
 	private String appkey;
-	//合作方Id
-	private Integer cpId;
-	//合作方名称
-	private String cpName;
 	//存放书籍列表信息
-	protected HashMap<String,TaskBook> bookMap=null;
+	protected List<TaskBook> bookList=null;
 	//存放章节列表信息
-	protected HashMap<String,TaskChapter> chapterMap=null;
+	protected List<TaskChapter> chapterList=null;
 	//存放当前采集的书籍信息
 	protected TaskBook currentBook=null;
 	//存放当前采集的章节信息
@@ -65,23 +61,6 @@ public abstract class PageBase {
 	}
 	
 
-	public Integer getCpId() {
-		return cpId;
-	}
-
-	public void setCpId(Integer cpId) {
-		this.cpId = cpId;
-	}
-	
-
-	public String getCpName() {
-		return cpName;
-	}
-
-	public void setCpName(String cpName) {
-		this.cpName = cpName;
-	}
-
 	/**
 	 * 修改接口地址
 	 * 
@@ -107,7 +86,7 @@ public abstract class PageBase {
 	public void load(boolean isUTF8) {
 		try {
 			//获取接口内容
-			String result = HttpUtils.HttpRequest(internalUrl, "get", "", isUTF8);
+			String result = HttpUtils.HttpRequest(internalUrl, "post", "", isUTF8);
 			parseXmlString(result);
 
 		} catch (Exception e) {

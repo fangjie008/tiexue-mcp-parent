@@ -1,6 +1,5 @@
 package com.tiexue.mcp.task.plugin;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
 import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.task.entity.TaskBook;
+import com.tiexue.mcp.task.entity.TaskChapter;
 import com.tiexue.mcp.task.entity.McpTaskConstants;
 
 /**
@@ -38,7 +38,11 @@ public class EPageTieXueDuShu extends PageBase {
 	public void load(boolean isUTF8) {
 		currentDate = DateUtil.date2Str(new Date(), DateUtil.DATE_FORMAT_YYYYMMDD);
 		String tempUrl = getUrl();
-		String sign;
+		String sign = "";
+		String bid = "";
+		String cid = "";
+		Pattern tempPat;
+		Matcher matcher;
 		switch (pageType) {
 		case McpTaskConstants.PageType_BookList:
 			sign = currentDate + "#booklist#" + getAppkey();
@@ -48,13 +52,10 @@ public class EPageTieXueDuShu extends PageBase {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			tempUrl = tempUrl + "&sign=" + sign;
-			modifyInternalUrl(tempUrl);
 			break;
 		case McpTaskConstants.PageType_BookInfo:
-			String bid = "";
-			Pattern tempPat = Pattern.compile("bid=(\\d+)");
-			Matcher matcher = tempPat.matcher(getUrl());
+			tempPat = Pattern.compile("bid=(\\d+)");
+			matcher = tempPat.matcher(getUrl());
 			if (matcher.find()) {
 				bid = matcher.group(1);
 			}
@@ -65,10 +66,43 @@ public class EPageTieXueDuShu extends PageBase {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			tempUrl = tempUrl + "&sign=" + sign;
-			modifyInternalUrl(tempUrl);
+			break;
+		case McpTaskConstants.PageType_ChapterList:
+			tempPat = Pattern.compile("bid=(\\d+)");
+			matcher = tempPat.matcher(getUrl());
+			if (matcher.find()) {
+				bid = matcher.group(1);
+			}
+			sign = currentDate + "#chapterlist#" + bid + "#" + getAppkey();
+			try {
+				sign = Md5Utils.ToBit32(sign, "");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case McpTaskConstants.PageType_ChapterInfo:
+			tempPat = Pattern.compile("bid=(\\d+)");
+			matcher = tempPat.matcher(getUrl());
+			if (matcher.find()) {
+				bid = matcher.group(1);
+			}
+			tempPat = Pattern.compile("cid=(\\d+)");
+			matcher = tempPat.matcher(getUrl());
+			if (matcher.find()) {
+				cid = matcher.group(1);
+			}
+			sign = currentDate + "#chapter#" + bid + "#" + cid + "#" + getAppkey();
+			try {
+				sign = Md5Utils.ToBit32(sign, "");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		}
+		tempUrl = tempUrl + "&sign=" + sign;
+		modifyInternalUrl(tempUrl);
 		super.load(isUTF8);
 	}
 
@@ -87,10 +121,17 @@ public class EPageTieXueDuShu extends PageBase {
 		}
 		switch (pageType) {
 		case McpTaskConstants.PageType_BookList:
-			bookMap=parseBookList(xmlstring);
+			bookList = parseBookList(xmlstring);
 			break;
 		case McpTaskConstants.PageType_BookInfo:
-			currentBook=parseBookInfo(xmlstring);
+			currentBook = parseBookInfo(xmlstring);
+			break;
+		case McpTaskConstants.PageType_ChapterList:
+			chapterList = parseChapterList(xmlstring);
+			break;
+		case McpTaskConstants.PageType_ChapterInfo:
+			currentChapter = parseChapterInfo(xmlstring);
+			break;
 		default:
 			break;
 		}
@@ -98,121 +139,210 @@ public class EPageTieXueDuShu extends PageBase {
 
 	/**
 	 * 解析书籍列表
+	 * 
 	 * @param htmlstring
 	 * @return
 	 */
-	private HashMap<String, TaskBook> parseBookList(String xmlstring) {
- 		Document doc = null;
- 		HashMap<String,TaskBook> returnMap=new HashMap<>();
+	private List<TaskBook> parseBookList(String xmlstring) {
+		Document doc = null;
+		List<TaskBook> returns = new ArrayList<TaskBook>();
 		try {
 			doc = DocumentHelper.parseText(xmlstring);
 		} catch (DocumentException e1) {
-			logger.error("parseBookList DocumentHelper.parseText error url:"+internalUrl);
+			logger.error("parseBookList DocumentHelper.parseText error url:" + internalUrl);
 			e1.printStackTrace();
 		}
 		String xpath = "//document/items/item";
 		@SuppressWarnings("unchecked")
 		List<Element> list = doc.selectNodes(xpath);
 		for (Element e : list) {
-			TaskBook book=new TaskBook();
-			Element bookidEle= e.element("bookid");
-			if(bookidEle!=null){
-				String bookid= bookidEle.getStringValue();
+			TaskBook book = new TaskBook();
+			Element bookidEle = e.element("bookid");
+			if (bookidEle != null) {
+				String bookid = bookidEle.getStringValue();
 				book.setCpbid(bookid);
 			}
-			Element titleEle=e.element("title");
-			if(titleEle!=null){
-				String title=titleEle.getStringValue();
-				book.setName(title);;
+			Element titleEle = e.element("title");
+			if (titleEle != null) {
+				String title = titleEle.getStringValue();
+				book.setName(title);
+				;
 			}
-			Element urlEle=e.element("url");
-			if(urlEle!=null){
-				String url=urlEle.getStringValue();
+			Element urlEle = e.element("url");
+			if (urlEle != null) {
+				String url = urlEle.getStringValue();
 				book.setUrl(url);
 			}
-			if(book.getUrl()==null||book.getUrl().isEmpty())
+			if (book.getUrl() == null || book.getUrl().isEmpty())
 				continue;
-			returnMap.put(book.getUrl(),book);
+			returns.add(book);
 		}
-		return returnMap;
+		return returns;
 	}
+
 	/**
 	 * 解析书籍信息
+	 * 
 	 * @param xmlstring
 	 * @return
 	 */
-	private TaskBook parseBookInfo(String xmlstring){
-		TaskBook bookInfo=new TaskBook();
-		Document doc=null;
+	private TaskBook parseBookInfo(String xmlstring) {
+		TaskBook bookInfo = new TaskBook();
+		Document doc = null;
 		try {
-			doc=DocumentHelper.parseText(xmlstring);
-			
+			doc = DocumentHelper.parseText(xmlstring);
+
 		} catch (DocumentException e) {
-			logger.error(" parseBookInfo DocumentHelper.parseText error url:"+internalUrl);
+			logger.error(" parseBookInfo DocumentHelper.parseText error url:" + internalUrl);
 			e.printStackTrace();
 		}
-		Node tempNode= doc.selectSingleNode("//document/info");
-		if(tempNode==null)
+		Node tempNode = doc.selectSingleNode("//document/info");
+		if (tempNode == null)
 			return null;
-		String title=tempNode.valueOf("title");
-		if(title!=null)
+		String title = tempNode.valueOf("title");
+		if (title != null)
 			bookInfo.setName(title);
-		String chaptersurl=tempNode.valueOf("chaptersurl");
-		if(chaptersurl!=null)
+		String chaptersurl = tempNode.valueOf("chaptersurl");
+		if (chaptersurl != null)
 			bookInfo.setChaptersurl(chaptersurl);
-		String bookid=tempNode.valueOf("bookid");
-		if(bookid!=null)
+		String bookid = tempNode.valueOf("bookid");
+		if (bookid != null)
 			bookInfo.setCpbid(bookid);
-		String category=tempNode.valueOf("category");
-		if(category!=null){
+		String category = tempNode.valueOf("category");
+		if (category != null) {
 			bookInfo.setClassify(getClassify(category));
 		}
-		String image_big=tempNode.valueOf("image_big");
-		if(image_big!=null)
+		String image_big = tempNode.valueOf("image_big");
+		if (image_big != null)
 			bookInfo.setCoverimg(image_big);
-		String comment=tempNode.valueOf("comment");
-		if(comment!=null)
+		String comment = tempNode.valueOf("comment");
+		if (comment != null)
 			bookInfo.setIntro(comment);
-		String author=tempNode.valueOf("author");
-		if(author!=null)
+		String author = tempNode.valueOf("author");
+		if (author != null)
 			bookInfo.setAuthor(author);
-		String postdate=tempNode.valueOf("postdate");
-		if(postdate!=null){
-			Date date= DateUtil.timestamp2Date(postdate);
+		String postdate = tempNode.valueOf("postdate");
+		if (postdate != null) {
+			Date date = DateUtil.timestamp2Date(postdate);
 			bookInfo.setCreatetime(date);
 			bookInfo.setUpdatetime(date);
 		}
-		String size=tempNode.valueOf("size");
-		if(size!=null){
-			int words=0;
+		String size = tempNode.valueOf("size");
+		if (size != null) {
+			int words = 0;
 			try {
-				int wwords=Integer.parseInt(size);
+				words = Integer.parseInt(size);
 			} catch (Exception e) {
 			}
 			bookInfo.setWords(words);
 		}
-		
-		//铁血的书默认为男生频道
-	    bookInfo.setChanneltype(McpConstants.McpChannelType_Body);
-		//fullflag 1完本    0 更新
-		String fullflag=tempNode.valueOf("fullflag");
-		if(fullflag!=null&&fullflag=="0"){
+
+		// 铁血的书默认为男生频道
+		bookInfo.setChanneltype(McpConstants.McpChannelType_Body);
+		// fullflag 1完本 0 更新
+		String fullflag = tempNode.valueOf("fullflag");
+		if (fullflag != null && fullflag == "0") {
 			bookInfo.setBookstatus(McpConstants.BookStatus_Update);
 		}
-		//isvip 1 vip   0免费小说
-		String isvip=tempNode.valueOf("isvip");
-        if(isvip!=null||isvip=="0"){
-        	bookInfo.setChargemode(McpConstants.ChargeMode_Free);
-        }
-        //自带属性必须加上
-        bookInfo.setCpid(getCpId());
-        //自带属性必须加上
-        bookInfo.setCpname(getCpName());
-	 	return bookInfo;
+		// isvip 1 vip 0免费小说
+		String isvip = tempNode.valueOf("isvip");
+		if (isvip != null || isvip == "0") {
+			bookInfo.setChargemode(McpConstants.ChargeMode_Free);
+		}
+		return bookInfo;
 	}
 
-	
-	
+	/**
+	 * 解析章节列表
+	 * 
+	 * @param htmlstring
+	 * @return
+	 */
+	private List<TaskChapter> parseChapterList(String xmlstring) {
+		Document doc = null;
+		List<TaskChapter> returns = new ArrayList<TaskChapter>();
+		try {
+			doc = DocumentHelper.parseText(xmlstring);
+		} catch (DocumentException e1) {
+			logger.error("parseChapterList DocumentHelper.parseText error url:" + internalUrl);
+			e1.printStackTrace();
+		}
+		String xpath = "//document/items/item";
+		@SuppressWarnings("unchecked")
+		List<Element> list = doc.selectNodes(xpath);
+		TaskChapter chapter;
+		int order = 0;
+		for (Element e : list) {
+			chapter = new TaskChapter();
+			Element chapternameEle = e.element("chaptername");
+			if (chapternameEle != null) {
+				String chaptername = chapternameEle.getStringValue();
+				chapter.setName(chaptername);
+			}
+			Element chapterurlEle = e.element("chapterurl");
+			if (chapterurlEle != null) {
+				String chapterurl = chapterurlEle.getStringValue();
+				chapter.setChapterUrl(chapterurl);
+			}
+			Element cid = e.element("cid");
+			if (cid != null) {
+				String cpchapterid = cid.getStringValue();
+				chapter.setCpchapterid(cpchapterid);
+			}
+			Element isvipEle = e.element("isvip");
+			String isvip = isvipEle.getStringValue();
+			if (isvip != null || isvip == "1") {
+				chapter.setIsvip(McpConstants.Chapter_pay);
+			} else {
+				chapter.setIsvip(McpConstants.Chapter_Free);
+			}
+			String postdate = e.valueOf("postdate");
+			if (postdate != null) {
+				Date date = DateUtil.timestamp2Date(postdate);
+				chapter.setUpdatetime(date);
+			}
+			if (chapter.getChapterUrl() == null || chapter.getChapterUrl().isEmpty())
+				continue;
+			chapter.setOrder(++order);
+			returns.add(chapter);
+		}
+		return returns;
+	}
+
+	/**
+	 * 解析章节信息
+	 * 
+	 * @param xmlstring
+	 * @return
+	 */
+	private TaskChapter parseChapterInfo(String xmlstring) {
+		TaskChapter chapterInfo = new TaskChapter();
+		Document doc = null;
+		try {
+			doc = DocumentHelper.parseText(xmlstring);
+		} catch (DocumentException e) {
+			logger.error(" parseChapterInfo DocumentHelper.parseText error url:" + internalUrl);
+			e.printStackTrace();
+		}
+		Node tempNode = doc.selectSingleNode("//document");
+		if (tempNode == null)
+			return null;
+		String title = tempNode.valueOf("chaptertitle");
+		if (title != null)
+			chapterInfo.setName(title);
+		String content = tempNode.valueOf("chaptercontent");
+		if (content != null) {
+			chapterInfo.setContent(content);
+			// 铁血读书接口没有字数
+			int words = content.length();
+			chapterInfo.setWords(words);
+			// 铁血读书默认千字四分钱
+			int price = words / 250;
+			chapterInfo.setPrice(price);
+		}
+		return chapterInfo;
+	}
+
 	@Override
 	boolean isUpdateBook(McpBook book) {
 		// TODO Auto-generated method stub
@@ -224,34 +354,33 @@ public class EPageTieXueDuShu extends PageBase {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	private int getClassify(String category){
-		//默认为军事
-		int returnInt=McpConstants.Classify_Junshi;
+
+	private int getClassify(String category) {
+		// 默认为军事
+		int returnInt = McpConstants.Classify_Junshi;
 		switch (category) {
 		case "军事科幻":
 		case "中短篇集":
-			returnInt=McpConstants.Classify_Junshi;
+			returnInt = McpConstants.Classify_Junshi;
 			break;
 		case "仙侠":
-			returnInt=McpConstants.Classify_Xuanhuan;
+			returnInt = McpConstants.Classify_Xuanhuan;
 			break;
 		case "都市":
-			returnInt=McpConstants.Classify_Dushi;
+			returnInt = McpConstants.Classify_Dushi;
 			break;
 		case "历史架空":
-			returnInt=McpConstants.Classify_Lishi;
+			returnInt = McpConstants.Classify_Lishi;
 			break;
 		case "推理":
 		case "悬疑":
-			returnInt=McpConstants.Classify_Xuanyi;
+			returnInt = McpConstants.Classify_Xuanyi;
 			break;
 		case "情感":
-			returnInt=McpConstants.Classify_Yanqing;
+			returnInt = McpConstants.Classify_Yanqing;
 			break;
 		case "玄幻":
-			returnInt=McpConstants.Classify_Xuanhuan;
+			returnInt = McpConstants.Classify_Xuanhuan;
 			break;
 		}
 		return returnInt;

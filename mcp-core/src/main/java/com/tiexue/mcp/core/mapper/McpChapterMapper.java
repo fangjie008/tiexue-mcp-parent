@@ -1,11 +1,13 @@
 package com.tiexue.mcp.core.mapper;
 
+import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -23,7 +25,7 @@ public interface McpChapterMapper {
         "Words, BookId, BookName, ",
         "AuditStatus, AuditInfo, ",
         "CPId, CPBookId, ",
-        "CPChapterId, Order, ",
+        "CPChapterId, `Order`, ",
         "UpdateTime, CreateTime, ",
         "IsVip, Price, Md5, ",
         "Content)",
@@ -36,6 +38,7 @@ public interface McpChapterMapper {
         "#{isvip,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{md5,jdbcType=VARCHAR}, ",
         "#{content,jdbcType=LONGVARCHAR})"
     })
+    @Options(useGeneratedKeys = true, keyProperty = "Id")
     int insert(McpChapter record);
 
     int insertSelective(McpChapter record);
@@ -73,7 +76,7 @@ public interface McpChapterMapper {
           "CPId = #{cpid,jdbcType=INTEGER},",
           "CPBookId = #{cpbookid,jdbcType=VARCHAR},",
           "CPChapterId = #{cpchapterid,jdbcType=VARCHAR},",
-          "Order = #{order,jdbcType=INTEGER},",
+          "`Order` = #{order,jdbcType=INTEGER},",
           "UpdateTime = #{updatetime,jdbcType=TIMESTAMP},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "IsVip = #{isvip,jdbcType=INTEGER},",
@@ -95,7 +98,7 @@ public interface McpChapterMapper {
           "CPId = #{cpid,jdbcType=INTEGER},",
           "CPBookId = #{cpbookid,jdbcType=VARCHAR},",
           "CPChapterId = #{cpchapterid,jdbcType=VARCHAR},",
-          "Order = #{order,jdbcType=INTEGER},",
+          "`Order` = #{order,jdbcType=INTEGER},",
           "UpdateTime = #{updatetime,jdbcType=TIMESTAMP},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "IsVip = #{isvip,jdbcType=INTEGER},",
@@ -107,4 +110,13 @@ public interface McpChapterMapper {
     
     @Select({"select count(1) from McpChapter where ${strWhere}"})
     int getCount(@Param("strWhere")String strWhere);
+    
+    
+    @Select({"select",
+        "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "from McpChapter",
+        " where CPId=#{cpId} and CPBookId = #{cpBId} and CPChapterId = #{cpCId}"})
+    @ResultMap("BaseResultMap")
+    McpChapter selectByCpBId(@Param("cpId")Integer cpId,@Param("cpBId")String cpBId,@Param("cpCId")String cpCId);
 }

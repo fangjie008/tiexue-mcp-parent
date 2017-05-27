@@ -110,6 +110,20 @@ public class McpConstants {
     	put(Classify_Yingshi, "影视");	
     }};
     
+    
+    
+    /**
+     * 章节收费类型
+     */
+    public static final int Chapter_Free = 0;
+    public static final int Chapter_pay = 1;
+    public static Map<Integer, String> ChapterTypeList = new HashMap<Integer,String>(){
+	{
+    	put(Chapter_Free, "免费");
+    	put(Chapter_pay, "付费");
+    }};
+    
+    
     /**
      * Des加密秘钥
      */

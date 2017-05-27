@@ -25,7 +25,7 @@
  
   <sql id="Base_Column_List" >
     Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, 
-    Order, UpdateTime, CreateTime, IsVip, Price, Md5
+    `Order`, UpdateTime, CreateTime, IsVip, Price, Md5
   </sql>
   <sql id="Blob_Column_List" >
     Content
@@ -64,7 +64,7 @@
         CPChapterId,
       </if>
       <if test="order != null" >
-        Order,
+        `Order`,
       </if>
       <if test="updatetime != null" >
         UpdateTime,
@@ -170,7 +170,7 @@
         CPChapterId = #{cpchapterid,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        Order = #{order,jdbcType=INTEGER},
+        `Order` = #{order,jdbcType=INTEGER},
       </if>
       <if test="updatetime != null" >
         UpdateTime = #{updatetime,jdbcType=TIMESTAMP},

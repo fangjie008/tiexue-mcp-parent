@@ -62,8 +62,8 @@ public class McpBookServiceImpl implements IMcpBookService {
 		return mcpBookMapper.getCount(strWhere);
 	}
 	@Override
-	public McpBook selectByCpBId(String cpBId) {
-		return mcpBookMapper.selectByCpBId(cpBId);
+	public McpBook selectByCpBId(Integer cpId,String cpBId) {
+		return mcpBookMapper.selectByCpBId(cpId,cpBId);
 	}
 	@Override
 	public McpBook taskInsert(McpBook record) {
@@ -79,11 +79,11 @@ public class McpBookServiceImpl implements IMcpBookService {
 		return record;
 	}
 	@Override
-	public McpBook taskUpdate(McpBook record) {
+	public int taskUpdate(McpBook record) {
 		if(record==null)
-			return record;
+			return 0;
 		int id= mcpBookMapper.updateByPrimaryKey(record);
-		return record;
+		return id;
 	}
 	
 }

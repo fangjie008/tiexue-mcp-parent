@@ -24,7 +24,7 @@ public interface IMcpBookService {
     
     int getCount(String strWhere);
     
-    McpBook selectByCpBId(String cpBId);
+    McpBook selectByCpBId(Integer cpId,String cpBId);
     /**
      * 新增采集的书籍
      * @param record
@@ -36,5 +36,5 @@ public interface IMcpBookService {
      * @param record
      * @return
      */
-	McpBook taskUpdate(McpBook record);
+    int taskUpdate(McpBook record);
 }

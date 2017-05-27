@@ -123,8 +123,8 @@ public interface McpBookMapper {
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
         "AuditInfo, CreateTime",
         "from McpBook",
-        "where CPBId = #{CPBId}"
+        "where CPId=#{cpId} and CPBId = #{cpBId}"
     })
     @ResultMap("BaseResultMap")
-    McpBook selectByCpBId(@Param("CPBId")String cpBId);
+    McpBook selectByCpBId(@Param("cpId")Integer cpId,@Param("cpBId")String cpBId);
 }

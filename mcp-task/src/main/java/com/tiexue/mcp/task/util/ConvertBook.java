@@ -9,6 +9,64 @@ import com.tiexue.mcp.task.entity.TaskBook;
 
 public class ConvertBook {
 
+	
+	/**
+	 * 填充采集的书籍信息，合并两次采集的书籍信息
+	 * @param oldBook
+	 * @param newBook
+	 * @return
+	 */
+	public static TaskBook fillTaskBook(TaskBook oldBook,TaskBook newBook){
+		if(newBook==null)
+			return oldBook;
+		if(oldBook==null)
+			return newBook;
+		if(newBook.getChaptersurl()!=null)
+			oldBook.setChaptersurl(newBook.getChaptersurl());
+		if(newBook.getActors()!=null)
+			oldBook.setActors(newBook.getActors());
+		if(newBook.getAuthor()!=null)
+			oldBook.setAuthor(newBook.getAuthor());
+		if(newBook.getBookstatus()!=null)
+			oldBook.setBookstatus(newBook.getBookstatus());
+		if(newBook.getChanneltype()!=null)
+			oldBook.setChanneltype(newBook.getChanneltype());
+		if(newBook.getChaptercount()!=null)
+			oldBook.setChaptercount(newBook.getChaptercount());
+		if(newBook.getChargemode()!=null)
+			oldBook.setChargemode(newBook.getChargemode());
+		if(newBook.getClassify()!=null)
+			oldBook.setClassify(newBook.getClassify());
+		if(newBook.getCoverimg()!=null)
+			oldBook.setCoverimg(newBook.getCoverimg());
+		if(newBook.getCpbid()!=null)
+			oldBook.setCpbid(newBook.getCpbid());
+		if(newBook.getCpid()!=null)
+			oldBook.setCpid(newBook.getCpid());
+		if(newBook.getCpname()!=null)
+			oldBook.setCpname(newBook.getCpname());
+		if(newBook.getCreatetime()!=null)
+			oldBook.setCreatetime(newBook.getCreatetime());
+		if(newBook.getFeechapter()!=null)
+			oldBook.setFeechapter(newBook.getFeechapter());
+		if(newBook.getIntro()!=null)
+			oldBook.setIntro(newBook.getIntro());
+		if(newBook.getKeywords()!=null)
+			oldBook.setKeywords(newBook.getKeywords());
+		if(newBook.getName()!=null)
+			oldBook.setName(newBook.getName());
+		if(newBook.getPrice()!=null)
+			oldBook.setPrice(newBook.getPrice());
+		if(newBook.getSubhead()!=null)
+			oldBook.setSubhead(newBook.getSubhead());
+		if(newBook.getTags()!=null)
+			oldBook.setTags(newBook.getTags());
+		if(newBook.getUpdatetime()!=null)
+			oldBook.setUpdatetime(newBook.getUpdatetime());
+		if(newBook.getWords()!=null)
+			oldBook.setWords(newBook.getWords());
+		return oldBook;
+	}
 	/**
 	 * 把采集的需要新增的书籍信息转化成McpBook对象
 	 * @param record
@@ -56,12 +114,13 @@ public class ConvertBook {
 	 * @param taskBook
 	 * @return
 	 */
-	public static McpBook toMcpBookDaoForUpdate(McpBook oldRecord, TaskBook taskBook) {
+	public static McpBook toMcpBookDaoForUpdate(McpBook mcpBook, TaskBook taskBook) {
 		if(taskBook==null)
-			return oldRecord;
-		McpBook mcpBook=new McpBook();
+			return mcpBook;
 		if(taskBook.getAuthor()!=null)
-			mcpBook.setActors(taskBook.getAuthor());
+			mcpBook.setAuthor(taskBook.getAuthor());
+		if(taskBook.getActors()!=null)
+			mcpBook.setActors(taskBook.getActors());
 		if(taskBook.getBookstatus()!=null)
 			mcpBook.setBookstatus(taskBook.getBookstatus());
 		if(taskBook.getChanneltype()!=null)
