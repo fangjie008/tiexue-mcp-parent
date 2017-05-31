@@ -97,9 +97,7 @@
 			<li>包年时间是365天，半年是180天，重复购买时间会累加。</li> -->
 			<li>充值阅读权限仅限本站使用
 			  <!--  测试充值 -->
-				<span class="testPay">&nbsp;&nbsp;<span data-money="1" data-premium="10" data-type="1">
-				<label>&nbsp;</label></span>
-				<span data-money="3" data-premium="10" data-type="1">
+				<span class="testPay">&nbsp;&nbsp;<span data-money="1" data-premium="0" data-type="1">
 				<label>&nbsp;</label></span>
 				</span> 
 		   </li>
