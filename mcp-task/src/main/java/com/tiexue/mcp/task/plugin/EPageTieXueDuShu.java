@@ -13,7 +13,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import com.tiexue.mcp.base.util.DateUtil;
 import com.tiexue.mcp.base.util.Md5Utils;
 import com.tiexue.mcp.core.entity.McpBook;
@@ -344,14 +343,29 @@ public class EPageTieXueDuShu extends PageBase {
 	}
 
 	@Override
-	boolean isUpdateBook(McpBook book) {
-		// TODO Auto-generated method stub
+	boolean isUpdateBook(McpBook book,TaskBook taskBook) {
+		if(book!=null&&taskBook!=null){
+			//如果采集状态为0即上次采集没有完成而异常中断，则需要继续采集
+			if(book.getCollectionstatus()==McpConstants.Book_OnCollection){
+				return true;
+			}
+			//如果采集的更新日期大于数据库中的更新日期则说明书籍有更新(精确到秒)
+			if(taskBook.getUpdatetime()!=null&&book.getUpdatetime()!=null
+					&&((taskBook.getUpdatetime().getTime()/1000*1000)>book.getUpdatetime().getTime())){
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
-	boolean isUpdateChapter(McpChapter chapter) {
-		// TODO Auto-generated method stub
+	boolean isUpdateChapter(McpChapter chapter,TaskChapter taskChapter) {
+		if(chapter!=null&&taskChapter!=null&&taskChapter.getUpdatetime()!=null&&chapter.getUpdatetime()!=null){
+			//如果采集章节的更新日期大于数据库中保存的章节的更新日期则说明章节有更新(精确到秒)
+			if((taskChapter.getUpdatetime().getTime()/1000*1000)>chapter.getUpdatetime().getTime()){
+				return true;
+			}
+		}
 		return false;
 	}
 

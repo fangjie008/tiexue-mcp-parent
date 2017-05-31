@@ -38,7 +38,7 @@ public interface McpChapterMapper {
         "#{isvip,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{md5,jdbcType=VARCHAR}, ",
         "#{content,jdbcType=LONGVARCHAR})"
     })
-    @Options(useGeneratedKeys = true, keyProperty = "Id")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(McpChapter record);
 
     int insertSelective(McpChapter record);

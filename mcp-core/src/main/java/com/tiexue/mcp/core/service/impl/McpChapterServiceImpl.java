@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBook;
@@ -19,6 +20,8 @@ import com.tiexue.mcp.core.service.IMcpChapterService;
 @Service("McpChapterSer")
 public class McpChapterServiceImpl implements IMcpChapterService {
 
+	// 日志
+	private Logger logger = Logger.getLogger(McpChapterServiceImpl.class);
 	@Resource McpChapterMapper mcpChapterMapper;
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -74,12 +77,10 @@ public class McpChapterServiceImpl implements IMcpChapterService {
 		if(record==null)
 			return null;
 		int id= mcpChapterMapper.insert(record);
-		if(id>0){
-			record.setId(id);
-		}
-		else{
-			record.setId(0);
-		}
+		if(record.getId()==null){
+    		logger.error("保存章节信息后，没有返回保存的Id");
+    		record.setId(0);
+    	}
 		return record;
 	}
 

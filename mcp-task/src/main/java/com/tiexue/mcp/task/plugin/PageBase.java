@@ -105,12 +105,12 @@ public abstract class PageBase {
 	  * 判断书籍是否需要更新
 	  * @return
 	  */
-	 abstract boolean isUpdateBook(McpBook book);
+	 abstract boolean isUpdateBook(McpBook book,TaskBook taskBook);
 	 /**
 	  * 判断章节是否需要更新
 	  * @param chapter
 	  * @return
 	  */
-	 abstract boolean isUpdateChapter(McpChapter chapter);
+	 abstract boolean isUpdateChapter(McpChapter chapter,TaskChapter taskChapter);
 
 }

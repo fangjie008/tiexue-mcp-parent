@@ -1,5 +1,6 @@
 package com.tiexue.mcp.task.plugin;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,10 +93,18 @@ public class PluginGeneral {
 				buildModel();
 				// 移除加载列表
 				scheduleList.remove(0);
+				// 休息五秒钟
+				Thread.sleep(5000);
+				// 如果本条内容采集完毕
+				if (scheduleList != null && scheduleList.size() > 0 && scheduleList.get(0) == endFlag) {
+					if (tempBook != null)
+						iMcpBookService.updateCollectionStatus(tempBook.getId());
+					scheduleList.remove(0);
+				}
 			}
 		} catch (Exception e) {
 			logger.info("EPageTieXueDuShu error. url: " + interfaceUrl + e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -179,18 +188,25 @@ public class PluginGeneral {
 			}
 		}
 		McpBook mcpBook = iMcpBookService.selectByCpBId(taskbook.getCpid(), taskbook.getCpbid());
-		// 书籍已经采集且有更新
+		// 书籍已经采集
 		if (mcpBook != null) {
-			if(currentTask.isUpdateBook(mcpBook)){
-				mcpBook = ConvertBook.toMcpBookDaoForUpdate(mcpBook, taskbook);
-				int returnId = iMcpBookService.taskUpdate(mcpBook);
-				isCollenctionChapter = true;
+			if (!currentTask.isUpdateBook(mcpBook, taskbook)) {
+				logger.info("书籍 bookId:" + mcpBook.getId() + "不需要更新");
+				tempBook = mcpBook;
+				return;
 			}
+			// 有更新
+			mcpBook = ConvertBook.toMcpBookDaoForUpdate(mcpBook, taskbook);
+			int returnId = iMcpBookService.taskUpdate(mcpBook);
+			logger.info("更新书籍信息  bookId:" + mcpBook.getId());
+			isCollenctionChapter = true;
+
 		}
 		// 书籍未采集，需要保存到数据库中
 		else {
 			mcpBook = ConvertBook.toMcpBookDaoForInsert(taskbook);
 			mcpBook = iMcpBookService.taskInsert(mcpBook);
+			logger.info("新增书籍信息  bookId:" + mcpBook.getId());
 			if (mcpBook != null && mcpBook.getId() != null && mcpBook.getId() > 0) {
 				isCollenctionChapter = true;
 			} else {
@@ -198,16 +214,16 @@ public class PluginGeneral {
 			}
 		}
 		// 添加采集章节的url
-		if (isCollenctionChapter) {
-			if (taskbook.getChaptersurl() != null) {
-				// 添加采集章节列表的url地址
-				scheduleList.add(index++, taskbook.getChaptersurl());
-				// 插入采集终止符号
-				scheduleList.add(index++, endFlag);
-			}
-			// 给存放临时书籍的字段赋值
-			tempBook = mcpBook;
+		// if (isCollenctionChapter) {
+		if (taskbook.getChaptersurl() != null) {
+			// 添加采集章节列表的url地址
+			scheduleList.add(index++, taskbook.getChaptersurl());
+			// 插入采集终止符号
+			scheduleList.add(index++, endFlag);
 		}
+		// }
+		// 给存放临时书籍的字段赋值
+		tempBook = mcpBook;
 	}
 
 	/**
@@ -250,21 +266,26 @@ public class PluginGeneral {
 				taskChapter = ConvertChapter.fillTaskChapter(tempTaskChapter, taskChapter);
 			}
 		}
-		String cpbookid= taskChapter.getCpbookid()==null?"":taskChapter.getCpbookid();
-		McpChapter mcpChapter = iMcpChapterService.selectByCpBId(taskChapter.getCpid(),cpbookid,
+		String cpbookid = taskChapter.getCpbookid() == null ? "" : taskChapter.getCpbookid();
+		McpChapter mcpChapter = iMcpChapterService.selectByCpBId(taskChapter.getCpid(), cpbookid,
 				taskChapter.getCpchapterid());
-		// 书籍已经采集且有更新
+		// 书籍已经采集
 		if (mcpChapter != null) {
-			//内容有更新
-			if(currentTask.isUpdateChapter(mcpChapter)){
-				mcpChapter = ConvertChapter.toMcpChapterDaoForUpdate(mcpChapter, taskChapter);
-				iMcpChapterService.taskUpdate(mcpChapter);
+			if (!currentTask.isUpdateChapter(mcpChapter, taskChapter)) {
+				logger.info("章节 chapterId:" + mcpChapter.getId() + "不需要更新");
+				return;
 			}
+			mcpChapter = ConvertChapter.toMcpChapterDaoForUpdate(mcpChapter, taskChapter);
+			// 内容有更新
+			iMcpChapterService.taskUpdate(mcpChapter);
+			logger.info("更新章节信息  chapterId:" + mcpChapter.getId());
+
 		}
 		// 书籍未采集，需要保存到数据库中
 		else {
 			mcpChapter = ConvertChapter.toMcpChapterDaoForInsert(taskChapter);
 			McpChapter bMcpChapter = iMcpChapterService.taskInsert(mcpChapter);
+			logger.info("新增章节信息  chapterId:" + mcpChapter.getId());
 			if (bMcpChapter != null && bMcpChapter.getId() != null && bMcpChapter.getId() > 0) {
 				// 章节采集完成
 			} else {

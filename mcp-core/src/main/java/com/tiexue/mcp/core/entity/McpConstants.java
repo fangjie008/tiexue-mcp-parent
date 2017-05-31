@@ -123,6 +123,17 @@ public class McpConstants {
     	put(Chapter_pay, "付费");
     }};
     
+    /**
+     * 小说采集状态
+     */
+    public static final int Book_OnCollection = 0;
+    public static final int Book_FinishCollection = 1;
+    public static Map<Integer, String> Collectionstatus = new HashMap<Integer,String>(){
+	{
+    	put(Book_OnCollection, "采集中");
+    	put(Book_FinishCollection, "采集完成");
+    }};
+    
     
     /**
      * Des加密秘钥

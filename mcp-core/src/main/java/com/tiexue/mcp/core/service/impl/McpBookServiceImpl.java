@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBook;
@@ -22,7 +23,8 @@ import com.tiexue.mcp.core.service.IMcpBookService;
 @Service("McpBookSer")
 public class McpBookServiceImpl implements IMcpBookService {
 
-	
+	// 日志
+	private Logger logger = Logger.getLogger(McpBookServiceImpl.class);
 	@Resource McpBookMapper mcpBookMapper;
 	@Override
     public int deleteByPrimaryKey(Integer id){
@@ -69,21 +71,30 @@ public class McpBookServiceImpl implements IMcpBookService {
 	public McpBook taskInsert(McpBook record) {
 		if(record==null)
 			return null;
+		record.setCollectionstatus(McpConstants.Book_OnCollection);
 		int id= mcpBookMapper.insert(record);
-		if(id>0){
-			record.setId(id);
-		}
-		else{
-			record.setId(0);
-		}
+		if(record.getId()==null){
+    		logger.error("保存书籍信息后，没有返回保存的Id");
+    		record.setId(0);
+    	}
 		return record;
 	}
 	@Override
 	public int taskUpdate(McpBook record) {
 		if(record==null)
 			return 0;
+		record.setCollectionstatus(McpConstants.Book_OnCollection);
 		int id= mcpBookMapper.updateByPrimaryKey(record);
 		return id;
 	}
+	/**
+	 * 更新采集状态为采集完成
+	 */
+	@Override
+	public int updateCollectionStatus(Integer Id) {
+		return mcpBookMapper.updateCollectionStatus(Id, McpConstants.Book_FinishCollection);
+	}
+	
+	
 	
 }

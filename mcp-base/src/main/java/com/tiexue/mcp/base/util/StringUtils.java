@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @since JDK 1.7
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-	private static final Logger logger=LoggerFactory.getLogger(StringUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
 	public static final String NUMBERS_AND_LETTERS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -612,6 +612,53 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		StringUtils.encode(null);
-		logger.debug("汉字数:"+StringUtils.getWordsCount("你好我们"));;
+		logger.debug("汉字数:" + StringUtils.getWordsCount("你好我们"));
+		;
+	}
+
+	/**
+	 * 按照字节数截取字符串
+	 * 
+	 * @param str
+	 * @param subSLength
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String subStr(String orignal, int count) throws UnsupportedEncodingException {
+		// 原始字符不为null，也不是空字符串 
+	    if (orignal != null && !"".equals(orignal)) { 
+	      // 将原始字符串转换为UTF-8编码格式 
+	      orignal = new String(orignal.getBytes(), "UTF-8");//
+	      // 要截取的字节数大于0，且小于原始字符串的字节数 
+	      if (count > 0 && count < orignal.getBytes("UTF-8").length) { 
+	        StringBuffer buff = new StringBuffer(); 
+	        char c; 
+	        for (int i = 0; i < count; i++) {
+	          c = orignal.charAt(i); 
+	          buff.append(c); 
+	          if (isChineseChar(c)) { 
+	            // UTF-8 遇到中文汉字，截取字节总数减2 
+	        	  count= count-2; 
+	          } 
+	        } 
+	        return new String(buff.toString().getBytes(),"UTF-8"); 
+	      } 
+	    } 
+	    return orignal; 
+	}
+
+	/**
+	 * 判断是否是一个中文汉字
+	 * 
+	 * @param c
+	 *            字符
+	 * @return true表示是中文汉字，false表示是英文字母
+	 * @throws UnsupportedEncodingException
+	 *             使用了JAVA不支持的编码格式
+	 */
+	public static boolean isChineseChar(char c) throws UnsupportedEncodingException {
+		// 如果字节数大于1，是汉字
+		// 以这种方式区别英文字母和中文汉字并不是十分严谨，但在这个题目中，这样判断已经足够了
+		return String.valueOf(c).getBytes("UTF-8").length > 1;
 	}
 }

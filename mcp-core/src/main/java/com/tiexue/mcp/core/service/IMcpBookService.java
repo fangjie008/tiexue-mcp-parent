@@ -37,4 +37,12 @@ public interface IMcpBookService {
      * @return
      */
     int taskUpdate(McpBook record);
+    
+    /**
+     * 更新采集状态为采集完成
+     * @param Id
+     * @param collectionStatus
+     * @return
+     */
+    int updateCollectionStatus(Integer Id);
 }

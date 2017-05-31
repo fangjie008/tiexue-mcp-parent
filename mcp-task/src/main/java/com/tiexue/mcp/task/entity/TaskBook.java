@@ -96,6 +96,10 @@ public class TaskBook {
     private String actors;
 	private String subhead;
     private String tags;
+    /**
+     * 采集状态(开始采集时状态改成0，采集完成状态改成1)
+     */
+    private Integer collectionstatus;
 	public String getUrl() {
 		return url;
 	}
@@ -233,6 +237,12 @@ public class TaskBook {
 	}
 	public void setActors(String actors) {
 		this.actors = actors;
+	}
+	public Integer getCollectionstatus() {
+		return collectionstatus;
+	}
+	public void setCollectionstatus(Integer collectionstatus) {
+		this.collectionstatus = collectionstatus;
 	}
 	
 }
