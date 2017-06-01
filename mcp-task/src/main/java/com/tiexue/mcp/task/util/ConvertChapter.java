@@ -53,13 +53,13 @@ public class ConvertChapter {
 		// 不保存emoji图片
 		if (oldChapter.getBookname() != null)
 			oldChapter.setBookname(oldChapter.getBookname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (oldChapter.getName() != null)
 			oldChapter.setName(oldChapter.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (oldChapter.getContent() != null)
 			oldChapter.setContent(oldChapter.getContent().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 
 		return oldChapter;
 	}
@@ -94,13 +94,13 @@ public class ConvertChapter {
 		// 不保存emoji图片
 		if (mcpChapter.getBookname() != null)
 			mcpChapter.setBookname(mcpChapter.getBookname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (mcpChapter.getName() != null)
 			mcpChapter.setName(mcpChapter.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (mcpChapter.getContent() != null)
 			mcpChapter.setContent(mcpChapter.getContent().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		// content为Text类型(text最大为65535)
 		try {
 			if (mcpChapter.getContent() != null && mcpChapter.getContent().getBytes("UTF-8").length > 65535) {
@@ -154,13 +154,13 @@ public class ConvertChapter {
 		// 不保存emoji图片
 		if (mcpChapter.getBookname() != null)
 			mcpChapter.setBookname(mcpChapter.getBookname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (mcpChapter.getName() != null)
 			mcpChapter.setName(mcpChapter.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		if (mcpChapter.getContent() != null)
 			mcpChapter.setContent(mcpChapter.getContent().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
-					.replaceAll("[\\x{00}-\\x{FF}]", ""));
+					);
 		// content为Text类型(text最大为65535)
 		try {
 			if (mcpChapter.getContent() != null && mcpChapter.getContent().getBytes("UTF-8").length > 65535) {

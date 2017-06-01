@@ -66,15 +66,15 @@ public class ConvertBook {
 			oldBook.setWords(newBook.getWords());
 		// 不保存emoji图片
 		if (oldBook.getActors() != null)
-			oldBook.setActors(oldBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			oldBook.setActors(oldBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (oldBook.getAuthor() != null)
-			oldBook.setAuthor(oldBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			oldBook.setAuthor(oldBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (oldBook.getIntro() != null)
-			oldBook.setIntro(oldBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			oldBook.setIntro(oldBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (oldBook.getName() != null)
-			oldBook.setName(oldBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			oldBook.setName(oldBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (oldBook.getCpname() != null)
-			oldBook.setCpname(oldBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			oldBook.setCpname(oldBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		return oldBook;
 	}
 
@@ -118,15 +118,15 @@ public class ConvertBook {
 		mcpBook.setWords(record.getWords() == null ? 0 : record.getWords());
 		// 不保存emoji图片
 		if (mcpBook.getActors() != null)
-			mcpBook.setActors(mcpBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setActors(mcpBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getAuthor() != null)
-			mcpBook.setAuthor(mcpBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setAuthor(mcpBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getIntro() != null)
-			mcpBook.setIntro(mcpBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setIntro(mcpBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getName() != null)
-			mcpBook.setName(mcpBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setName(mcpBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getCpname() != null)
-			mcpBook.setCpname(mcpBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setCpname(mcpBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		return mcpBook;
 	}
 
@@ -174,15 +174,15 @@ public class ConvertBook {
 			mcpBook.setWords(taskBook.getWords());
 		// 不保存emoji图片
 		if (mcpBook.getActors() != null)
-			mcpBook.setActors(mcpBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setActors(mcpBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getAuthor() != null)
-			mcpBook.setAuthor(mcpBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setAuthor(mcpBook.getAuthor().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getIntro() != null)
-			mcpBook.setIntro(mcpBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setIntro(mcpBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getName() != null)
-			mcpBook.setName(mcpBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setName(mcpBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getCpname() != null)
-			mcpBook.setCpname(mcpBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "").replaceAll("[\\x{00}-\\x{FF}]", ""));
+			mcpBook.setCpname(mcpBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		return mcpBook;
 	}
 
