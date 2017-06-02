@@ -69,6 +69,7 @@ public class McpChapterServiceImpl implements IMcpChapterService {
 
 	@Override
 	public McpChapter selectByCpBId(Integer cpId, String cpBId, String cpCId) {
+		logger.info("查询章节信息cpId:"+cpId+".cpBId:"+cpBId+".cpCId:"+cpCId);
 		return mcpChapterMapper.selectByCpBId(cpId, cpBId, cpCId);
 	}
 

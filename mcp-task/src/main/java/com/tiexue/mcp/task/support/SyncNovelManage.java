@@ -84,7 +84,7 @@ public class SyncNovelManage {
 			pgGeneral.setiMcpChapterService(iMcpChapterService);
 			pgGeneral.execute(1);
 		} catch (Exception e) {
-			logger.info("EPageTieXueDuShu error. url: "+mcpBaseInfo.getInterfaceurl1()+e.getMessage());
+			logger.debug("executeTieXueDuShu error. url: "+mcpBaseInfo.getInterfaceurl1()+e.getMessage());
 			e.printStackTrace();
 		}
 	

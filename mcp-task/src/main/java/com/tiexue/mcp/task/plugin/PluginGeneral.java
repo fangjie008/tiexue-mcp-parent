@@ -93,8 +93,8 @@ public class PluginGeneral {
 				buildModel();
 				// 移除加载列表
 				scheduleList.remove(0);
-				// 休息五秒钟
-				Thread.sleep(5000);
+				// 休息n秒钟
+				Thread.sleep(1000);
 				// 如果本条内容采集完毕
 				if (scheduleList != null && scheduleList.size() > 0 && scheduleList.get(0) == endFlag) {
 					if (tempBook != null)
@@ -103,7 +103,7 @@ public class PluginGeneral {
 				}
 			}
 		} catch (Exception e) {
-			logger.info("EPageTieXueDuShu error. url: " + interfaceUrl + e);
+			logger.debug("PluginGeneral.execute error. url: " + interfaceUrl + e);
 			// e.printStackTrace();
 		}
 	}
