@@ -52,7 +52,8 @@ public class SyncNovelManage {
 			for(McpBaseInfo mcpBaseInfo:mcpBaseInfos){
 				if(mcpBaseInfo.getInterfaceurl1()!=null&&!mcpBaseInfo.getInterfaceurl1().isEmpty()){
 					
-					if(mcpBaseInfo.getInterfaceurl1().contains("junshishu.com")){
+					if(mcpBaseInfo.getInterfaceurl1().contains("junshishu.com")
+							||mcpBaseInfo.getInterfaceurl1().contains("hezuo.book.tiexue.net")){
 						executeTieXueDuShu(mcpBaseInfo);
 					}
 					else {

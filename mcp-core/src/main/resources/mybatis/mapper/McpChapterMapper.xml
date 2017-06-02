@@ -18,6 +18,7 @@
     <result column="IsVip" property="isvip" jdbcType="INTEGER" />
     <result column="Price" property="price" jdbcType="INTEGER" />
     <result column="Md5" property="md5" jdbcType="VARCHAR" />
+    <result column="UniqueFlag" jdbcType="VARCHAR" property="uniqueflag" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.McpChapter" extends="BaseResultMap" >
     <result column="Content" property="content" jdbcType="LONGVARCHAR" />
@@ -25,7 +26,7 @@
  
   <sql id="Base_Column_List" >
     Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, 
-    `Order`, UpdateTime, CreateTime, IsVip, Price, Md5
+    `Order`, UpdateTime, CreateTime, IsVip, Price, Md5,UniqueFlag
   </sql>
   <sql id="Blob_Column_List" >
     Content
@@ -84,6 +85,9 @@
       <if test="content != null" >
         Content,
       </if>
+      <if test="uniqueflag != null" >
+        UniqueFlag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -137,6 +141,9 @@
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
+      <if test="uniqueflag != null">
+        #{uniqueflag,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpChapter" >
@@ -189,6 +196,9 @@
       </if>
       <if test="content != null" >
         Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="uniqueflag != null">
+        UniqueFlag = #{uniqueflag,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

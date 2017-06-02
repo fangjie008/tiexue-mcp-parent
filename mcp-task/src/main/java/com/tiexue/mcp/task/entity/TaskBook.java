@@ -100,6 +100,7 @@ public class TaskBook {
      * 采集状态(开始采集时状态改成0，采集完成状态改成1)
      */
     private Integer collectionstatus;
+    private String uniqueflag;
 	public String getUrl() {
 		return url;
 	}
@@ -243,6 +244,12 @@ public class TaskBook {
 	}
 	public void setCollectionstatus(Integer collectionstatus) {
 		this.collectionstatus = collectionstatus;
+	}
+	public String getUniqueflag() {
+		return uniqueflag;
+	}
+	public void setUniqueflag(String uniqueflag) {
+		this.uniqueflag = uniqueflag;
 	}
 	
 }

@@ -18,9 +18,12 @@ import com.tiexue.mcp.base.util.Md5Utils;
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
 import com.tiexue.mcp.core.entity.McpConstants;
+import com.tiexue.mcp.task.entity.McpTaskConstants;
 import com.tiexue.mcp.task.entity.TaskBook;
 import com.tiexue.mcp.task.entity.TaskChapter;
-import com.tiexue.mcp.task.entity.McpTaskConstants;
+
+
+
 
 /**
  * 获取铁血读书接口的小说
@@ -222,7 +225,7 @@ public class EPageTieXueDuShu extends PageBase {
 			bookInfo.setAuthor(author);
 		String postdate = tempNode.valueOf("postdate");
 		if (postdate != null) {
-			Date date = DateUtil.timestamp2Date(postdate);
+			Date date = DateUtil.secondTimestamp2Date(postdate);
 			bookInfo.setCreatetime(date);
 			bookInfo.setUpdatetime(date);
 		}
@@ -297,7 +300,7 @@ public class EPageTieXueDuShu extends PageBase {
 			}
 			String postdate = e.valueOf("postdate");
 			if (postdate != null) {
-				Date date = DateUtil.timestamp2Date(postdate);
+				Date date = DateUtil.secondTimestamp2Date(postdate);
 				chapter.setUpdatetime(date);
 			}
 			if (chapter.getChapterUrl() == null || chapter.getChapterUrl().isEmpty())

@@ -116,6 +116,9 @@ public class ConvertBook {
 		mcpBook.setTags(record.getTags() == null ? "" : record.getTags());
 		mcpBook.setUpdatetime(record.getUpdatetime() == null ? new Date() : record.getUpdatetime());
 		mcpBook.setWords(record.getWords() == null ? 0 : record.getWords());
+		//设置唯一标识
+		String uniqueflag=mcpBook.getCpid()+"-"+mcpBook.getCpbid();
+		mcpBook.setUniqueflag(uniqueflag);
 		// 不保存emoji图片
 		if (mcpBook.getActors() != null)
 			mcpBook.setActors(mcpBook.getActors().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
@@ -181,8 +184,6 @@ public class ConvertBook {
 			mcpBook.setIntro(mcpBook.getIntro().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (mcpBook.getName() != null)
 			mcpBook.setName(mcpBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
-		if (mcpBook.getCpname() != null)
-			mcpBook.setCpname(mcpBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		return mcpBook;
 	}
 

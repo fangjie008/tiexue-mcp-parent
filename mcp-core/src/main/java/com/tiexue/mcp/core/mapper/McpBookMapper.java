@@ -33,7 +33,7 @@ public interface McpBookMapper {
         "PutawayTime, ChargeMode, ",
         "Price, FeeChapter, ",
         "PutAwayStatus, AuditStatus, ",
-        "AuditInfo, CreateTime,CollectionStatus)",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag)",
         "values (#{id,jdbcType=INTEGER}, #{cpid,jdbcType=INTEGER}, ",
         "#{cpname,jdbcType=VARCHAR}, #{cpbid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{subhead,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, ",
@@ -46,7 +46,8 @@ public interface McpBookMapper {
         "#{putawaytime,jdbcType=TIMESTAMP}, #{chargemode,jdbcType=INTEGER}, ",
         "#{price,jdbcType=INTEGER}, #{feechapter,jdbcType=INTEGER}, ",
         "#{putawaystatus,jdbcType=INTEGER}, #{auditstatus,jdbcType=INTEGER}, ",
-        "#{auditinfo,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},#{collectionstatus,jdbcType=INTEGER})"
+        "#{auditinfo,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},",
+        "#{collectionstatus,jdbcType=INTEGER},#{uniqueflag,jdbcType=VARCHAR})",
     })
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(McpBook record);
@@ -58,7 +59,7 @@ public interface McpBookMapper {
         "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
         "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
-        "AuditInfo, CreateTime,CollectionStatus",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
         "from McpBook",
         "where Id = #{id,jdbcType=INTEGER}"
     })
@@ -70,7 +71,7 @@ public interface McpBookMapper {
         "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
         "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
-        "AuditInfo, CreateTime,CollectionStatus",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
         "from McpBook",
         "where CPId = ${CPId} limit ${pStart},${pSize}"
     })
@@ -107,7 +108,8 @@ public interface McpBookMapper {
           "AuditStatus = #{auditstatus,jdbcType=INTEGER},",
           "AuditInfo = #{auditinfo,jdbcType=VARCHAR},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
-          "CollectionStatus = #{collectionstatus,jdbcType=INTEGER}",
+          "CollectionStatus = #{collectionstatus,jdbcType=INTEGER},",
+          "UniqueFlag = #{uniqueflag,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpBook record);
@@ -122,7 +124,7 @@ public interface McpBookMapper {
         "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
         "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
-        "AuditInfo, CreateTime,CollectionStatus",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
         "from McpBook",
         "where CPId=#{cpId} and CPBId = #{cpBId}"
     })

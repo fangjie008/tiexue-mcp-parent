@@ -137,11 +137,12 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
-	public static Date timestamp2Date(String time) {
+	public static Date secondTimestamp2Date(String time) {
 		Date date = null;
 		if (null != time) {
 			try {
 				long lg=new Long(time);
+				lg=lg*1000;
 				date = new Date(lg);
 			} catch (Exception e) {
 				// TODO: handle exception

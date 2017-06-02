@@ -58,6 +58,8 @@ public class McpBook {
 	private Date createtime;
 
 	private Integer collectionstatus;
+	
+	private String uniqueflag;
 
 	public Integer getId() {
 		return id;
@@ -281,6 +283,14 @@ public class McpBook {
 
 	public void setCollectionstatus(Integer collectionstatus) {
 		this.collectionstatus = collectionstatus;
+	}
+
+	public String getUniqueflag() {
+		return uniqueflag;
+	}
+
+	public void setUniqueflag(String uniqueflag) {
+		this.uniqueflag = uniqueflag;
 	}
 
 }

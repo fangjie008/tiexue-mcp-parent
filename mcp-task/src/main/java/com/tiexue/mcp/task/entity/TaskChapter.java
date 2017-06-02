@@ -71,6 +71,8 @@ public class TaskChapter {
 	 */
 	private String md5;
 
+	private String uniqueflag;
+	
 	public String getChapterUrl() {
 		return chapterUrl;
 	}
@@ -160,6 +162,12 @@ public class TaskChapter {
 	}
 	public void setMd5(String md5) {
 		this.md5 = md5;
+	}
+	public String getUniqueflag() {
+		return uniqueflag;
+	}
+	public void setUniqueflag(String uniqueflag) {
+		this.uniqueflag = uniqueflag;
 	}
 
 	

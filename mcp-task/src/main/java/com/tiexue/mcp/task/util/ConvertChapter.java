@@ -91,6 +91,9 @@ public class ConvertChapter {
 		mcpChapter.setPrice(record.getPrice() == null ? 0 : record.getPrice());
 		mcpChapter.setUpdatetime(record.getUpdatetime() == null ? new Date() : record.getUpdatetime());
 		mcpChapter.setWords(record.getWords() == null ? 0 : record.getWords());
+		//设置唯一标识
+		String uniqueflag=mcpChapter.getCpid()+"-"+mcpChapter.getCpbookid()+"-"+mcpChapter.getCpchapterid();
+		mcpChapter.setUniqueflag(uniqueflag);
 		// 不保存emoji图片
 		if (mcpChapter.getBookname() != null)
 			mcpChapter.setBookname(mcpChapter.getBookname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
@@ -129,12 +132,12 @@ public class ConvertChapter {
 			mcpChapter.setBookname(taskChapter.getBookname());
 		if (taskChapter.getContent() != null)
 			mcpChapter.setContent(taskChapter.getContent());
-		if (taskChapter.getCpbookid() != null)
-			mcpChapter.setCpbookid(taskChapter.getCpbookid());
+//		if (taskChapter.getCpbookid() != null)
+//			mcpChapter.setCpbookid(taskChapter.getCpbookid());
 		// if(taskChapter.getCpid()!=null)
 		// mcpChapter.setCpid(taskChapter.getCpid());
-		if (taskChapter.getCpchapterid() != null)
-			mcpChapter.setCpchapterid(taskChapter.getCpchapterid());
+//		if (taskChapter.getCpchapterid() != null)
+//			mcpChapter.setCpchapterid(taskChapter.getCpchapterid());
 		if (taskChapter.getIsvip() != null)
 			mcpChapter.setIsvip(taskChapter.getIsvip());
 		if (taskChapter.getMd5() != null)

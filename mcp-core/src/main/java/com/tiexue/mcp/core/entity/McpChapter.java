@@ -36,6 +36,8 @@ public class McpChapter {
     private String md5;
 
     private String content;
+    
+    private String uniqueflag;
 
     public Integer getId() {
         return id;
@@ -172,4 +174,13 @@ public class McpChapter {
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
     }
+
+	public String getUniqueflag() {
+		return uniqueflag;
+	}
+
+	public void setUniqueflag(String uniqueflag) {
+		this.uniqueflag = uniqueflag;
+	}
+    
 }

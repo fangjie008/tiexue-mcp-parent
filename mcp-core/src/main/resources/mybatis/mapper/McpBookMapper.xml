@@ -30,12 +30,13 @@
     <result column="AuditInfo" property="auditinfo" jdbcType="VARCHAR" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="CollectionStatus" property="collectionstatus" jdbcType="INTEGER" />
+    <result column="UniqueFlag" jdbcType="VARCHAR" property="uniqueflag" />
   </resultMap>
   <sql id="Base_Column_List" >
     Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, KeyWords, 
     Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, UpdateTime, 
     PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, AuditInfo, 
-    CreateTime,CollectionStatus
+    CreateTime,CollectionStatus,UniqueFlag
   </sql>
   <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpBook" >
     insert into McpBook
@@ -124,6 +125,9 @@
       <if test="collectionstatus != null" >
         CollectionStatus,
       </if>
+      <if test="uniqueflag != null" >
+        UniqueFlag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -210,6 +214,10 @@
       <if test="collectionstatus != null" >
         #{collectionstatus,jdbcType=INTEGER},
       </if>
+      <if test="uniqueflag != null">
+        #{uniqueflag,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpBook" >
@@ -295,6 +303,9 @@
       </if>
        <if test="collectionstatus != null" >
         collectionstatus = #{collectionstatus,jdbcType=INTEGER},
+      </if>
+	  <if test="uniqueflag != null">
+        UniqueFlag = #{uniqueflag,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

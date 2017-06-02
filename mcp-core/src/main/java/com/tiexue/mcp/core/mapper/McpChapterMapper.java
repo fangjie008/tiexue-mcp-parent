@@ -28,7 +28,7 @@ public interface McpChapterMapper {
         "CPChapterId, `Order`, ",
         "UpdateTime, CreateTime, ",
         "IsVip, Price, Md5, ",
-        "Content)",
+        "Content,UniqueFlag)",
         "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
         "#{words,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, #{bookname,jdbcType=VARCHAR}, ",
         "#{auditstatus,jdbcType=INTEGER}, #{auditinfo,jdbcType=VARCHAR}, ",
@@ -36,7 +36,7 @@ public interface McpChapterMapper {
         "#{cpchapterid,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, ",
         "#{updatetime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, ",
         "#{isvip,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{md5,jdbcType=VARCHAR}, ",
-        "#{content,jdbcType=LONGVARCHAR})"
+        "#{content,jdbcType=LONGVARCHAR},#{uniqueflag,jdbcType=VARCHAR})"
     })
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(McpChapter record);
@@ -46,7 +46,7 @@ public interface McpChapterMapper {
     @Select({
         "select",
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
-        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content,UniqueFlag",
         "from McpChapter",
         "where Id = #{id,jdbcType=INTEGER}"
     })
@@ -55,7 +55,7 @@ public interface McpChapterMapper {
     
     @Select({"select",
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
-        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content,UniqueFlag",
         "from McpChapter",
         "where BookId = #{bookId,jdbcType=INTEGER} limit ${pStart},${pSize}"})
     @ResultMap("BaseResultMap")
@@ -82,7 +82,8 @@ public interface McpChapterMapper {
           "IsVip = #{isvip,jdbcType=INTEGER},",
           "Price = #{price,jdbcType=INTEGER},",
           "Md5 = #{md5,jdbcType=VARCHAR},",
-          "Content = #{content,jdbcType=LONGVARCHAR}",
+          "Content = #{content,jdbcType=LONGVARCHAR},",
+          "UniqueFlag = #{uniqueflag,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKeyWithBLOBs(McpChapter record);
@@ -103,7 +104,8 @@ public interface McpChapterMapper {
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "IsVip = #{isvip,jdbcType=INTEGER},",
           "Price = #{price,jdbcType=INTEGER},",
-          "Md5 = #{md5,jdbcType=VARCHAR}",
+          "Md5 = #{md5,jdbcType=VARCHAR},",
+          "UniqueFlag = #{uniqueflag,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpChapter record);
@@ -114,7 +116,7 @@ public interface McpChapterMapper {
     
     @Select({"select",
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
-        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content,UniqueFlag",
         "from McpChapter",
         " where CPId=#{cpId} and CPBookId = #{cpBId} and CPChapterId = #{cpCId}"})
     @ResultMap("BaseResultMap")

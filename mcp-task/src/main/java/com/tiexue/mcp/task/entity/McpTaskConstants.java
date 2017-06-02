@@ -1,6 +1,5 @@
 package com.tiexue.mcp.task.entity;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class McpTaskConstants {
 

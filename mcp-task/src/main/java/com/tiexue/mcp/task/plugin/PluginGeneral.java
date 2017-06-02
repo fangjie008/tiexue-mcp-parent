@@ -1,10 +1,8 @@
 package com.tiexue.mcp.task.plugin;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -18,6 +16,7 @@ import com.tiexue.mcp.task.entity.TaskBook;
 import com.tiexue.mcp.task.entity.TaskChapter;
 import com.tiexue.mcp.task.util.ConvertBook;
 import com.tiexue.mcp.task.util.ConvertChapter;
+
 
 /**
  * 同步小说接口执行操作类
@@ -94,11 +93,12 @@ public class PluginGeneral {
 				// 移除加载列表
 				scheduleList.remove(0);
 				// 休息n秒钟
-				Thread.sleep(1000);
+				Thread.sleep(100);
 				// 如果本条内容采集完毕
 				if (scheduleList != null && scheduleList.size() > 0 && scheduleList.get(0) == endFlag) {
-					if (tempBook != null)
+					if (tempBook != null){
 						iMcpBookService.updateCollectionStatus(tempBook.getId());
+					}
 					scheduleList.remove(0);
 				}
 			}
