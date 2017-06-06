@@ -50,6 +50,7 @@ public class ConvertChapter {
 			oldChapter.setUpdatetime(newChapter.getUpdatetime());
 		if (newChapter.getWords() != null)
 			oldChapter.setWords(newChapter.getWords());
+		
 		// 不保存emoji图片
 		if (oldChapter.getBookname() != null)
 			oldChapter.setBookname(oldChapter.getBookname().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
@@ -60,7 +61,9 @@ public class ConvertChapter {
 		if (oldChapter.getContent() != null)
 			oldChapter.setContent(oldChapter.getContent().replaceAll("[\\x{10000}-\\x{10FFFF}]", "")
 					);
-
+		//设置唯一标识
+		String uniqueflag=oldChapter.getCpid()+"-"+oldChapter.getCpbookid()+"-"+oldChapter.getCpchapterid();
+		oldChapter.setUniqueflag(uniqueflag);
 		return oldChapter;
 	}
 

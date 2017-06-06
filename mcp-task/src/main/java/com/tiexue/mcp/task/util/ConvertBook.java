@@ -75,6 +75,10 @@ public class ConvertBook {
 			oldBook.setName(oldBook.getName().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
 		if (oldBook.getCpname() != null)
 			oldBook.setCpname(oldBook.getCpname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
+		
+		//设置唯一标识
+		String uniqueflag=oldBook.getCpid()+"-"+oldBook.getCpbid();
+		oldBook.setUniqueflag(uniqueflag);
 		return oldBook;
 	}
 

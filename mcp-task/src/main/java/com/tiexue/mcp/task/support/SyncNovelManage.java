@@ -20,7 +20,6 @@ import com.tiexue.mcp.task.plugin.PluginGeneral;
  * @author zhangxiaowei
  *
  */
-@Component("syncNovelManage")
 public class SyncNovelManage {
 
 	private static Logger logger=Logger.getLogger(SyncNovelManage.class);
@@ -71,7 +70,7 @@ public class SyncNovelManage {
 	@SuppressWarnings("unused")
 	private  void executeTieXueDuShu(McpBaseInfo mcpBaseInfo) {
 
-		logger.info("EPageTieXueDuShu start"+new Date());
+		logger.info(" EPageTieXueDuShu start: "+new Date());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

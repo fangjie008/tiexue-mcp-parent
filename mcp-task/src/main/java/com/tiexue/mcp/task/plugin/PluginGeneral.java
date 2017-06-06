@@ -187,7 +187,7 @@ public class PluginGeneral {
 				taskbook = ConvertBook.fillTaskBook(tempTaskBook, taskbook);
 			}
 		}
-		McpBook mcpBook = iMcpBookService.selectByCpBId(taskbook.getCpid(), taskbook.getCpbid());
+		McpBook mcpBook = iMcpBookService.selectByCpBId(taskbook.getUniqueflag());
 		// 书籍已经采集
 		if (mcpBook != null) {
 			if (!currentTask.isUpdateBook(mcpBook, taskbook)) {
@@ -267,8 +267,7 @@ public class PluginGeneral {
 			}
 		}
 		String cpbookid = taskChapter.getCpbookid() == null ? "" : taskChapter.getCpbookid();
-		McpChapter mcpChapter = iMcpChapterService.selectByCpBId(taskChapter.getCpid(), cpbookid,
-				taskChapter.getCpchapterid());
+		McpChapter mcpChapter = iMcpChapterService.selectByCpBId(taskChapter.getUniqueflag());
 		// 书籍已经采集
 		if (mcpChapter != null) {
 			if (!currentTask.isUpdateChapter(mcpChapter, taskChapter)) {

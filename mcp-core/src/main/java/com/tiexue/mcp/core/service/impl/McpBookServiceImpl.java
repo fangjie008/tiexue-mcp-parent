@@ -64,9 +64,8 @@ public class McpBookServiceImpl implements IMcpBookService {
 		return mcpBookMapper.getCount(strWhere);
 	}
 	@Override
-	public McpBook selectByCpBId(Integer cpId,String cpBId) {
-		logger.info("查询书籍信息cpId:"+cpId+".cpBId:"+cpBId);
-		return mcpBookMapper.selectByCpBId(cpId,cpBId);
+	public McpBook selectByCpBId(String uniqueFlag) {
+		return mcpBookMapper.selectByCpBId(uniqueFlag);
 	}
 	@Override
 	public McpBook taskInsert(McpBook record) {

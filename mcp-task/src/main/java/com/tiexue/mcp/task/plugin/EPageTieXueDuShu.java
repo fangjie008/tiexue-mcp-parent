@@ -226,7 +226,7 @@ public class EPageTieXueDuShu extends PageBase {
 		String postdate = tempNode.valueOf("postdate");
 		if (postdate != null) {
 			Date date = DateUtil.secondTimestamp2Date(postdate);
-			bookInfo.setCreatetime(date);
+//			bookInfo.setCreatetime(date);
 			bookInfo.setUpdatetime(date);
 		}
 		String size = tempNode.valueOf("size");

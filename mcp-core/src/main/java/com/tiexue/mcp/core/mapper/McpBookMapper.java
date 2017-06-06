@@ -126,10 +126,10 @@ public interface McpBookMapper {
         "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
         "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
         "from McpBook",
-        "where CPId=#{cpId} and CPBId = #{cpBId}"
+        "where UniqueFlag= #{uniqueFlag} limit 0,1"
     })
     @ResultMap("BaseResultMap")
-    McpBook selectByCpBId(@Param("cpId")Integer cpId,@Param("cpBId")String cpBId);
+    McpBook selectByCpBId(@Param("uniqueFlag")String uniqueFlag);
     
     @Update({
         "update McpBook",

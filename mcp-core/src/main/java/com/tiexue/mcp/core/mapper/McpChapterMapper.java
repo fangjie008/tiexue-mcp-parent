@@ -118,7 +118,7 @@ public interface McpChapterMapper {
         "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
         "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content,UniqueFlag",
         "from McpChapter",
-        " where CPId=#{cpId} and CPBookId = #{cpBId} and CPChapterId = #{cpCId}"})
+        " where UniqueFlag= #{uniqueFlag} limit 0,1"})
     @ResultMap("BaseResultMap")
-    McpChapter selectByCpBId(@Param("cpId")Integer cpId,@Param("cpBId")String cpBId,@Param("cpCId")String cpCId);
+    McpChapter selectByCpBId(@Param("uniqueFlag")String uniqueFlag);
 }

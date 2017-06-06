@@ -32,7 +32,7 @@ public interface IMcpChapterService {
      * @param cpCId
      * @return
      */
-    McpChapter selectByCpBId(Integer cpId,String cpBId,String cpCId);
+    McpChapter selectByCpBId(String uniqueFlag);
     /**
      * 新增采集的章节
      * @param record
