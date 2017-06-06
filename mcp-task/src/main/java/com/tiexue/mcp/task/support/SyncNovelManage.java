@@ -38,6 +38,13 @@ public class SyncNovelManage {
 	 * 启动同步小说
 	 */
 	public void init(){
+		try {
+			logger.info(" init start: "+new Date()+"sleep 20 second. ");
+			//暂停20秒
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		mcpBaseInfos=  iMcpBaseInfoService.getAllList(" 1=1 ");
 		start();
 	}

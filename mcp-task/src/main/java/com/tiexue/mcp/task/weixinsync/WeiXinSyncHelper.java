@@ -1,5 +1,7 @@
 package com.tiexue.mcp.task.weixinsync;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 
 public class WeiXinSyncHelper {
@@ -13,6 +15,7 @@ public class WeiXinSyncHelper {
 	
 	public void getUserInfo(){
 		try {
+			logger.info(" getUserInfo start: "+new Date()+"sleep 30 second. ");
 			Thread.sleep(30000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

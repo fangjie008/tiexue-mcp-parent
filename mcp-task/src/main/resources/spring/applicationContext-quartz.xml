@@ -44,8 +44,8 @@
 			<ref bean="jobDetail"/>
 		</property>
 		<property name="cronExpression">
-			<value>* 0/15 * * * ?</value>
-			<!-- 每15分钟执行一次 -->
+			<value>* 0/4 * * * ?</value>
+			<!-- 每4分钟执行一次 -->
 		</property>
 	</bean>
 	<bean id="weiXinTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
@@ -53,8 +53,8 @@
 			<ref bean="weiXinJob"/>
 		</property>
 		<property name="cronExpression">
-			<value>* 0/10 * * * ?</value>
-			<!-- 每10分钟执行一次 -->
+			<value>* 0/3 * * * ?</value>
+			<!-- 每3分钟执行一次 -->
 		</property>
 	</bean>
 	
