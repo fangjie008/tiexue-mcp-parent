@@ -226,7 +226,7 @@ public class WxBookrackController {
 			{
 				String status = EnumType.BookStatus_Finish + "," + EnumType.BookStatus_Update;
 				String strWhere=" Status in ("+status+")"+" and tag='军事'";
-				List<WxBook> books=bookService.getList(strWhere, "CreateTime",3);
+				List<WxBook> books=bookService.getList(strWhere, "CreateTime",8);
 				if(books!=null){
 					for (WxBook wxBook : books) {
 						WxChapter curChap = null;
