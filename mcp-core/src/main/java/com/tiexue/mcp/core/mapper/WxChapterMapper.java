@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.entity.WxChapter;
 
 public interface WxChapterMapper {
@@ -115,4 +117,53 @@ public interface WxChapterMapper {
         " order by SortOrder desc,Id desc   LIMIT 0,1 "})
     @ResultMap("ResultListMap")
     WxChapter getLastChapter(@Param("bookId")Integer bookId,@Param("status")Integer status);
+    
+    
+    
+    
+    
+    @Select({
+        "select",
+        "Id, BookId, Intro, SortOrder, Title, ChapterType, Pirce, Status, ContentLen,ShowType, ",
+        "CreateTime, UpdateTime, Remark,UniqueFlag",
+        "from wxchapter",
+        "where UniqueFlag=#{uniqueFlag}"
+    })
+    @ResultMap("BaseResultMap")
+    WxChapter selectByUniqueFlag(String uniqueFlag);
+    
+    /**
+     * 插入到wxChapter
+     * @param id
+     * @param uniqueflag
+     * @return
+     */
+    @Insert({
+    	"INSERT INTO wxchapter(BookId,Intro,SortOrder,Title,ChapterType,Pirce,",
+    	"`Status`,ContentLen,CreateTime,UpdateTime,Remark,UniqueFlag) ",
+    	"SELECT #{wxBookId},'',`Order`,`Name`,",
+    	"(CASE  WHEN IsVip=1 THEN 0 WHEN IsVip=3 THEN 1 ELSE 0 END) AS ChapterType,",
+    	"Price,1,Words,NOW(),UpdateTime,'',UniqueFlag",
+    	"FROM McpChapter WHERE Id =#{mcpBookId} AND",
+    	"NOT EXISTS (SELECT id FROM wxchapter WHERE UniqueFlag=#{uniqueflag});",
+    })
+    @Options(useGeneratedKeys=true,keyProperty="wxChapter.id")
+    int insertToWxChapter(@Param("wxChapter")WxChapter wxChapter,@Param("mcpBookId")Integer mcpBookId,@Param("wxBookId")Integer wxBookId,@Param("uniqueflag")String uniqueflag);
+    
+    @Update({
+    	"UPDATE wxchapter a INNER JOIN McpChapter b ON a.UniqueFlag=b.UniqueFlag",
+    	"SET ",
+    	"a.title=b.`Name`,",
+    	"a.UpdateTime=b.UpdateTime,",
+    	"a.ContentLen=b.Words,",
+    	"a.SortOrder=b.Order",
+    	"WHERE b.Id=#{mcpChapterId}",
+    })
+    /**
+     * 根据mcpChapterId更新章节
+     * @param id
+     * @param uniqueflag
+     * @return
+     */
+    int updateToWxChapter(@Param("mcpChapterId")Integer mcpChapterId,@Param("uniqueflag")String uniqueflag);
 }

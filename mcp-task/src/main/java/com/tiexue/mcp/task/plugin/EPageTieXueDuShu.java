@@ -246,11 +246,19 @@ public class EPageTieXueDuShu extends PageBase {
 		if (fullflag != null && fullflag == "0") {
 			bookInfo.setBookstatus(McpConstants.BookStatus_Update);
 		}
+		else{
+			bookInfo.setBookstatus(McpConstants.BookStatus_Finish);
+		}
 		// isvip 1 vip 0免费小说
 		String isvip = tempNode.valueOf("isvip");
 		if (isvip != null || isvip == "0") {
 			bookInfo.setChargemode(McpConstants.ChargeMode_Free);
+		}else{
+			bookInfo.setChargemode(McpConstants.ChargeMode_Chapter);
 		}
+		//铁血的书默认是军事类的
+		bookInfo.setTags("军事");
+		bookInfo.setAuditstatus(McpConstants.AuditStatus_Pass);
 		return bookInfo;
 	}
 
@@ -342,6 +350,8 @@ public class EPageTieXueDuShu extends PageBase {
 			int price = words / 250;
 			chapterInfo.setPrice(price);
 		}
+		//铁血的书默认审核通过
+		chapterInfo.setAuditstatus(McpConstants.AuditStatus_Pass);
 		return chapterInfo;
 	}
 

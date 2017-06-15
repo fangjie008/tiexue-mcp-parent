@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.entity.WxChapter;
 import com.tiexue.mcp.core.mapper.WxChapterMapper;
 import com.tiexue.mcp.core.service.IWxChapterService;
@@ -74,6 +75,21 @@ public class WxChapterServiceImpl implements IWxChapterService {
 	@Override
 	public WxChapter getLastChapter(Integer bookId, Integer status) {
 		return wxChapterMapper.getLastChapter(bookId, status);
+	}
+
+	@Override
+	public int insertToWxChapter(WxChapter wxChapter, Integer mcpBookId, Integer wxBookId, String uniqueflag) {
+		return wxChapterMapper.insertToWxChapter(wxChapter, mcpBookId, wxBookId, uniqueflag);
+	}
+
+	@Override
+	public int updateToWxChapter(Integer mcpChapterId, String uniqueflag) {
+		return wxChapterMapper.updateToWxChapter(mcpChapterId, uniqueflag);
+	}
+
+	@Override
+	public WxChapter selectByUniqueFlag(String uniqueFlag) {
+		return wxChapterMapper.selectByUniqueFlag(uniqueFlag);
 	}
 
 }

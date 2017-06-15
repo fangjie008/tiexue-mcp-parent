@@ -50,4 +50,19 @@ public class WxBookServiceImpl implements IWxBookService {
 		return this.wxBookMapper.updateByPrimaryKey(record);
 	}
 
+	@Override
+	public int insertToWxBook(WxBook wxBook, Integer mcpBookId, String uniqueflag) {
+		return wxBookMapper.insertToWxBook(wxBook, mcpBookId, uniqueflag);
+	}
+
+	@Override
+	public int updateToWxBook(Integer mcpBookId, String uniqueflag) {
+		return wxBookMapper.updateToWxBook(mcpBookId, uniqueflag);
+	}
+
+	@Override
+	public WxBook selectByUniqueFlag(String uniqueFlag) {
+		return wxBookMapper.selectByUniqueFlag(uniqueFlag);
+	}
+
 }

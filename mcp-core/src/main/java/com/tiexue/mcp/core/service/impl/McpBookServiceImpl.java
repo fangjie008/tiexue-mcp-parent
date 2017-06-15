@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpConstants;
+import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.mapper.McpBookMapper;
 import com.tiexue.mcp.core.service.IMcpBookService;
 
@@ -94,6 +95,19 @@ public class McpBookServiceImpl implements IMcpBookService {
 	public int updateCollectionStatus(Integer Id) {
 		return mcpBookMapper.updateCollectionStatus(Id, McpConstants.Book_FinishCollection);
 	}
+	@Override
+	public List<McpBook> getUnCommitBook() {
+		return mcpBookMapper.getUnCommitBook();
+	}
+	@Override
+	public List<McpBook> getNeedUpdateMcpBook(Date PutawayTime) {
+		return mcpBookMapper.getNeedUpdateMcpBook(PutawayTime);
+	}
+	@Override
+	public int updatePutAwayStatus(Integer mcpBookId, String uniqueflag) {
+		return mcpBookMapper.updatePutAwayStatus(mcpBookId, uniqueflag);
+	}
+
 	
 	
 	

@@ -135,6 +135,15 @@ public class McpConstants {
     }};
     
     
+    public static final Integer CommitRecordStatus_Success=1;
+    public static final Integer CommitRecordStatus_Error=0;
+    public static Map<Integer, String> CommitRecordStatus=new HashMap<Integer,String>(){
+    	{
+    		put(CommitRecordStatus_Success,"成功");
+    		put(CommitRecordStatus_Error,"失败");
+    	}
+    };
+    
     /**
      * Des加密秘钥
      */

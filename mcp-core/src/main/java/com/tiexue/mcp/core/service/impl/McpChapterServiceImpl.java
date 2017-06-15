@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -90,6 +91,16 @@ public class McpChapterServiceImpl implements IMcpChapterService {
 			return 0;
 		int id= mcpChapterMapper.updateByPrimaryKey(record);
 		return id;
+	}
+
+	@Override
+	public List<McpChapter> getUnCommitChapter(Integer mcpBookId) {
+		return mcpChapterMapper.getUnCommitChapter(mcpBookId);
+	}
+
+	@Override
+	public List<McpChapter> getNeedUpdateMcpChapter(Integer mcpBookId, Date updateTime) {
+		return mcpChapterMapper.getNeedUpdateMcpChapter(mcpBookId, updateTime);
 	}
 
 

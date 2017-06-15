@@ -93,7 +93,8 @@ public class ConvertBook {
 			return null;
 		McpBook mcpBook = new McpBook();
 		// 新增的书审核状态默认为未审核
-		mcpBook.setAuditstatus(McpConstants.AuditStatus_UnAudit);
+		if(record.getAuditstatus()!=null)
+			mcpBook.setAuditstatus(McpConstants.AuditStatus_UnAudit);
 		mcpBook.setAuditinfo("");
 		mcpBook.setAuthor(record.getAuthor() == null ? "" : record.getAuthor());
 		mcpBook.setActors(record.getActors() == null ? "" : record.getActors());
@@ -147,6 +148,9 @@ public class ConvertBook {
 	public static McpBook toMcpBookDaoForUpdate(McpBook mcpBook, TaskBook taskBook) {
 		if (taskBook == null)
 			return mcpBook;
+		// 更新的书审核状态默认为未审核
+		if(taskBook.getAuditstatus()!=null)
+			mcpBook.setAuditstatus(McpConstants.AuditStatus_UnAudit);
 		if (taskBook.getAuthor() != null)
 			mcpBook.setAuthor(taskBook.getAuthor());
 		if (taskBook.getActors() != null)

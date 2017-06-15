@@ -96,6 +96,7 @@ public class TaskBook {
     private String actors;
 	private String subhead;
     private String tags;
+    private Integer auditstatus;
     /**
      * 采集状态(开始采集时状态改成0，采集完成状态改成1)
      */
@@ -250,6 +251,12 @@ public class TaskBook {
 	}
 	public void setUniqueflag(String uniqueflag) {
 		this.uniqueflag = uniqueflag;
+	}
+	public Integer getAuditstatus() {
+		return auditstatus;
+	}
+	public void setAuditstatus(Integer auditstatus) {
+		this.auditstatus = auditstatus;
 	}
 	
 }

@@ -2,7 +2,10 @@ package com.tiexue.mcp.core.mapper;
 
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
+import com.tiexue.mcp.core.entity.WxBook;
+import com.tiexue.mcp.core.entity.WxChapter;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -121,4 +124,34 @@ public interface McpChapterMapper {
         " where UniqueFlag= #{uniqueFlag} limit 0,1"})
     @ResultMap("BaseResultMap")
     McpChapter selectByCpBId(@Param("uniqueFlag")String uniqueFlag);
+    
+    /**
+     * 获取未上架的小说的章节
+     * 查找 AuditStatus(安审状态)=2(审核通过)的的章节
+     * @return
+     */
+    @Select({
+    	"select Id,BookId,UniqueFlag From McpChapter WHERE BookId=#{mcpBookId} AND AuditStatus=2",
+    })
+    List<McpChapter> getUnCommitChapter(@Param("mcpBookId")Integer mcpBookId);
+    
+    @Select({"select",
+        "Id, Name, Words, BookId, BookName, AuditStatus, AuditInfo, CPId, CPBookId, CPChapterId, ",
+        "`Order`, UpdateTime, CreateTime, IsVip, Price, Md5, Content,UniqueFlag",
+        "from McpChapter",
+        " where BookId=#{mcpBookId} AND UpdateTime> #{updateTime}"})
+    /**
+     * 获取已上架需要更新的章节
+     * 查找最后更新时间>上架时间的的章节
+     * @return
+     */
+    List<McpChapter> getNeedUpdateMcpChapter(@Param("mcpBookId")Integer mcpBookId,@Param("updateTime")Date updateTime);
+    
+    
+ 
+    
+    
+   
+    
+    
 }

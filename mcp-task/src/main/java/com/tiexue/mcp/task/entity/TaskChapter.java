@@ -72,6 +72,7 @@ public class TaskChapter {
 	private String md5;
 
 	private String uniqueflag;
+	private Integer auditstatus;
 	
 	public String getChapterUrl() {
 		return chapterUrl;
@@ -168,6 +169,12 @@ public class TaskChapter {
 	}
 	public void setUniqueflag(String uniqueflag) {
 		this.uniqueflag = uniqueflag;
+	}
+	public Integer getAuditstatus() {
+		return auditstatus;
+	}
+	public void setAuditstatus(Integer auditstatus) {
+		this.auditstatus = auditstatus;
 	}
 
 	

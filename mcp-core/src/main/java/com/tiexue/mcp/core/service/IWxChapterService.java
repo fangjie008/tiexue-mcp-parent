@@ -2,8 +2,12 @@ package com.tiexue.mcp.core.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
+import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.entity.WxChapter;
 
 public interface IWxChapterService  {
@@ -32,11 +36,34 @@ public interface IWxChapterService  {
 	    
 	    WxChapter getFirstChapter(Integer bookId,Integer status);
 	    /**
-	     * 或许最新章节
+	     * 获取最新章节
 	     * @param bookId
 	     * @param status
 	     * @return
 	     */
 	    WxChapter getLastChapter(Integer bookId,Integer status);
+	    
+	    
+	    /**
+	     * 根据唯一标识查询章节数据(查看章节是否存在)
+	     * @param uniqueFlag
+	     * @return
+	     */
+	    WxChapter selectByUniqueFlag(String uniqueFlag);
+	    /**
+	     * 插入到wxChapter
+	     * @param id
+	     * @param uniqueflag
+	     * @return
+	     */
+	    int insertToWxChapter(WxChapter wxChapter,Integer mcpBookId,Integer wxBookId,String uniqueflag);
+	    
+	    /**
+	     * 根据mcpChapterId更新章节
+	     * @param id
+	     * @param uniqueflag
+	     * @return
+	     */
+	    int updateToWxChapter(Integer mcpChapterId,String uniqueflag);
 }
 

@@ -1,6 +1,8 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.Date;
 import java.util.List;
+
 
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.McpChapter;
@@ -45,4 +47,21 @@ public interface IMcpChapterService {
      * @return
      */
     int taskUpdate(McpChapter record);
+    
+    
+    
+    /**
+     * 获取未上架的小说的章节
+     * 查找 AuditStatus(安审状态)=2(审核通过)的的章节
+     * @return
+     */
+    List<McpChapter> getUnCommitChapter(Integer mcpBookId);
+    
+
+    /**
+     * 获取已上架需要更新的章节
+     * 查找最后更新时间>上架时间的的章节
+     * @return
+     */
+    List<McpChapter> getNeedUpdateMcpChapter(Integer mcpBookId,Date updateTime);
 }

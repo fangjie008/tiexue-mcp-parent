@@ -3,6 +3,7 @@ package com.tiexue.mcp.core.mapper;
 import com.tiexue.mcp.core.entity.McpBook;
 import com.tiexue.mcp.core.entity.WxBook;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -138,5 +139,52 @@ public interface McpBookMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateCollectionStatus(@Param("id")Integer Id,@Param("collectionstatus")Integer collectionStatus);
+    
+    @Select({
+    	"select",
+        "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
+        "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
+        "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
+        "from McpBook",
+        "where putAwayStatus=1 and AuditStatus=2  "
+    		+ ""})
+    /**
+     * 获取未上架的小说
+     * 查找 putAwayStatus(上架状态)=1(未上架)并且AuditStatus(安审状态)=2(审核通过)的小说
+     * @return
+     */
+    List<McpBook> getUnCommitBook();
+    
+    @Select({
+    	"select",
+        "Id, CPId, CPName, CPBId, Name, Subhead, Author, ChannelType, Classify, Tags, ",
+        "KeyWords, Actors, BookStatus, CoverImg, Intro, PublishTime, Words, ChapterCount, ",
+        "UpdateTime, PutawayTime, ChargeMode, Price, FeeChapter, PutAwayStatus, AuditStatus, ",
+        "AuditInfo, CreateTime,CollectionStatus,UniqueFlag",
+        "from McpBook",
+        "where putAwayStatus=2 and AuditStatus=2 and  UpdateTime>#{UpdateTime,jdbcType=TIMESTAMP} "
+    		+ ""})
+    /**
+     * 获取已上架需要更新的小说
+     * 查找 putAwayStatus(上架状态)=2(已上架)并且AuditStatus(安审状态)=2(审核通过)并且最后更新时间>上架时间的小说
+     * @return
+     */
+    List<McpBook> getNeedUpdateMcpBook(@Param("UpdateTime")Date UpdateTime);
+    
+ 
+ 
+    @Update({
+    	"UPDATE McpBook SET putAwayStatus=2,PutawayTime=NOW() WHERE id=#{mcpBookId,jdbcType=INTEGER};",
+    })
+    /**
+     * 更新到wxBook
+     * @param id
+     * @param uniqueflag
+     * @return
+     */
+    int updatePutAwayStatus(@Param("mcpBookId")Integer mcpBookId,@Param("uniqueflag")String uniqueflag);
+    
+    
     
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.McpCommitRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.McpCommitRecord" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="CommitStatus" property="commitstatus" jdbcType="BIT" />
+    <result column="CommitTime" property="committime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, CommitStatus, CommitTime, CreateTime
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.McpCommitRecord" >
+    insert into McpCommitRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="commitstatus != null" >
+        CommitStatus,
+      </if>
+      <if test="committime != null" >
+        CommitTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="commitstatus != null" >
+        #{commitstatus,jdbcType=BIT},
+      </if>
+      <if test="committime != null" >
+        #{committime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.McpCommitRecord" >
+    update McpCommitRecord
+    <set >
+      <if test="commitstatus != null" >
+        CommitStatus = #{commitstatus,jdbcType=BIT},
+      </if>
+      <if test="committime != null" >
+        CommitTime = #{committime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
