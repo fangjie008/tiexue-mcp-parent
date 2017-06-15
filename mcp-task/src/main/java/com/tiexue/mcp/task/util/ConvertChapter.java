@@ -22,6 +22,8 @@ public class ConvertChapter {
 			return oldChapter;
 		if (oldChapter == null)
 			return newChapter;
+		if (newChapter.getAuditstatus() != null)
+			oldChapter.setAuditstatus(newChapter.getAuditstatus());
 		if (newChapter.getBookid() != null)
 			oldChapter.setBookid(newChapter.getBookid());
 		if (newChapter.getBookname() != null)
@@ -78,8 +80,7 @@ public class ConvertChapter {
 			return null;
 		McpChapter mcpChapter = new McpChapter();
 		// 新增的书审核状态默认为未审核
-		if(record.getAuditstatus()!=null)
-			mcpChapter.setAuditstatus(McpConstants.AuditStatus_UnAudit);
+	    mcpChapter.setAuditstatus(record.getAuditstatus()==null?McpConstants.AuditStatus_UnAudit:record.getAuditstatus());
 		mcpChapter.setAuditinfo("");
 		mcpChapter.setBookid(record.getBookid() == null ? 0 : record.getBookid());
 		mcpChapter.setBookname(record.getBookname() == null ? "" : record.getBookname());
@@ -131,8 +132,8 @@ public class ConvertChapter {
 		if (taskChapter == null)
 			return mcpChapter;
 		// 新增的书审核状态默认为未审核
-		if(taskChapter.getAuditstatus()!=null)
-			mcpChapter.setAuditstatus(McpConstants.AuditStatus_UnAudit);
+		if (taskChapter.getAuditstatus() != null)
+			mcpChapter.setAuditstatus(taskChapter.getAuditstatus());
 		if (taskChapter.getBookid() != null)
 			mcpChapter.setBookid(taskChapter.getBookid());
 		if (taskChapter.getBookname() != null)
