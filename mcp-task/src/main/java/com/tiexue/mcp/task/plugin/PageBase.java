@@ -38,6 +38,8 @@ public abstract class PageBase {
 	protected TaskBook currentBook=null;
 	//存放当前采集的章节信息
 	protected TaskChapter currentChapter=null;
+	//采集成功的状态
+	public boolean collectionStatus=true;
 	public String getAppkey() {
 		return appkey;
 	}
@@ -91,6 +93,7 @@ public abstract class PageBase {
 
 		} catch (Exception e) {
 			logger.error("collection data error.url:" + url + ".msg:" + e.getMessage());
+			collectionStatus=false;
 		}
 
 	}

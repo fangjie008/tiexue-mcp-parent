@@ -39,25 +39,14 @@
 		<property name="concurrent" value="false"></property>  
    
 	</bean>
-	<bean id="onlineJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="onlineHelper"/>
-		</property>
-		<property name="targetMethod">
-			<value>init</value>
-		</property>
-		 <!-- concurrent : false表示等上一个任务执行完后再开启新的任务 -->  
-		<property name="concurrent" value="false"></property>  
-   
-	</bean>
 	<bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<ref bean="jobDetail"/>
 		</property>
 		<property name="cronExpression">
 			
-			<!-- 每20分钟执行一次 -->
-			<value>0 0/20 * * * ?</value>
+			<!-- 每40分钟执行一次 -->
+			<value>0/10 * * * * ?</value>
 		</property>
 	</bean>
 	<bean id="weiXinTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
@@ -69,23 +58,11 @@
 			<value>0 0 0/1 * * ?</value>
 		</property>
 	</bean>
-	<bean id="onlineTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail">
-			<ref bean="onlineJob"/>
-		</property>
-		<property name="cronExpression">
-			<!-- 每天凌晨1点执行一次 -->
-			<!-- 	<value>0 0 1 * * ?</value> -->
-			<!-- 每两小时执行一次 -->
-			<value>0 0 0/2 * * ?</value>
-		</property>
-	</bean>
 	<bean id="schedulerFactoryBean" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="trigger"/>
 				<ref bean="weiXinTrigger"/>
-				<ref bean="onlineTrigger"/>
 			</list>
 		</property>
 		<property name="autoStartup" value="true"></property>

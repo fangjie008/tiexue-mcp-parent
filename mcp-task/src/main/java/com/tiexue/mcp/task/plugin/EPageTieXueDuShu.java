@@ -243,7 +243,7 @@ public class EPageTieXueDuShu extends PageBase {
 		bookInfo.setChanneltype(McpConstants.McpChannelType_Body);
 		// fullflag 1完本 0 更新
 		String fullflag = tempNode.valueOf("fullflag");
-		if (fullflag != null && fullflag == "0") {
+		if (fullflag != null && fullflag.equals("0")) {
 			bookInfo.setBookstatus(McpConstants.BookStatus_Update);
 		}
 		else{
@@ -251,10 +251,10 @@ public class EPageTieXueDuShu extends PageBase {
 		}
 		// isvip 1 vip 0免费小说
 		String isvip = tempNode.valueOf("isvip");
-		if (isvip != null || isvip == "0") {
-			bookInfo.setChargemode(McpConstants.ChargeMode_Free);
-		}else{
+		if (isvip != null && isvip.equals("1")) {
 			bookInfo.setChargemode(McpConstants.ChargeMode_Chapter);
+		}else{
+			bookInfo.setChargemode(McpConstants.ChargeMode_Free);
 		}
 		//铁血的书默认是军事类的
 		bookInfo.setTags("军事");
@@ -301,7 +301,7 @@ public class EPageTieXueDuShu extends PageBase {
 			}
 			Element isvipEle = e.element("isvip");
 			String isvip = isvipEle.getStringValue();
-			if (isvip != null || isvip == "1") {
+			if (isvip != null && isvip.equals("1")) {
 				chapter.setIsvip(McpConstants.Chapter_pay);
 			} else {
 				chapter.setIsvip(McpConstants.Chapter_Free);

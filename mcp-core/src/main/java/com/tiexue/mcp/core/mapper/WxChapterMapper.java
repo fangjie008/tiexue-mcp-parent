@@ -142,7 +142,7 @@ public interface WxChapterMapper {
     	"INSERT INTO wxchapter(BookId,Intro,SortOrder,Title,ChapterType,Pirce,",
     	"`Status`,ContentLen,CreateTime,UpdateTime,Remark,UniqueFlag) ",
     	"SELECT #{wxBookId},'',`Order`,`Name`,",
-    	"(CASE  WHEN IsVip=1 THEN 0 WHEN IsVip=3 THEN 1 ELSE 0 END) AS ChapterType,",
+    	"IsVip,",
     	"Price,1,Words,NOW(),UpdateTime,'',UniqueFlag",
     	"FROM McpChapter WHERE Id =#{mcpBookId} AND",
     	"NOT EXISTS (SELECT id FROM wxchapter WHERE UniqueFlag=#{uniqueflag});",

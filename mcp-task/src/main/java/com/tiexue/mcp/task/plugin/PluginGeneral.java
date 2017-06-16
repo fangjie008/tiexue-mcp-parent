@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.aspectj.weaver.ast.Var;
 
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.entity.McpBook;
@@ -56,6 +57,11 @@ public class PluginGeneral {
 	IMcpChapterService iMcpChapterService;
 	// 当前采集的url
 	private String currentUrl;
+	//当前采集失败的页面
+	private String currentErrorUrl="";
+	private int errorCount=0;
+	//章节采集成功的个数
+	private int collectionChapterCount=0;
 
 	/**
 	 * 构造方法
@@ -90,14 +96,22 @@ public class PluginGeneral {
 				startTask(currentUrl);
 				// 加载完成
 				buildModel();
-				// 移除加载列表
-				scheduleList.remove(0);
+				//移除加载列表
+				removeScheduleList();
 				// 休息n秒钟
-				Thread.sleep(100);
+				Thread.sleep(10);
 				// 如果本条内容采集完毕
 				if (scheduleList != null && scheduleList.size() > 0 && scheduleList.get(0) == endFlag) {
 					if (tempBook != null){
-						iMcpBookService.updateCollectionStatus(tempBook.getId());
+						int totalCount=chapterList.size();
+						if(collectionChapterCount>=totalCount){
+							iMcpBookService.updateCollectionStatus(tempBook.getId());
+							logger.info("bookID:"+tempBook.getId()+"所有章节采集完成！更新采集完成状态");
+						}
+						else{
+							logger.info("bookID:"+tempBook.getId()+"有章节没有保存成功。不能更新采集完成状态");
+						}
+						
 					}
 					scheduleList.remove(0);
 				}
@@ -120,6 +134,7 @@ public class PluginGeneral {
 			currentTask.setAppkey(appkey);
 			currentTask.setUrl(baseUrl);
 			currentTask.load(true);
+			
 		} catch (Exception e) {
 			logger.error("startTask error." + e.getMessage() + ". url:" + baseUrl);
 
@@ -142,6 +157,8 @@ public class PluginGeneral {
 			parseChapterList(currentTask.chapterList);
 			break;
 		case McpTaskConstants.PageType_ChapterInfo:
+			if(currentTask.collectionStatus)
+				++collectionChapterCount;
 			parseChapterInfo(currentTask.currentChapter);
 			break;
 		default:
@@ -149,6 +166,31 @@ public class PluginGeneral {
 		}
 	}
 
+	/**
+	 *  如果采集成功或者采集失败超过三次则，把采集的url从加载列表移除
+	 */
+	private void removeScheduleList(){
+		//如果采集成功
+		if(currentTask.collectionStatus){
+			errorCount=0;
+			currentErrorUrl="";
+		}
+		//采集失败
+		else{
+			if(!currentErrorUrl.isEmpty()&&currentErrorUrl==currentUrl){
+				errorCount++;
+			}
+			else{
+				currentErrorUrl=currentUrl;
+				errorCount=1;
+			}
+		}
+		if(currentTask.collectionStatus||errorCount>=3){
+			// 移除加载列表
+			scheduleList.remove(0);
+		}
+	}
+	
 	/**
 	 * 解析获取到的书籍列表
 	 * 

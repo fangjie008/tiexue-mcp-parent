@@ -126,7 +126,7 @@ public interface McpChapterMapper {
     McpChapter selectByCpBId(@Param("uniqueFlag")String uniqueFlag);
     
     /**
-     * 获取未上架的小说的章节
+     * 获取未上架的小说的章节(在插入数据时判断是否已经同步到线上)
      * 查找 AuditStatus(安审状态)=2(审核通过)的的章节
      * @return
      */

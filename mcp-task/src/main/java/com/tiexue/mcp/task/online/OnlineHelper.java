@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.sql.visitor.functions.Now;
 import com.tiexue.mcp.core.entity.McpBook;
@@ -24,7 +25,7 @@ import com.tiexue.mcp.core.service.IWxChapterSubService;
 import com.tiexue.mcp.task.support.SyncNovelManage;
 
 import weixin.popular.bean.qrcode.Wxaqrcode;
-
+@Service
 public class OnlineHelper {
 	private static Logger logger=Logger.getLogger(OnlineHelper.class);
 	@Resource
@@ -47,7 +48,7 @@ public class OnlineHelper {
 		try {
 			lastUpdateTime=new Date();
 			logger.info(" OnlineHelper start: "+new Date()+" . ");
-			Thread.sleep(1000);
+			Thread.sleep(20000);
 			McpCommitRecord mcpCommitRecord= iMcpCommitRecordService.getNewest();
 			if(mcpCommitRecord!=null&&mcpCommitRecord.getCommittime()!=null){
 				lastUpdateTime=mcpCommitRecord.getCommittime();

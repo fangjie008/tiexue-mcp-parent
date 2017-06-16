@@ -12,6 +12,7 @@ import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
 import com.tiexue.mcp.core.service.IMcpBookService;
 import com.tiexue.mcp.core.service.IMcpChapterService;
+import com.tiexue.mcp.task.online.OnlineHelper;
 import com.tiexue.mcp.task.plugin.PluginGeneral;
 
 
@@ -32,14 +33,15 @@ public class SyncNovelManage {
 	IMcpBookService iMcpBookService;
 	@Resource
     IMcpChapterService iMcpChapterService;
-	
+	@Resource
+	OnlineHelper onlineHelper;
 	private static List<McpBaseInfo> mcpBaseInfos;
 	/**
 	 * 启动同步小说
 	 */
 	public void init(){
 		try {
-			logger.info(" init start: "+new Date()+"sleep 20 second. ");
+			logger.info(" SyncNovelManage start: "+new Date()+"sleep 20 second. ");
 			//暂停20秒
 			Thread.sleep(20000);
 		} catch (InterruptedException e) {
@@ -47,6 +49,10 @@ public class SyncNovelManage {
 		}
 		mcpBaseInfos=  iMcpBaseInfoService.getAllList(" 1=1 ");
 		start();
+		logger.info(" SyncNovelManage end: "+new Date()+"");
+		//logger.info(" onlineHelper start: "+new Date()+"");
+		onlineHelper.init();
+		//logger.info(" onlineHelper end: "+new Date()+"");
 	}
 	
 	/**
