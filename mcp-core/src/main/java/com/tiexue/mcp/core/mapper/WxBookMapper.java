@@ -137,4 +137,17 @@ public interface WxBookMapper {
      * @return
      */
     int updateToWxBook(@Param("mcpBookId")Integer mcpBookId,@Param("uniqueflag")String uniqueflag);
+    
+    /**
+     * 根据合作方Id获取合作方小说
+     * @param cpId
+     * @return
+     */
+    @Select({
+    	" SELECT  Id, Name, Intr, PublisherId, PublisherName, CoverImgs, Tag, Mark, Sort, Status, ",
+        "ViewCount, CommentCount, DingCount, CaiCount, ShareCount, ContentLen, CreateTime, ",
+        "UpdateTime,UniqueFlag,CollectionId  FROM wxbook WHERE uniqueflag IN",
+    	"  (SELECT UniqueFlag FROM McpBook WHERE CPId=#{CPId}); ",
+    })
+    List<WxBook> getBookIdByCPId(@Param("CPId")Integer cpId);
 }

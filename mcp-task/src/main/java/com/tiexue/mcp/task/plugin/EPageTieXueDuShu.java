@@ -225,7 +225,7 @@ public class EPageTieXueDuShu extends PageBase {
 			bookInfo.setAuthor(author);
 		String postdate = tempNode.valueOf("postdate");
 		if (postdate != null) {
-			Date date = DateUtil.secondTimestamp2Date(postdate);
+			Date date = DateUtil.secondTimestamp2Date(postdate,8 * 60 * 60 * 1000);
 //			bookInfo.setCreatetime(date);
 			bookInfo.setUpdatetime(date);
 		}
@@ -308,7 +308,7 @@ public class EPageTieXueDuShu extends PageBase {
 			}
 			String postdate = e.valueOf("postdate");
 			if (postdate != null) {
-				Date date = DateUtil.secondTimestamp2Date(postdate);
+				Date date = DateUtil.secondTimestamp2Date(postdate,8 * 60 * 60 * 1000);
 				chapter.setUpdatetime(date);
 			}
 			if (chapter.getChapterUrl() == null || chapter.getChapterUrl().isEmpty())

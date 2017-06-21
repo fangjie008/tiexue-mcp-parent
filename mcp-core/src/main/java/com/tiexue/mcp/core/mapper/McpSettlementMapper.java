@@ -51,4 +51,6 @@ public interface McpSettlementMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(McpSettlement record);
+    
+    
 }

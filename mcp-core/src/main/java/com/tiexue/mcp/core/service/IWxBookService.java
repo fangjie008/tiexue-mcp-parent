@@ -42,4 +42,12 @@ public interface IWxBookService {
      * @return
      */
     int updateToWxBook(Integer mcpBookId,String uniqueflag);
+    
+    
+    /**
+     * 根据合作方Id获取合作方小说
+     * @param cpId
+     * @return
+     */
+    List<WxBook> getBookIdByCPId(Integer cpId);
 }

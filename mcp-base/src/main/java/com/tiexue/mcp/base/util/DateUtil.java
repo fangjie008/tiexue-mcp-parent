@@ -137,12 +137,12 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
-	public static Date secondTimestamp2Date(String time) {
+	public static Date secondTimestamp2Date(String time,int diffTime) {
 		Date date = null;
 		if (null != time) {
 			try {
 				long lg=new Long(time);
-				lg=lg*1000;
+				lg=lg*1000-diffTime;
 				date = new Date(lg);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -382,5 +382,22 @@ public class DateUtil {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(getCurrentTime());
+	}
+	
+	public static Date getAnyMonth(String currentDate,String dateFormat,int MonthlyNum){
+		SimpleDateFormat sdFormat=new SimpleDateFormat(dateFormat);
+		Calendar calendar=new GregorianCalendar();
+		try {
+			Date date=sdFormat.parse(currentDate);
+			calendar.setTime(date);
+			calendar.add(Calendar.MONTH,MonthlyNum);
+			String returnStr= sdFormat.format(calendar.getTime());
+			date=sdFormat.parse(returnStr);
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 }

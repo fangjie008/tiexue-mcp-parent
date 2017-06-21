@@ -31,12 +31,12 @@
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe612;</i>
 					</label> <input type="text" name="username" lay-verify="username"
-						autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+						autocomplete="off" value="${username }" placeholder="这里输入登录名" class="layui-input">
 				</div>
 				<div class="layui-form-item">
 					<label class="beg-login-icon"> <i class="layui-icon">&#xe642;</i>
 					</label> <input type="password" name="password" lay-verify="password"
-						autocomplete="off" placeholder="这里输入密码" class="layui-input">
+						autocomplete="off" value="${password }" placeholder="这里输入密码" class="layui-input">
 				</div>
 				<div class="layui-form-item">
 					<!-- <button class="layui-btn" style="width:100%" lay-submit lay-filter="login">
@@ -53,24 +53,14 @@
 		</footer>
 	</div>
 	<script>
-<%-- layui.use(['layer', 'form','jquery'], function() {
-				var layer = layui.layer,
-					$ = layui.jquery,
-					form = layui.form();					
-				form.on('submit(login)',function(data){
-					 $.post("<%=path%>/admin/doLogin",data.field,function(data){
-    					 if(data.state=="ok"){
-    						 location.href='<%=path%>/mcphome/homepage';
-    					 }else{
-    						 layer.alert(data.msg+",请重新输入!", function(index){
-    							 layer.close(index);
-    							 //$("#form1").reset();
-    							});
-    					 }	
-  									},"json");
-					return false;//阻挡表格提交
-				});
-}); --%>
+layui.use(['layer', 'form','jquery'], function() {
+			var layer = layui.layer;
+			var msg='${msg}';
+			if(msg!=""&&msg!=undefined){
+				// 提示信息
+		        layer.msg(msg);
+			}
+});
 
 $(function(){
 	 //登录验证失败时跳转到首页时确保直接跳转

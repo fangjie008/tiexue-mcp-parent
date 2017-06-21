@@ -68,7 +68,7 @@
         return true;  
     } 
     
-    function detail(monthly){
+    function detail((monthly){
     	location.href='<%=path%>/mcpsettlement/detail?monthly='+monthly;
     }
 <%--   $(".layui-form").submit(function(){

@@ -49,29 +49,11 @@ public class McpBookController {
 	@RequestMapping("list")
 	public String getMcpBookList(HttpServletRequest request, HttpServletResponse response) {
 		// todo:权限判断	
-		Subject currentUser = SecurityUtils.getSubject();
-		Session session = currentUser.getSession();
-		McpShiroSubject subject = (McpShiroSubject)session.getAttribute("user");
 		Integer cpId = 0;
-		if (subject.getMcpUserType() == 2) { //cp用户
-			cpId = subject.getMcpBaseInfo().getCpid();
-		}
-		
-		// 每个合作方可以查看自己的作品列表
-		//HttpSession session = request.getSession();
-		//String userId = (String) session.getAttribute("userId");
+		cpId=CommonUtil.getCpId();
 		if (cpId == null || cpId == 0) {
-			String contextPath = request.getContextPath();
 			return "redirect:/login.jsp";
 		}
-		
-	/*	int cpId = 0;
-		try {
-			cpId = Integer.parseInt(userId);
-		} catch (NumberFormatException e) {
-		}*/
-		
-		
 		//分页信息
 		int pindex=1;
 		String pindexStr=request.getParameter("pindex");

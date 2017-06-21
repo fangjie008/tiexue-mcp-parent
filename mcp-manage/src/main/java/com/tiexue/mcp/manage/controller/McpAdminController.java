@@ -68,23 +68,27 @@ public class McpAdminController {
 		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		System.out.println(userName);
-		System.out.println(password);
+		//System.out.println(userName);
+		//System.out.println(password);
 
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 		token.setRememberMe(true);
 
 		String error = null;
 		try {
+			request.setAttribute("username", userName);
+			request.setAttribute("password", password);
 			subject.login(token); // 执行登录操作
 			if (subject.isAuthenticated()) {
 				return "redirect:/mcphome/homepage";
 			} else {
-				return "redirect:/login.jsp";
+				request.setAttribute("msg","登录名或密码错误");
+				return "forward:/login.jsp";
 			}
 		} catch (Exception e) {
+			request.setAttribute("msg","登录名或密码错误");
 			error = "错误：" + e.getMessage();
-			return "redirect:/login.jsp";
+			return "forward:/login.jsp";
 		}
 		// return "redirect:/mcphome/homepage"; // 转到主页面
 	}

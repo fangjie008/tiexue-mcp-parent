@@ -65,4 +65,9 @@ public class WxBookServiceImpl implements IWxBookService {
 		return wxBookMapper.selectByUniqueFlag(uniqueFlag);
 	}
 
+	@Override
+	public List<WxBook> getBookIdByCPId(Integer cpId) {
+		return wxBookMapper.getBookIdByCPId(cpId);
+	}
+
 }

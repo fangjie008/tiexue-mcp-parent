@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -59,6 +60,16 @@ public class WxConsumeServiceImpl implements IWxConsumeService {
 	@Override
 	public Integer judgeConsume(int userId,int charpterId) {
 		return consume.judgeConsume(userId,charpterId);
+	}
+
+	@Override
+	public Integer getCostCoinByCpId(Integer cpId,Date startTime,Date endTime) {
+		return consume.getCostCoinByCpId(cpId, startTime, endTime);
+	}
+
+	@Override
+	public Integer getCostCoinByBookId(Integer bookId,Date startTime,Date endTime) {
+		return consume.getCostCoinByBookId(bookId, startTime, endTime);
 	}
 
 

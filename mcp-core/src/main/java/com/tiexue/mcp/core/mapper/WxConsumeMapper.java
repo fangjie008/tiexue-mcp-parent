@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -88,4 +89,23 @@ public interface WxConsumeMapper {
      * @return
      */
   	Integer judgeConsume(@Param("userId")int userId,@Param("charpterId")int charpterId);
+    
+    
+    
+    @Select({
+    	" SELECT IFNULL(SUM(CostCoin),0) FROM wxconsume ",
+	" WHERE createtime>#{startTime} AND createtime<#{endTime} ",
+	" AND bookId=#{bookId}",
+    })
+    Integer getCostCoinByBookId(@Param("bookId")Integer bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+    
+    
+    @Select({
+    	" SELECT IFNULL(SUM(CostCoin),0) FROM wxconsume ",
+	" WHERE createtime>#{startTime} AND createtime<#{endTime} ",
+	" AND bookid IN",
+	" (SELECT id FROM wxbook WHERE uniqueflag IN",
+	"  (SELECT UniqueFlag FROM McpBook WHERE CPId=#{CPId})); ",
+    })
+    Integer getCostCoinByCpId(@Param("CPId")Integer cpId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
 }

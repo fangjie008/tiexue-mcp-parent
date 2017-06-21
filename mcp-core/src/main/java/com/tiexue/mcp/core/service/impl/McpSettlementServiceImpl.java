@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.tiexue.mcp.core.entity.McpSettlement;
 import com.tiexue.mcp.core.mapper.McpSettlementMapper;
 import com.tiexue.mcp.core.service.IMcpSettlementService;
+import com.tiexue.mcp.core.service.IWxBookService;
+import com.tiexue.mcp.core.service.IWxCommentService;
 
 /**
  * 结算管理
@@ -17,6 +19,10 @@ import com.tiexue.mcp.core.service.IMcpSettlementService;
 public class McpSettlementServiceImpl implements IMcpSettlementService {
 
 	@Resource McpSettlementMapper mcpSettMapper;
+	@Resource 
+	IWxBookService iWxBookService;
+	@Resource 
+	IWxCommentService iWxCommentService;
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return mcpSettMapper.deleteByPrimaryKey(id);

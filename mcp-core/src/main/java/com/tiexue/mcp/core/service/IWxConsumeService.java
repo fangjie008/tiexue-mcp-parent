@@ -1,6 +1,10 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.tiexue.mcp.core.entity.WxConsume;
 
@@ -29,4 +33,23 @@ public interface IWxConsumeService {
 	     * @return
 	     */
 	  	Integer judgeConsume(int userId,int charpterId);
+	  	
+	  	/**
+	  	 * 根据日期查询合作方小说的消费金额
+	  	 * @param cpId
+	  	 * @param startTime
+	  	 * @param endTime
+	  	 * @return
+	  	 */
+	  	Integer getCostCoinByCpId(Integer cpId,Date startTime,Date endTime);
+	  	
+	  	/**
+	  	 * 根据日期查询某本小说的消费金额
+	  	 * @param bookId
+	  	 * @param startTime
+	  	 * @param endTime
+	  	 * @return
+	  	 */
+	  	Integer getCostCoinByBookId(@Param("bookId")Integer bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+	    
 }
