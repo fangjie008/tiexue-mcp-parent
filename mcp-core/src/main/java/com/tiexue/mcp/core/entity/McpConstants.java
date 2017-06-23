@@ -144,6 +144,15 @@ public class McpConstants {
     	}
     };
     
+    public static final Integer SettlementStatus_Un=0;
+    public static final Integer SettlementStatus_OK=1;
+    public static Map<Integer, String> SettlementStatus=new HashMap<Integer,String>(){
+    	{
+    		put(SettlementStatus_Un,"未结算");
+    		put(SettlementStatus_OK,"结算");
+    	}
+    };
+    
     /**
      * Des加密秘钥
      */

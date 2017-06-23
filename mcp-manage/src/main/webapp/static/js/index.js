@@ -67,7 +67,7 @@ layui.use(['layer', 'element', 'util'], function () {
         // 大于0就是有该选项卡了
         if(flag > 0){
         	id = flag;
-        	$("#iframe_"+id).attr("src",src);
+        	//$("#iframe_"+id).attr("src",src);
         }else{
             if(src){
                 //新增

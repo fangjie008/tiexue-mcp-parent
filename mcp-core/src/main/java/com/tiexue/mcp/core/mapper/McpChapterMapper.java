@@ -108,6 +108,7 @@ public interface McpChapterMapper {
           "IsVip = #{isvip,jdbcType=INTEGER},",
           "Price = #{price,jdbcType=INTEGER},",
           "Md5 = #{md5,jdbcType=VARCHAR},",
+          "Content = #{content,jdbcType=LONGVARCHAR},",
           "UniqueFlag = #{uniqueflag,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })

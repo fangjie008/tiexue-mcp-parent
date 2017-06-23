@@ -9,7 +9,7 @@
 	<script src="<%=path%>/static/My97DatePicker/WdatePicker.js"></script>
 	<script src="<%=path%>/static/wait/waitload.js"></script>
 	<link rel="stylesheet" href="<%=path%>/static/wait/waitload.css">
-    <title>结算管理</title>
+    <title>运营管理</title>
 </head>
 <style>
 .layui-table th{
@@ -23,7 +23,7 @@ text-align:center;
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 20px;">
 			<legend>
-		<span class="layui-breadcrumb"> <a href="javascript:;">结算</a> <a><cite>详细信息</cite></a>
+		<span class="layui-breadcrumb"> <a href="javascript:;">运营</a> <a><cite>详细信息</cite></a>
 			</span>
 			</legend>
 	</fieldset>
@@ -33,7 +33,8 @@ text-align:center;
 	<table class="layui-table">
 		<thead>
 			<tr>
-				<th>结算月份</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
 				<th>CPBId</th>
 				<th>书籍名称</th>
 				<th>消费</th>
@@ -45,7 +46,8 @@ text-align:center;
 				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				<c:forEach items="${list}" var="item">
 					<tr>
-						<td>${item.monthly}</td>
+						<td>${item.startTime}</td>
+						<td>${item.endTime}</td>
 						<td>${item.cpBId}</td>
 						<td>${item.bookName}</td>
 						<td>${item.consume}</td>

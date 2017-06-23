@@ -9,7 +9,7 @@ public class McpSettlement {
 
     private Integer consume;
 
-    private Date month;
+    private String month;
 
     private Integer divideconsume;
 
@@ -43,11 +43,11 @@ public class McpSettlement {
         this.consume = consume;
     }
 
-    public Date getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(Date month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 

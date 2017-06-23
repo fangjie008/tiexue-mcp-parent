@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.tiexue.mcp.core.entity.McpSettlement;
 import com.tiexue.mcp.core.entity.WxConsume;
 import com.tiexue.mcp.core.entity.WxPay;
 import com.tiexue.mcp.core.mapper.WxConsumeMapper;
@@ -71,6 +72,8 @@ public class WxConsumeServiceImpl implements IWxConsumeService {
 	public Integer getCostCoinByBookId(Integer bookId,Date startTime,Date endTime) {
 		return consume.getCostCoinByBookId(bookId, startTime, endTime);
 	}
+
+
 
 
 }

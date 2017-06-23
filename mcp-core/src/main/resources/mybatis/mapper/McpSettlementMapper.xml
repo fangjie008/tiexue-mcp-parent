@@ -5,7 +5,7 @@
     <id column="Id" property="id" jdbcType="INTEGER" />
     <result column="CPId" property="cpid" jdbcType="INTEGER" />
     <result column="Consume" property="consume" jdbcType="INTEGER" />
-    <result column="Month" property="month" jdbcType="DATE" />
+    <result column="Month" property="month" jdbcType="VARCHAR" />
     <result column="DivideConsume" property="divideconsume" jdbcType="INTEGER" />
     <result column="SettlementStatus" property="settlementstatus" jdbcType="INTEGER" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
@@ -53,7 +53,7 @@
         #{consume,jdbcType=INTEGER},
       </if>
       <if test="month != null" >
-        #{month,jdbcType=DATE},
+        #{month,jdbcType=VARCHAR},
       </if>
       <if test="divideconsume != null" >
         #{divideconsume,jdbcType=INTEGER},
@@ -79,7 +79,7 @@
         Consume = #{consume,jdbcType=INTEGER},
       </if>
       <if test="month != null" >
-        Month = #{month,jdbcType=DATE},
+        Month = #{month,jdbcType=VARCHAR},
       </if>
       <if test="divideconsume != null" >
         DivideConsume = #{divideconsume,jdbcType=INTEGER},

@@ -9,7 +9,7 @@
 	<script src="<%=path%>/static/My97DatePicker/WdatePicker.js"></script>
 	<script src="<%=path%>/static/wait/waitload.js"></script>
 	<link rel="stylesheet" href="<%=path%>/static/wait/waitload.css">
-    <title>结算管理</title>
+    <title>运营管理</title>
 </head>
 <style>
 .layui-table th{
@@ -22,13 +22,17 @@ text-align:center;
 <body id="wait" class="body">
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 20px;">
-		<legend>结算管理</legend>
+		<legend>运营管理</legend>
 	</fieldset>
 	<div class="my-btn-box">
-		<form class="layui-form" onsubmit="return validate(this);" action="<%=path%>/mcpsettlement/list" method="post">
-		<span class="" style="margin-left:10px">结算月份</span>
+		<form class="layui-form" onsubmit="return validate(this);" action="<%=path%>/mcpsettlement/operatelist" method="post">
+		<span class="" style="margin-left:10px">开始时间</span>
 		<span class="">
-		<input type="text" class="Wdate" id="dateTime" name="dateTime" value="${dateTime }" onfocus="WdatePicker({dateFmt:'yyyy-MM',readOnly:true})" /> 
+		<input type="text" class="Wdate" id="startTime" name="startTime" value="${startTime }"
+		 onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true,maxDate:'#F{$dp.$D(\'endTime\')}'})" /> 
+		<span class="" style="margin-left:10px">结束时间</span>
+		<input type="text" class="Wdate" id="endTime" name="endTime" value="${endTime }" 
+		onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true,minDate:'#F{$dp.$D(\'startTime\')}'})" /> 
 	   </span>
 	   <span class="" style="margin-left:30px">
 	   <button class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
@@ -38,10 +42,10 @@ text-align:center;
 	<table class="layui-table">
 		<thead>
 			<tr>
-				<th>结算月份</th>
-				<th>单月消费</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
+				<th>消费金额</th>
 				<th>分成</th>
-				<th>结算状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -51,13 +55,13 @@ text-align:center;
 				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 				<c:forEach items="${list}" var="item">
 					<tr>
-						<td>${item.monthly}</td>
+						<td>${item.startTime}</td>
+						<td>${item.endTime}</td>
 						<td>${item.consume}</td>
 						<td>${item.divideconsume}</td>
-						<td>${item.settlementstatus}</td>
 						<td>
-							<button class="layui-btn layui-btn-small layui-btn-danger" onclick="detail('${item.monthly}')">详细信息</button>
-							</td>
+							<button class="layui-btn layui-btn-small layui-btn-danger" onclick="detail('${item.startTime}','${item.endTime}')">详细信息</button>
+						</td>
 				</c:forEach>
 			</c:if>
 		</tbody>
@@ -71,8 +75,9 @@ text-align:center;
 
     });
     function validate(channelform)  { 
-    	var datetime=$("#dateTime").val();
-        if(datetime=="")  {  
+    	var startTime=$("#startTime").val();
+    	var endTime=$("#endTime").val();
+        if(startTime==""||endTime=="")  {  
         	alert("请选择查询时间");
             return false;  
         }   
@@ -80,22 +85,9 @@ text-align:center;
         return true;  
     } 
     
-    function detail(monthly){
-    	location.href='<%=path%>/mcpsettlement/detail?monthly='+monthly;
+    function detail(startTime,endTime){
+    	location.href='<%=path%>/mcpsettlement/operatedetail?startTime='+startTime+'&endTime='+endTime;
     }
-<%--   $(".layui-form").submit(function(){
-	  var datetime=$("#dateTime").val();
-	  if(datetime==""){
-		  alert("请选择查询时间");
-		  return false;
-	  }
-	  $(this).ajaxSubmit({
-		  url:'<%=path%>/mcpsettlement/list',
-		  type:'POST',
-		  success:function(){}
-	  });
-	  _loading('数据查询中请耐心等待', 'wait');
-  }); --%>
 
     
 </script>

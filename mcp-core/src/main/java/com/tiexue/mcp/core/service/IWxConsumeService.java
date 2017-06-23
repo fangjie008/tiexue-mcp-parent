@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
+import com.tiexue.mcp.core.entity.McpSettlement;
 import com.tiexue.mcp.core.entity.WxConsume;
 
 
@@ -51,5 +51,6 @@ public interface IWxConsumeService {
 	  	 * @return
 	  	 */
 	  	Integer getCostCoinByBookId(@Param("bookId")Integer bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
-	    
+	  	
+	  
 }

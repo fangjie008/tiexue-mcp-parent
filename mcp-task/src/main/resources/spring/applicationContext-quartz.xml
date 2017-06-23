@@ -46,7 +46,7 @@
 		<property name="cronExpression">
 			
 			<!-- 每40分钟执行一次 -->
-			<value>0 0/40 * * * ?</value>
+			<value>0 0/2 * * * ?</value>
 		<!-- 	<value>0 0/40 * * * ?</value> -->
 		</property>
 	</bean>
