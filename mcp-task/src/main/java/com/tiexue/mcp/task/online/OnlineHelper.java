@@ -42,7 +42,7 @@ public class OnlineHelper {
 	IWxChapterSubService iWxChapterSubService;
 	private  Date lastUpdateTime;
 	/**
-	 * 程序入口
+	 * 程序入口(同步包括mcpbook和mcpchapter同步到wxbook和wxchapter)
 	 */
 	public void init(){
 		try {

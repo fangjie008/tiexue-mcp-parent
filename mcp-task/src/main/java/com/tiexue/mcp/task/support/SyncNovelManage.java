@@ -37,7 +37,7 @@ public class SyncNovelManage {
 	OnlineHelper onlineHelper;
 	private static List<McpBaseInfo> mcpBaseInfos;
 	/**
-	 * 启动同步小说
+	 * 启动同步小说,从第三方同步小说
 	 */
 	public void init(){
 		try {
