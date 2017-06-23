@@ -36,4 +36,26 @@ public class CommonUtil {
 		return cpId;
 	}
 	
+	/**
+	 * 如果登录用户是合作者返回合作者的Id(CPId)
+	 * @return
+	 */
+	public static McpShiroSubject getMcpShiroSubject(){
+		Integer cpId = 0;
+		try {
+			Subject currentUser = SecurityUtils.getSubject();
+			Session session = currentUser.getSession();
+			McpShiroSubject subject = (McpShiroSubject)session.getAttribute("user");
+			if(subject==null){
+				return null;
+			}
+			return subject;
+		} catch (Exception e) {
+			logger.debug("获取登录人信息出错；出错信息："+e.getMessage());
+			return null;
+		}
+		
+		
+	}
+	
 }

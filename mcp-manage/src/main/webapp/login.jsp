@@ -68,7 +68,12 @@ $(function(){
 		 parent.window.location.replace(window.location.href);  
 		 }
 }); 
-
+//回车提交事件
+$("body").keydown(function() {
+    if (event.keyCode == "13") {//keyCode=13是回车键
+    	document.form.submit(); 
+    }
+});   
 </script>
 </body>
 </html>

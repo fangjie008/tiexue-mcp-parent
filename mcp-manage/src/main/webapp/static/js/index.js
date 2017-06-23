@@ -63,11 +63,27 @@ layui.use(['layer', 'element', 'util'], function () {
         var title   = elem.children('a').html();                // 导航栏text
         var src     = elem.children('a').attr('href-url');      // 导航栏跳转URL
         var id      = new Date().getTime();                     // ID
-        var flag    = getTitleId(card, title);                  // 是否有该选项卡存在
+        var flag    = getTitleId(card, title); 
+        //确保url地址每五秒
+        if(src.indexOf('?')>=0){
+        	if(src.indexOf('=')>=0||src.indexOf('&')>=0){
+        		src=src+"&urltime="+getNowFormatDate();
+        	}
+        	else{
+        		src=src+"urltime="+getNowFormatDate();
+        	}
+        }else{
+        	src=src+"?urltime="+getNowFormatDate();
+        }
+        // 是否有该选项卡存在
         // 大于0就是有该选项卡了
         if(flag > 0){
         	id = flag;
-        	//$("#iframe_"+id).attr("src",src);
+        	oldUrl=$("#iframe_"+id).attr("src");
+        	//如果url地址不一样则刷新
+        	if(oldUrl!=src){
+        		$("#iframe_"+id).attr("src",src);
+        	}
         }else{
             if(src){
                 //新增
@@ -193,3 +209,19 @@ layui.use(['layer', 'element', 'util'], function () {
 
 
 });
+//获取精确到五秒的时间yyyy-MM-dd HH:MM
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear()+ ""+ month + strDate+date.getHours()+date.getMinutes()+parseInt(date.getSeconds()/5)
+    return currentdate;
+}

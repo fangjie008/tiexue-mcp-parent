@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.tiexue.mcp.base.util.CyptoUtils;
 import com.tiexue.mcp.base.util.Md5Utils;
+import com.tiexue.mcp.core.dto.McpShiroSubject;
 import com.tiexue.mcp.core.entity.McpBaseInfo;
 import com.tiexue.mcp.core.entity.McpConstants;
 import com.tiexue.mcp.core.service.IMcpBaseInfoService;
@@ -88,13 +89,21 @@ public class McpHomeController {
 	@RequiresUser
 	@RequestMapping("/homepage")
 	public String homePage(HttpServletRequest request,HttpServletResponse response){
-		HttpSession session= request.getSession();
-		String userIdStr= (String)session.getAttribute("userId");
-		int userId=0;
-		if(userIdStr!=null&&!userIdStr.isEmpty()){
-			userId=Integer.parseInt(userIdStr);
-			McpBaseInfo baseInfo= mcpBaseInfoSer.selectByPrimaryKey(userId);
-			request.setAttribute("baseInfo", baseInfo);
+		McpShiroSubject subject=CommonUtil.getMcpShiroSubject();
+		if (subject!= null) {
+			String name="";
+			//cp用户
+			if (subject.getMcpUserType() == 2) { 
+				name=subject.getMcpBaseInfo().getContname();
+				int cpid = subject.getMcpBaseInfo().getCpid();
+				request.setAttribute("cpid", cpid);
+			}
+			else{
+				name=subject.getMcpAdmin().getName();		
+			}
+			request.setAttribute("name", name);
+			request.setAttribute("userType", subject.getMcpUserType());
+			
 		}
 		return "/mcpHome/homePage";
 	}
@@ -121,14 +130,14 @@ public class McpHomeController {
 	 */
 	@RequestMapping("edit.do")
 	public String loginEdit(HttpServletRequest request,HttpServletResponse response){
-		HttpSession session= request.getSession();
-		String userIdStr= (String)session.getAttribute("userId");
-		int userId=0;
-		if(userIdStr!=null&&!userIdStr.isEmpty()){
-			userId=Integer.parseInt(userIdStr);
-			McpBaseInfo baseInfo= mcpBaseInfoSer.selectByPrimaryKey(userId);
-			request.setAttribute("baseInfo", baseInfo);
+		// todo:权限判断	
+		Integer cpId = 0;
+		cpId=CommonUtil.getCpId();
+		if (cpId == null || cpId == 0) {
+			return "redirect:/login.jsp";
 		}
+		McpBaseInfo baseInfo= mcpBaseInfoSer.selectByPrimaryKey(cpId);
+		request.setAttribute("baseInfo", baseInfo);
 		return "mcpHome/edit";
 	}
 	
@@ -143,16 +152,18 @@ public class McpHomeController {
 	public String savePassword(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		JSONObject jObject=new JSONObject();
 		String password=request.getParameter("password");
-		String cpidStr=request.getParameter("cpid");
-		int cpid=0;
-		if(password!=null&&cpidStr!=null){
-			if(!cpidStr.isEmpty()){
-				cpid=Integer.parseInt(cpidStr);
-			}
+		// todo:权限判断	
+		Integer cpId = 0;
+		cpId=CommonUtil.getCpId();
+		if (cpId == null || cpId == 0) {
+			return "redirect:/login.jsp";
+		}
+		if(password!=null){
+
 			//password= Md5Utils.ToBit32(password,McpConstants.Mcp_Md5_Key);
 			//加密方法统一
 			password=passwordHelper.encryptPassword(password);
-			int resultNum= mcpBaseInfoSer.updatePassword(cpid,password);
+			int resultNum= mcpBaseInfoSer.updatePassword(cpId,password);
 			if(resultNum>0){
 				jObject.put("ok", true);
 				jObject.put("msg", "保存成功");
@@ -178,7 +189,7 @@ public class McpHomeController {
 		String oldpassword=request.getParameter("oldpassword");
 		String md5password=request.getParameter("md5password");
 		if(oldpassword!=null&&md5password!=null){
-			oldpassword= Md5Utils.ToBit32(oldpassword,McpConstants.Mcp_Md5_Key).toLowerCase();
+			oldpassword=passwordHelper.encryptPassword(oldpassword);;
 			if(oldpassword.equals(md5password.toLowerCase())){
 				jObject.put("ok", true);
 			}

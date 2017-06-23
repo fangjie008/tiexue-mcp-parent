@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><img src="<%=path%>/static/image/code.png" alt="logo"> ${baseInfo.contname} </a>
+                <a class="name" href="javascript:;"><img src="<%=path%>/static/image/code.png" alt="logo"> ${name} </a>
                 <dl class="layui-nav-child">
                     <dd><a href="<%=path%>/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
@@ -46,20 +47,31 @@
               <li class="layui-nav-item layui-nav-itemed"><!-- 去除 layui-nav-itemed 即可关闭展开 -->
                     <a href="javascript:;"><i class="layui-icon">&#xe620;</i>功能</a>
                     <dl class="layui-nav-child">
-                       
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list.do">
-                        <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
-                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbook/list">
+                       <c:choose>
+                       <c:when test="${userType==1}">
+                       <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list.do">
+	                        <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
+	                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/admin/list">
+	                        <i class="layui-icon">&#xe621;</i>用户管理</a></dd>
+                       </c:when>
+                        <c:when test="${userType==2}">
+                        <dd class="layui-nav-item"><a href="javascript:;" 
+                        href-url="<%=path%>/mcpbaseinfo/edit?cpid=${cpid}">
+	                        <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbook/list">
                         <i class="layui-icon">&#xe621;</i>作品管理(cp)</a></dd>
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcphome/edit.do">
-                        <i class="layui-icon">&#xe621;</i>修改密码</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/operatelist">
                         <i class="layui-icon">&#xe621;</i>运营数据</a></dd>
                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpsettlement/list">
                         <i class="layui-icon">&#xe621;</i>结算数据</a></dd>
-                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/admin/list">
-                        <i class="layui-icon">&#xe621;</i>用户管理</a></dd>
+                          <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcphome/edit.do">
+	                        <i class="layui-icon">&#xe621;</i>修改密码</a></dd>
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                        
                        
+                       </c:choose>
                     </dl>
                 </li>
             </ul>

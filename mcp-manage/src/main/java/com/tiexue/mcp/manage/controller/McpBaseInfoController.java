@@ -98,6 +98,24 @@ public class McpBaseInfoController {
 	
 	
 	/**
+	 * 新增或修改信息
+	 */
+	@RequestMapping("/edit")
+	public String editbaseInfo(HttpServletRequest request,HttpServletResponse response){
+	    String cpidStr=request.getParameter("cpid");
+	    try {
+	    	if(cpidStr!=null&&!cpidStr.isEmpty()){
+		    	int cpid=Integer.parseInt(cpidStr);
+		        McpBaseInfo mcpBaseInfo=mcpBaseInfoService.selectByPrimaryKey(cpid);
+		    	request.setAttribute("mcpBaseInfo", mcpBaseInfo);
+		    }
+		} catch (Exception e) {
+			logger.error("mcpbaseinfo/list error:"+e.getMessage());
+		}   
+		return "mcpBaseInfo/edit";
+	}
+	
+	/**
 	 * 保存数据
 	 * @param request
 	 * @param response
