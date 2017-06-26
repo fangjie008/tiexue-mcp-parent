@@ -53,6 +53,8 @@
 	                        <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
 	                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/admin/list">
 	                        <i class="layui-icon">&#xe621;</i>用户管理</a></dd>
+	                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcppay/list">
+	                        <i class="layui-icon">&#xe621;</i>充值查询</a></dd>
                        </c:when>
                         <c:when test="${userType==2}">
                         <dd class="layui-nav-item"><a href="javascript:;" 

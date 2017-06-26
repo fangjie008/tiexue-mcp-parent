@@ -20,6 +20,7 @@ import com.tiexue.mcp.core.entity.WxPay;
 import com.tiexue.mcp.core.entity.WxUser;
 import com.tiexue.mcp.core.mapper.WxPayMapper;
 import com.tiexue.mcp.core.mapper.WxUserMapper;
+import com.tiexue.mcp.core.service.IWxConsumeService;
 import com.tiexue.mcp.core.service.IWxPayService;
 
 import weixin.popular.api.PayMchAPI;
@@ -34,6 +35,9 @@ public class WxPayServiceImpl implements IWxPayService {
 	private WxPayMapper wxPayMapper;
 	@Resource
 	private WxUserMapper wxUserMapper;
+	
+	@Resource 
+	IWxConsumeService iWxConsumeService;
 
 	@Override
 	public List<WxPay> getListByPage(int userId, int beginRow, int pageSize) {
@@ -289,5 +293,14 @@ public class WxPayServiceImpl implements IWxPayService {
 		cl.add(Calendar.MONTH, month);
 		date = cl.getTime();
 		return date;
+	}
+
+	@Override
+	public List<WxPay> getPaysByBookId(int bookId, Date time) {
+	    List<Integer> userIds=	iWxConsumeService.getConsumeUserIdByBookId(bookId, time);
+	    if(userIds!=null&&!userIds.isEmpty())
+	    	return wxPayMapper.getPaysByBookId(bookId, time,userIds);
+	    else
+	    	return null;
 	}
 }

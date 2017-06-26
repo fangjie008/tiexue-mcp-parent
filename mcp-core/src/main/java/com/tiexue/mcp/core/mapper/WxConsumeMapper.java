@@ -108,4 +108,16 @@ public interface WxConsumeMapper {
 	"  (SELECT UniqueFlag FROM McpBook WHERE CPId=#{CPId})); ",
     })
     Integer getCostCoinByCpId(@Param("CPId")Integer cpId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+    
+    
+    /**
+     * 查询某本书的消费的人
+     * @param bookId
+     * @param time
+     * @return
+     */
+    @Select({
+	"SELECT DISTINCT userId   FROM wxconsume WHERE bookid = #{bookId} ",
+	"AND CreateTime>=#{startTime} GROUP BY userId",})
+	List<Integer> getConsumeUserIdByBookId(@Param("bookId")int bookId,@Param("startTime")Date time);
 }

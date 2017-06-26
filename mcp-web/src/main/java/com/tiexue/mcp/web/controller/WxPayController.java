@@ -302,8 +302,8 @@ public class WxPayController {
 				payDto.setPaytype(pay.getPaytype());
 				payDto.setPaytypeName(EnumType.PayType.get(pay.getPaytype()));
 				if(pay.getAmount()!=null){
-					double amount=pay.getAmount()*0.01;
-					payDto.setAmount(Double.toString(amount));
+					float amount=(float)(pay.getAmount()*0.01);
+					payDto.setAmount(amount);
 				}
 				payDto.setCount(pay.getCount());
 				payDto.setOrderstatus(pay.getOrderstatus());

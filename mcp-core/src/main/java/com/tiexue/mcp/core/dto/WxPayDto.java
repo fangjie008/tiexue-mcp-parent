@@ -1,5 +1,7 @@
 package com.tiexue.mcp.core.dto;
 
+import org.aspectj.apache.bcel.generic.InstructionTargeter;
+
 public class WxPayDto {
 
 	// 充值Id
@@ -9,7 +11,7 @@ public class WxPayDto {
 	// 充值类型名称
 	private String paytypeName;
 	// 充值金额
-	private String amount;
+	private float amount;
 	// 小说币
 	private Integer Count;
 	// 充值时间
@@ -22,6 +24,9 @@ public class WxPayDto {
 	private Integer orderstatus;
 	// 充值状态字符
 	private String orderstatusStr;
+	
+	private Integer bookId;
+	private String  bookName;
 
 	public String getOrdernum() {
 		return ordernum;
@@ -47,11 +52,11 @@ public class WxPayDto {
 		this.paytypeName = paytypeName;
 	}
 
-	public String getAmount() {
+	public float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 
@@ -101,6 +106,22 @@ public class WxPayDto {
 
 	public void setOrderstatusStr(String orderstatusStr) {
 		this.orderstatusStr = orderstatusStr;
+	}
+
+	public Integer getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
 
 }

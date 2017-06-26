@@ -73,6 +73,11 @@ public class WxConsumeServiceImpl implements IWxConsumeService {
 		return consume.getCostCoinByBookId(bookId, startTime, endTime);
 	}
 
+	@Override
+	public List<Integer> getConsumeUserIdByBookId(int bookId, Date time) {
+		return consume.getConsumeUserIdByBookId(bookId, time);
+	}
+
 
 
 

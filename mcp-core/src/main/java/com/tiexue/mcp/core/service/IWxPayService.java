@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.tiexue.mcp.core.entity.WxPay;
@@ -72,5 +73,12 @@ public interface IWxPayService {
 		 * @return
 		 */
 		boolean testHandlePayNotify(String openid,String out_trade_no,String wxOrderNo);
+		 /**
+	     * 查询某本书的充值金额
+	     * @param bookId
+	     * @param time
+	     * @return
+	     */
+		List<WxPay> getPaysByBookId(int bookId,Date time);
 
 }

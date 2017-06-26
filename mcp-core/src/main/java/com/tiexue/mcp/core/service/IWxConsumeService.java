@@ -50,7 +50,7 @@ public interface IWxConsumeService {
 	  	 * @param endTime
 	  	 * @return
 	  	 */
-	  	Integer getCostCoinByBookId(@Param("bookId")Integer bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+	  	Integer getCostCoinByBookId(Integer bookId,Date startTime,Date endTime);
 	  	
-	  
+	  	List<Integer> getConsumeUserIdByBookId(int bookId,Date time);
 }

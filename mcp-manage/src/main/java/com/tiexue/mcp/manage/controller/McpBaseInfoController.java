@@ -44,6 +44,7 @@ public class McpBaseInfoController {
 	/**
 	 * 获取基础信息列表
 	 */
+	@RequiresRoles("baseInfo")
 	@RequestMapping("/list.do")
 	public String getbaseInfo(HttpServletRequest request,HttpServletResponse response){
 		try {

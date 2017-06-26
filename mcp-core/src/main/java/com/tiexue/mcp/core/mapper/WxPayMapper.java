@@ -1,5 +1,6 @@
 package com.tiexue.mcp.core.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -9,10 +10,14 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 
 import com.tiexue.mcp.core.entity.WxPay;
 
 public interface WxPayMapper {
+	
+	
     @Delete({
         "delete from wxpay",
         "where OrderNum = #{ordernum,jdbcType=VARCHAR}"
@@ -77,6 +82,22 @@ public interface WxPayMapper {
     @Select({"select count(1) from wxpay where UserId =#{userId} "})
   	Integer getCountByUserId(int userId);
     
-    @Select({"select count(1) from wxpay where  UserId =#{userId} and CreateTime>'2017-03-28 17:19' and OrderStatus=#{orderStatus} and OrderNum<>'${orderNum}' "})
+    @Select({"select count(1) from wxpay where  UserId =#{userId}  and OrderStatus=#{orderStatus} and OrderNum<>'${orderNum}' "})
     int getPayCountByUserId(@Param("userId")int userId,@Param("orderStatus")int orderStatus,@Param("orderNum")String orderNum);
+    
+    
+    /**
+     * 查询某本书的充值金额
+     * @param bookId
+     * @param time
+     * @return
+     */
+    @Select("<script>"
+            + "SELECT * FROM wxpay  WHERE OrderStatus=3 and userId in "
+            + "<foreach item='item' index='index' collection='userIds' open='(' separator=',' close=')'>"
+                + "#{item}"
+            + "</foreach>"
+            +"AND (bookId=#{bookId} OR bookId=0) AND CreateTime>#{startTime};"
+        + "</script>")
+    List<WxPay> getPaysByBookId(@Param("bookId")int bookId,@Param("startTime")Date time,@Param("userIds")List<Integer> userIds);
 }
