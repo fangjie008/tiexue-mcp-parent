@@ -75,4 +75,9 @@ public class WxBookServiceImpl implements IWxBookService {
 		return wxBookMapper.getBookByName(bookName);
 	}
 
+	@Override
+	public List<WxBook> getSearchList(String strWhere) {
+		return wxBookMapper.getSearchList(strWhere);
+	}
+
 }

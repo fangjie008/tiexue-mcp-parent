@@ -14,6 +14,10 @@
 		<!-- <li><a href="/book/search.html">搜索</a></li>
 		<li><a href="/top/tuijian.html">排行</a></li>
 		<li><a href="/all.html">书库</a></li> -->
+
+		<li><a href="<%=path%>/wxbook/searchlist"><span class="ico32 search"></span>小说搜索</a>
+		<li><a href="<%=path%>/wxPresent/index?fm=${fromurl}"><span class="wxprecoin"></span>&nbsp;领币</a>
+		</li>
 	</ul>
 </header>
 <dl class="user_area wrap">
@@ -29,13 +33,10 @@
 		</a>
 	</c:if>
 	</dt>
-	<dd><a href="<%=path%>/wxPresent/index?fm=${fromurl}"><span class="wxprecoin"></span>&nbsp;领币</a></dd>
 		<dd class="sp"></dd>
 	<dd><a href="<%=path%>/wxBookrack/list?fm=${fromurl}""><span class="ico32 bookcase"></span>书架</a></dd>
 	<dd class="sp"></dd>
 	<dd><a href="<%=path%>/wxPay/pay?fm=${fromurl}"><span class="ico32 pay"></span>充值</a></dd>
-	<dd class="sp"></dd>
-	
 </dl>
 <div class="mod_title mod_lastread">
 	<h1>
@@ -80,7 +81,7 @@
 
 <!-- <div>
 <a href="#" onclick="testaddcookie()">测试登录</a>
-</div> -->
+</div>  -->
 
 <div style="background-color: rgba(50, 201, 186, 0.7);padding: 8px 10px;">
 	<a style="color:white" href="http://t.cn/R6LUaeS">

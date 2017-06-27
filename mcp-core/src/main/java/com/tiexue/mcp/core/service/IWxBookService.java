@@ -16,7 +16,7 @@ public interface IWxBookService {
     WxBook selectByPrimaryKey(Integer id);
     
     List<WxBook> getList(String strWhere,String orderStr,Integer size);
-
+    List<WxBook> getSearchList(String strWhere);
     int updateByPrimaryKeySelective(WxBook record);
     int updateByPrimaryKey(WxBook record);
     

@@ -64,13 +64,16 @@ public class WxBookController {
 				PageUserDto pageUser= userSer.getPageUserDto(wx_gzh_token);
 				if(pageUser!=null){
 				 userIdStr=pageUser.getId();
+				 if(pageUser.getName().length()>3){
+					 pageUser.setName(pageUser.getName().substring(0,3)+"...");
+				 }
 				 request.setAttribute("pageUser", pageUser);
 				}
 				logger.error("获取 pageUser.getId："+userIdStr);
 			}
 			String status = EnumType.BookStatus_Finish + "," + EnumType.BookStatus_Update;
 			String strWhere=" Status in ("+status+")"+" and tag='军事'";
-			List<WxBook> wxBooks = this.wxBookService.getList(strWhere, "ViewCount",50);
+			List<WxBook> wxBooks = this.wxBookService.getList(strWhere, "ViewCount",80);
 			List<WxBookDto> wxBookDtos = toWxBookListDto(wxBooks);
 			request.setAttribute("wxBooks", wxBookDtos);
 			WxBookrack rack=new WxBookrack();
@@ -131,6 +134,41 @@ public class WxBookController {
         	saveBookrack(bookId,userId,bookName);
         }
 		return "bookdetail";
+	}
+	
+	/**
+	 * 搜索入口
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/searchlist")
+	public String searchlist(HttpServletRequest request,HttpServletResponse response
+			,@CookieValue(value ="defaultbookrack",required = true, defaultValue = "")String rackCookie
+			,@CookieValue(value ="wx_gzh_token",required = true, defaultValue = "")String wx_gzh_token
+			,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name) {
+		String userIdStr="";
+		try {
+			String fm = request.getParameter("fm");
+			String iptsearch=request.getParameter("iptsearch");
+			String status = EnumType.BookStatus_Finish + "," + EnumType.BookStatus_Update;
+			String strWhere=" Status in ("+status+")"+" and tag='军事'";
+			if(iptsearch!=null&&!iptsearch.isEmpty()){
+				strWhere+=" and name like  '%"+iptsearch+"%'";
+				List<WxBook> wxSearchBooks = this.wxBookService.getSearchList(strWhere);
+				List<WxBookDto> wxBookDtos = toWxBookListDto(wxSearchBooks);
+				request.setAttribute("wxSearchBooks", wxBookDtos);
+			}
+			else{
+				List<WxBook> wxBooks = this.wxBookService.getList(strWhere, "ViewCount",3);
+				List<WxBookDto> wxBookDtos = toWxBookListDto(wxBooks);
+				request.setAttribute("wxBooks", wxBookDtos);
+			}
+			request.setAttribute("fromurl", fm);
+			request.setAttribute("iptsearch", iptsearch);
+		} catch (Exception e) {
+			logger.error("首页搜索的小说数据异常"+e.getMessage());
+		}
+		return "/searchlist";
 	}
 	
 	/**

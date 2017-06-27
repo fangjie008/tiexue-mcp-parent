@@ -77,6 +77,19 @@ public interface WxBookMapper {
     @ResultMap("BaseResultMap")
     List<WxBook> getList(@Param("strWhere")String strWhere,@Param("orderStr")String orderStr,@Param("size")Integer size);
 
+    
+    @Select({
+        "select",
+        "Id, Name, Intr, PublisherId, PublisherName, CoverImgs, Tag, Mark, Sort, Status, ",
+        "ViewCount, CommentCount, DingCount, CaiCount, ShareCount, ContentLen, CreateTime, ",
+        "UpdateTime,UniqueFlag,CollectionId",
+        "from wxbook",
+        "where ${strWhere} order by ViewCount desc "
+    })
+    @ResultMap("BaseResultMap")
+    List<WxBook> getSearchList(@Param("strWhere")String strWhere);
+
+    
     int updateByPrimaryKeySelective(WxBook record);
 
     @Update({
