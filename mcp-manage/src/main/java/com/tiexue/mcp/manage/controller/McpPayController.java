@@ -33,16 +33,20 @@ public class McpPayController {
 	
 	@RequestMapping("list")
 	public String getPay(HttpServletRequest request,HttpServletResponse response){
-		
+		int bookId=0;
 		try {
-			String bookIdStr=request.getParameter("bookId");
+			String bookName=request.getParameter("bookName");
 			String startTimeStr=request.getParameter("startTime");
-			if(bookIdStr!=null&&!bookIdStr.isEmpty()&&startTimeStr!=null&&!startTimeStr.isEmpty()){
-				int bookId=0;
-				bookId=Integer.parseInt(bookIdStr);
+			String endTimeStr=request.getParameter("endTime");
+			if(bookName!=null&&!bookName.isEmpty()&&startTimeStr!=null
+					&&!startTimeStr.isEmpty()&&endTimeStr!=null&&!endTimeStr.isEmpty()){
 				Date startTime=DateUtil.str2Date(startTimeStr,"yyyy-MM-dd HH:mm:ss");
-				WxBook wxBook= iWxBookService.selectByPrimaryKey(bookId);
-				List<WxPay> wxPays=iWxPayService.getPaysByBookId(bookId, startTime);
+				Date endTime=DateUtil.str2Date(endTimeStr,"yyyy-MM-dd HH:mm:ss");
+				WxBook wxBook= iWxBookService.getBookByName(bookName);
+				if(wxBook!=null){
+					bookId=wxBook.getId();
+				}
+				List<WxPay> wxPays=iWxPayService.getPaysByBookId(bookId, startTime,endTime);
 				if(wxPays!=null&&!wxPays.isEmpty()){
 			    List<WxPayDto> wxPayDtos=  wxPayFill(wxPays,wxBook);
 			    float count=0;
@@ -55,8 +59,8 @@ public class McpPayController {
 				request.setAttribute("wxPays", wxPayDtos);
 				}
 			}
-			request.setAttribute("bookId",bookIdStr);
 			request.setAttribute("startTime",startTimeStr);
+			request.setAttribute("endTime",endTimeStr);
 		} catch (Exception e) {
 			logger.error("McpPayController.getPay error. msg:"+e);
 		}
@@ -66,16 +70,21 @@ public class McpPayController {
 	
 	@RequestMapping("detail")
 	public String getPayDetail(HttpServletRequest request,HttpServletResponse response){
-		
+		int bookId=0;
 		try {
 			String bookIdStr=request.getParameter("bookId");
 			String startTimeStr=request.getParameter("startTime");
-			if(bookIdStr!=null&&!bookIdStr.isEmpty()&&startTimeStr!=null&&!startTimeStr.isEmpty()){
-				int bookId=0;
+			String endTimeStr=request.getParameter("endTime");
+			if(bookIdStr!=null&&!bookIdStr.isEmpty()&&startTimeStr!=null
+					&&!startTimeStr.isEmpty()&&endTimeStr!=null&&!endTimeStr.isEmpty()){
 				bookId=Integer.parseInt(bookIdStr);
 				Date startTime=DateUtil.str2Date(startTimeStr,"yyyy-MM-dd HH:mm:ss");
+				Date endTime=DateUtil.str2Date(endTimeStr,"yyyy-MM-dd HH:mm:ss");
 				WxBook wxBook= iWxBookService.selectByPrimaryKey(bookId);
-				List<WxPay> wxPays=iWxPayService.getPaysByBookId(bookId, startTime);
+				if(wxBook!=null){
+					bookId=wxBook.getId();
+				}
+				List<WxPay> wxPays=iWxPayService.getPaysByBookId(bookId, startTime,endTime);
 				if(wxPays!=null&&!wxPays.isEmpty()){
 			    List<WxPayDto> wxPayDtos=  wxPayFill(wxPays,wxBook);
 			    float count=0;
@@ -88,8 +97,8 @@ public class McpPayController {
 				request.setAttribute("wxPays", wxPayDtos);
 				}
 			}
-			request.setAttribute("bookId",bookIdStr);
 			request.setAttribute("startTime",startTimeStr);
+			request.setAttribute("endTime",endTimeStr);
 		} catch (Exception e) {
 			logger.error("McpPayController.getPay error. msg:"+e);
 		}

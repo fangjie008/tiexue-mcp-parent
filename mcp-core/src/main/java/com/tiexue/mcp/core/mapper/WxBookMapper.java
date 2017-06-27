@@ -150,4 +150,17 @@ public interface WxBookMapper {
     	"  (SELECT UniqueFlag FROM McpBook WHERE CPId=#{CPId}); ",
     })
     List<WxBook> getBookIdByCPId(@Param("CPId")Integer cpId);
+    
+    
+    /**
+     * 根据小说名获取小说信息
+     * @param bookName
+     * @return
+     */
+    @Select({
+    	" SELECT  Id, Name, Intr, PublisherId, PublisherName, CoverImgs, Tag, Mark, Sort, Status, ",
+        "ViewCount, CommentCount, DingCount, CaiCount, ShareCount, ContentLen, CreateTime, ",
+        "UpdateTime,UniqueFlag,CollectionId  FROM wxbook WHERE Name like '${bookName}%' limit 0,1",
+    })
+    WxBook getBookByName(@Param("bookName")String bookName);
 }

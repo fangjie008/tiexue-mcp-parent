@@ -118,6 +118,6 @@ public interface WxConsumeMapper {
      */
     @Select({
 	"SELECT DISTINCT userId   FROM wxconsume WHERE bookid = #{bookId} ",
-	"AND CreateTime>=#{startTime} GROUP BY userId",})
-	List<Integer> getConsumeUserIdByBookId(@Param("bookId")int bookId,@Param("startTime")Date time);
+	"AND CreateTime>#{startTime} AND createtime<#{endTime} GROUP BY userId",})
+	List<Integer> getConsumeUserIdByBookId(@Param("bookId")int bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
 }

@@ -24,21 +24,8 @@ text-align:center;
 		style="margin-top: 20px;">
 		<legend>充值查询</legend>
 	</fieldset>
-	<div class="my-btn-box">
-		<form class="layui-form" onsubmit="return validate(this);" action="<%=path%>/mcppay/list" method="post">
-		<span class="" style="margin-left:10px">小说Id</span>
-		<span class="">
-		<input type="text" id="bookId" name="bookId" value="${bookId }"/> 
-	   </span>
-		
-		<span class="" style="margin-left:10px">查询时间</span>
-		<span class="">
-		<input type="text" class="Wdate" id="startTime" name="startTime" value="${startTime }" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" /> 
-	   </span>
-	   <span class="" style="margin-left:30px">
-	   <button class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
-	    </span>
-	   </form>
+<div class="my-btn-box">
+				<button type="reset" onclick="javascript:history.go(-1);" class="layui-btn layui-btn-primary btn-back">返回</button>
 	</div>
 	<table class="layui-table">
 		<thead>

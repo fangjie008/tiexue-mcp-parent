@@ -52,5 +52,5 @@ public interface IWxConsumeService {
 	  	 */
 	  	Integer getCostCoinByBookId(Integer bookId,Date startTime,Date endTime);
 	  	
-	  	List<Integer> getConsumeUserIdByBookId(int bookId,Date time);
+	  	List<Integer> getConsumeUserIdByBookId(int bookId,Date startTime,Date endTime);
 }

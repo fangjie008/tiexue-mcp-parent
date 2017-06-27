@@ -79,6 +79,6 @@ public interface IWxPayService {
 	     * @param time
 	     * @return
 	     */
-		List<WxPay> getPaysByBookId(int bookId,Date time);
+		List<WxPay> getPaysByBookId(int bookId,Date startTime,Date endTime);
 
 }

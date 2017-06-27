@@ -70,4 +70,9 @@ public class WxBookServiceImpl implements IWxBookService {
 		return wxBookMapper.getBookIdByCPId(cpId);
 	}
 
+	@Override
+	public WxBook getBookByName(String bookName) {
+		return wxBookMapper.getBookByName(bookName);
+	}
+
 }

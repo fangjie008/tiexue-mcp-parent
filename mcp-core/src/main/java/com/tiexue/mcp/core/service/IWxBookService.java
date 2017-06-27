@@ -50,4 +50,12 @@ public interface IWxBookService {
      * @return
      */
     List<WxBook> getBookIdByCPId(Integer cpId);
+    
+    
+    /**
+     * 根据小说名获取小说信息
+     * @param bookName
+     * @return
+     */
+    WxBook getBookByName(String bookName);
 }

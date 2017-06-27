@@ -296,10 +296,10 @@ public class WxPayServiceImpl implements IWxPayService {
 	}
 
 	@Override
-	public List<WxPay> getPaysByBookId(int bookId, Date time) {
-	    List<Integer> userIds=	iWxConsumeService.getConsumeUserIdByBookId(bookId, time);
+	public List<WxPay> getPaysByBookId(int bookId, Date startTime,Date endTime) {
+	    List<Integer> userIds=	iWxConsumeService.getConsumeUserIdByBookId(bookId, startTime,endTime);
 	    if(userIds!=null&&!userIds.isEmpty())
-	    	return wxPayMapper.getPaysByBookId(bookId, time,userIds);
+	    	return wxPayMapper.getPaysByBookId(bookId, startTime,endTime,userIds);
 	    else
 	    	return null;
 	}

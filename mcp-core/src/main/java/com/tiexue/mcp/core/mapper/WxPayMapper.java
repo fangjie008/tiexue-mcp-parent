@@ -97,7 +97,8 @@ public interface WxPayMapper {
             + "<foreach item='item' index='index' collection='userIds' open='(' separator=',' close=')'>"
                 + "#{item}"
             + "</foreach>"
-            +"AND (bookId=#{bookId} OR bookId=0) AND CreateTime>#{startTime};"
+            +" <![CDATA[ AND (bookId=#{bookId} OR bookId=0) AND CreateTime>#{startTime} and CreateTime<#{endTime}]]>"
         + "</script>")
-    List<WxPay> getPaysByBookId(@Param("bookId")int bookId,@Param("startTime")Date time,@Param("userIds")List<Integer> userIds);
+    List<WxPay> getPaysByBookId(@Param("bookId")int bookId,@Param("startTime")Date startTime
+    		,@Param("endTime")Date endTime,@Param("userIds")List<Integer> userIds);
 }

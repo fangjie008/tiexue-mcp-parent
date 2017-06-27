@@ -26,14 +26,17 @@ text-align:center;
 	</fieldset>
 	<div class="my-btn-box">
 		<form class="layui-form" onsubmit="return validate(this);" action="<%=path%>/mcppay/list" method="post">
-		<span class="" style="margin-left:10px">小说Id</span>
+		<span class="" style="margin-left:10px">小说名</span>
 		<span class="">
-		<input type="text" id="bookId" name="bookId" value="${bookId }"/> 
+		<input type="text" id="bookName" name="bookName" value="${bookName }"/> 
 	   </span>
-		
-		<span class="" style="margin-left:10px">查询时间</span>
+	   <span class="" style="margin-left:10px">开始时间</span>
 		<span class="">
-		<input type="text" class="Wdate" id="startTime" name="startTime" value="${startTime }" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})" /> 
+		<input type="text" class="Wdate" id="startTime" name="startTime" value="${startTime }"
+		 onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true,maxDate:'#F{$dp.$D(\'endTime\')}'})" /> 
+		<span class="" style="margin-left:10px">结束时间</span>
+		<input type="text" class="Wdate" id="endTime" name="endTime" value="${endTime }" 
+		onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true,minDate:'#F{$dp.$D(\'startTime\')}'})" /> 
 	   </span>
 	   <span class="" style="margin-left:30px">
 	   <button class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
@@ -43,8 +46,8 @@ text-align:center;
 	<table class="layui-table">
 		<thead>
 			<tr>
-				<th>查询时间</th>
-				<th>小说Id</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
 				<th>小说名</th>
 				<th>充值金额</th>
 				<th>操作</th>
@@ -56,11 +59,12 @@ text-align:center;
 				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 					<tr>
 						<td>${startTime}</td>
-					    <td>${bookId}</td>
+						<td>${endTime}</td>
 						<td>${bookName}</td>
 						<td>${count}</td>
 						<td>
-							<button class="layui-btn layui-btn-small layui-btn-danger" onclick="detail('${startTime}','${bookId}')">充值详细信息</button>
+							<button class="layui-btn layui-btn-small layui-btn-danger" 
+							onclick="detail('${startTime}','${endTime}','${bookId}')">充值详细信息</button>
 						</td>
 			</c:if>
 		</tbody>
@@ -74,26 +78,27 @@ text-align:center;
 
     });
     function validate(channelform)  { 
-    	var datetime=$("#startTime").val();
+    	var startTime=$("#startTime").val();
+    	var endTime=$("#endTime").val();
     	var bookId=$("#bookId").val();
-        if(datetime=="")  {  
-        	alert("请选择查询时间");
+        if(startTime=="")  {  
+        	alert("请选择开始时间");
+            return false;  
+        }
+        if(endTime=="")  {  
+        	alert("请选择结束时间");
             return false;  
         }
         if(bookId==""){
         	alert("请输入小说Id");
         	return false;
         }
-        if(!isNumber(bookId)){
-        	alert("小说Id必须为整数");
-        	return false;
-        }
         _loading('数据查询中请耐心等待', 'wait');
         return true;  
     } 
     
-    function detail(startTime,bookId){
-    	location.href='<%=path%>/mcppay/detail?startTime='+startTime+'&bookId='+bookId;
+    function detail(startTime,endTime,bookId){
+    	location.href='<%=path%>/mcppay/detail?startTime='+startTime+'&endTime='+endTime+'&bookId='+bookId;
     }
     function isNumber(value) {
         var patrn = /^[0-9]*$/;
