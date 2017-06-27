@@ -268,8 +268,6 @@
 		    <artifactId>commons-httpclient</artifactId>
 		    <version>3.1</version>
 		</dependency>
-		
-		<!-- 导出execl -->
 	</dependencies>
 	<build>
 		<plugins>

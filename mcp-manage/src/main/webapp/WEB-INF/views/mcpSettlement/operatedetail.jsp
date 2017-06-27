@@ -29,6 +29,9 @@ text-align:center;
 	</fieldset>
 	<div class="my-btn-box">
 				<button type="reset" onclick="javascript:history.go(-1);" class="layui-btn layui-btn-primary btn-back">返回</button>
+	 <span style="margin-left:100px">
+	    <a  class="layui-btn" href="<%=path%>/mcpsettlement/exportoperatedetail?startTime=${startTime }&endTime=${endTime }">导出Execl</a>
+	    </span>
 	</div>
 	<table class="layui-table">
 		<thead>

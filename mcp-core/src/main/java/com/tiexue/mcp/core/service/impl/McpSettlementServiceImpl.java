@@ -65,6 +65,7 @@ public class McpSettlementServiceImpl implements IMcpSettlementService {
 
 	@Override
 	public McpSettlementDto getData(int cpId, String monthly) {
+		
 		McpSettlement mcpSettlement=mcpSettMapper.getData(cpId, monthly);
 		if(mcpSettlement==null){
 			Date startTime=DateUtil.getAnyMonth(monthly, "yyyyMM", 0);
@@ -82,9 +83,13 @@ public class McpSettlementServiceImpl implements IMcpSettlementService {
 			mcpSettlement.setMonth(monthly);
 			mcpSettlement.setSettlementstatus(McpConstants.SettlementStatus_Un);
 			mcpSettlement.setUpdatetime(new Date());
-			int res=mcpSettMapper.insert(mcpSettlement);
-			if(res>0){
-				logger.info("新增结算数据。结算月份："+monthly);
+			String currentMonth=DateUtil.date2Str(new Date(), "yyyyMM");
+			//当月或者查询时间大于当前时间的不插入到结算表
+			if(!monthly.equals(currentMonth)&&startTime.compareTo(new Date())<0){
+				int res=mcpSettMapper.insert(mcpSettlement);
+				if(res>0){
+					logger.info("新增结算数据。结算月份："+monthly);
+				}
 			}
 		}
 		McpSettlementDto tempModel=new McpSettlementDto();

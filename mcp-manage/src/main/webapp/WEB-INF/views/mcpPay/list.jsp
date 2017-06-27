@@ -54,7 +54,7 @@ text-align:center;
 			</tr>
 		</thead>
 		<tbody>
-
+			
 			<c:if test="${wxPays!=null}">
 				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 					<tr>
@@ -66,6 +66,26 @@ text-align:center;
 							<button class="layui-btn layui-btn-small layui-btn-danger" 
 							onclick="detail('${startTime}','${endTime}','${bookId}')">充值详细信息</button>
 						</td>
+				  </tr>
+			</c:if>
+			<c:if test="${wxPays==null&&wxBook!=null}">
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+					<tr>
+						<td>${startTime}</td>
+						<td>${endTime}</td>
+						<td>${bookName}</td>
+						<td>0</td>
+						<td>
+							
+						</td>
+				  </tr>
+			</c:if>
+			<c:if test="${wxPays==null&&wxBook==null&&bookName!=null&&bookName!=''}">
+			<tr>
+			<td colspan="4">
+			<li>查询的小说不存在</li>
+				<td>
+		   </tr>
 			</c:if>
 		</tbody>
 	</table>

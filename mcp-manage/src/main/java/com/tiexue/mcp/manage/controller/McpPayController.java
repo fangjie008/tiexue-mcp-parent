@@ -45,6 +45,11 @@ public class McpPayController {
 				WxBook wxBook= iWxBookService.getBookByName(bookName);
 				if(wxBook!=null){
 					bookId=wxBook.getId();
+					request.setAttribute("wxBook", wxBook);
+					request.setAttribute("bookName", wxBook.getName());
+				}
+				else{
+					request.setAttribute("bookName",bookName);
 				}
 				List<WxPay> wxPays=iWxPayService.getPaysByBookId(bookId, startTime,endTime);
 				if(wxPays!=null&&!wxPays.isEmpty()){
@@ -54,11 +59,12 @@ public class McpPayController {
 					count+=wxPayDto.getAmount();
 				}
 			    request.setAttribute("bookId", wxBook.getId());
-			    request.setAttribute("bookName", wxBook.getName());
+			   
 			    request.setAttribute("count", count);
 				request.setAttribute("wxPays", wxPayDtos);
 				}
 			}
+			
 			request.setAttribute("startTime",startTimeStr);
 			request.setAttribute("endTime",endTimeStr);
 		} catch (Exception e) {

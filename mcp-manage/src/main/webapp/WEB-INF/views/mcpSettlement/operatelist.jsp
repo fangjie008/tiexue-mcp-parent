@@ -37,6 +37,9 @@ text-align:center;
 	   <span class="" style="margin-left:30px">
 	   <button class="layui-btn" lay-submit="" lay-filter="demo1">搜索</button>
 	    </span>
+	    <span style="margin-left:100px">
+	    <a  class="layui-btn" href="<%=path%>/mcpsettlement/exportoperate?startTime=${startTime }&endTime=${endTime }">导出Execl</a>
+	    </span>
 	   </form>
 	</div>
 	<table class="layui-table">
