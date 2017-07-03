@@ -355,6 +355,7 @@ public class WxChapterSubController {
 		int chapterId = 0;
 		String tag="";
 		WxChapter chapterModel=null;
+		WxChapterSubDto chapSubDto=null;
 		if (chapterIdStr != null && !chapterIdStr.isEmpty()) {
 		    chapterId = Integer.parseInt(chapterIdStr);
 			if (bookIdStr != null && !bookIdStr.isEmpty()) {
@@ -398,8 +399,8 @@ public class WxChapterSubController {
 				logger.error(resultMsg.getMsg());
 			}
 			// 获取章节信息
-			WxChapterSubDto chapSubDto = getCahperDto(bookId, bookName, chapterId, chapterModel,tag);
-			request.setAttribute("wxChapterSub", chapSubDto);
+		    chapSubDto = getCahperDto(bookId, bookName, chapterId, chapterModel,tag);
+	
 			if(chapterModel!=null)
 			{
 				int pageNo=0;
@@ -429,8 +430,10 @@ public class WxChapterSubController {
 		if(chapterModel!=null&&chapterModel.getShowtype()==1){
 			String url="/wxChapterSub/index?bookId="+bookId+"&chapterId="+chapterId+"&fm="+fm;
 			CookieUtils.addcookie("readMark_Show", 1*365*24*60*60, response,url);
+			request.setAttribute("wxChapterSub", chapSubDto);
 			return "/wxChapterSub/focusQR";
 		}
+		request.setAttribute("wxChapterSub", chapSubDto);
 		return "wxChapterSub/show";
 	}
 	
