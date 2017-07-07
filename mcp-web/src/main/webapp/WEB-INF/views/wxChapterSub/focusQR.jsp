@@ -34,7 +34,7 @@ fieldset { border:none; border-top:1px solid #ccc; padding: 0.25rem; margin:0 0.
 		</nav>
    <div class="content" style="font-size: 18px;">
 			${wxChapterSub.content}</div>
-	<div class="box-readmore">
+	<div class="box-readmore" style="height:400px">
 		<div style="text-align: left;margin-bottom:5px;font-size: 18px;margin-top: 10px;">
 			 <p style="text-indent: 2em;">由于篇幅限制，本页面只能更新到这！</p>
 		</div>
