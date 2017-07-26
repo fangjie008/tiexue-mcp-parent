@@ -79,9 +79,9 @@
 </div>
 <div class="mod_block"></div>
 
-<!-- <div>
+<div>
 <a href="#" onclick="testaddcookie()">测试登录</a>
-</div>  -->
+</div>  
 
 <div style="background-color: rgba(50, 201, 186, 0.7);padding: 8px 10px;">
 	<a style="color:white" href="http://t.cn/R6LUaeS">
@@ -94,7 +94,7 @@
 <script type="text/javascript" src="<%=path %>/static/js/public.js"></script>
 <script type="text/javascript">
 function testaddcookie(){
-	setCookie("wx_gzh_token","9519B0A907BB60F8ACADA7184CA0EEA5C984F95C9E7BE0956612C4F3B65B0F0239DB04E0BFC5BB36","1")
+	setCookie("wx_gzh_token","4F85373E231846DC189112F68FE51B3A2D15442B7D2BDCFC025834EDE2409807BA9990C024D412EC","1")
 }
 </script>
 </html>

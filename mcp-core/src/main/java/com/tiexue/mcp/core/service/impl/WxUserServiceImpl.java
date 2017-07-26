@@ -1,6 +1,8 @@
 package com.tiexue.mcp.core.service.impl;
 
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -119,6 +121,9 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setLastactivetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
 	    	wxUser.setMobile("");
 	    	wxUser.setName(wxSnsUser.getNickname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
+	    	if(wxUser.getName()==null||wxUser.getName().isEmpty()||"".contains(wxUser.getName())){
+	    		wxUser.setName("wc_"+DateUtil.date2Str(new Date(), "DATE_FORMAT_YYYYMMDDHHmmdd"));
+	    	}
 	    	wxUser.setOpenid(wxSnsUser.getOpenid());
 	    	wxUser.setProvince(wxSnsUser.getProvince());
 	    	wxUser.setSex(wxSnsUser.getSex());
@@ -160,6 +165,10 @@ public class WxUserServiceImpl implements IWxUserService{
 			pageUser.setOpenid(tokens[0]);
 			pageUser.setId(tokens[1]);
 			pageUser.setName(tokens[2]);
+		}else if(tokens.length==2){
+			pageUser.setOpenid(tokens[0]);
+			pageUser.setId(tokens[1]);
+			pageUser.setName("匿名用户");
 		}
 		return pageUser;
 	}
