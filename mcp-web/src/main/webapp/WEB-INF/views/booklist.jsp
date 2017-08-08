@@ -79,9 +79,9 @@
 </div>
 <div class="mod_block"></div>
 
-<div>
+<!-- <div>
 <a href="#" onclick="testaddcookie()">测试登录</a>
-</div>  
+</div>   -->
 
 <div style="background-color: rgba(50, 201, 186, 0.7);padding: 8px 10px;">
 	<a style="color:white" href="http://t.cn/R6LUaeS">
