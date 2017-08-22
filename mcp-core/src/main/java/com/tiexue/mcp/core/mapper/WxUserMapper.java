@@ -32,7 +32,7 @@ public interface WxUserMapper {
         "Mobile, OpenId, ",
         "WeixinToken, Token,FromName, ",
         "LastActiveTime, CreateTime, ",
-        "UpdateTime, AutoPurchase)",
+        "UpdateTime, AutoPurchase,PfFrom,PfCurrent,Unionid)",
         "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
         "#{headericon,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, ",
         "#{pwd,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, ",
@@ -43,7 +43,8 @@ public interface WxUserMapper {
         "#{weixintoken,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, ",
         "#{fromname,jdbcType=VARCHAR},",
         "#{lastactivetime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, ",
-        "#{updatetime,jdbcType=TIMESTAMP}, #{autopurchase,jdbcType=LONGVARCHAR})"
+        "#{updatetime,jdbcType=TIMESTAMP}, #{autopurchase,jdbcType=LONGVARCHAR},",
+        "#{pffrom,jdbcType=VARCHAR}, #{pfcurrent,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR})" 
     })
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(WxUser record);
@@ -54,7 +55,7 @@ public interface WxUserMapper {
         "select",
         "Id, Name, HeaderIcon, Signature, Pwd, Sex, City, Province, UserType, Coin, Deadline, ",
         "DeviceCode, Status, Mobile, OpenId, WeixinToken, Token,FromName, LastActiveTime, CreateTime, ",
-        "UpdateTime, AutoPurchase",
+        "UpdateTime, AutoPurchase,PfFrom,PfCurrent,Unionid",
         "from wxuser",
         "where Id = #{id,jdbcType=INTEGER}"
     })
@@ -85,7 +86,10 @@ public interface WxUserMapper {
           "LastActiveTime = #{lastactivetime,jdbcType=TIMESTAMP},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "UpdateTime = #{updatetime,jdbcType=TIMESTAMP},",
-          "AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR}",
+          "AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR},",
+          "PfFrom = #{pffrom,jdbcType=VARCHAR},",
+		  "PfCurrent = #{pfcurrent,jdbcType=VARCHAR},",
+		  "Unionid= #{unionid,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKeyWithBLOBs(WxUser record);
@@ -112,7 +116,10 @@ public interface WxUserMapper {
           "LastActiveTime = #{lastactivetime,jdbcType=TIMESTAMP},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "UpdateTime = #{updatetime,jdbcType=TIMESTAMP},",
-          "AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR}",
+          "AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR},",
+          "PfFrom = #{pffrom,jdbcType=VARCHAR},",
+		  "PfCurrent = #{pfcurrent,jdbcType=VARCHAR},",
+		  "Unionid= #{unionid,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WxUser record);
@@ -121,12 +128,15 @@ public interface WxUserMapper {
         "select",
         "Id, Name, HeaderIcon, Signature, Pwd, Sex, City, Province, UserType, Coin, Deadline, ",
         "DeviceCode, Status, Mobile, OpenId, WeixinToken, Token,FromName, LastActiveTime, CreateTime, ",
-        "UpdateTime, AutoPurchase",
+        "UpdateTime, AutoPurchase,PfFrom,PfCurrent,Unionid",
         "from wxuser",
         "where OpenId = #{openId,jdbcType=VARCHAR}"
     })
     @ResultMap("ResultMapWithBLOBs")
     WxUser getModelByOpenId(String openId);
+    
+    
+    
     
     @Update({
         "update wxuser",
@@ -135,4 +145,8 @@ public interface WxUserMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateCoin(@Param("id")Integer id,@Param("coin")Integer coin);
+    
+    
+    
+    
 }

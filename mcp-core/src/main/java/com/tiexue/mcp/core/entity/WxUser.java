@@ -46,8 +46,38 @@ public class WxUser {
     private Date updatetime;
 
     private String autopurchase;
+    
+    private String pffrom;
 
-    public Integer getId() {
+    private String pfcurrent;
+    
+    private String unionid;
+
+    public String getPffrom() {
+		return pffrom;
+	}
+
+	public void setPffrom(String pffrom) {
+		this.pffrom = pffrom;
+	}
+
+	public String getPfcurrent() {
+		return pfcurrent;
+	}
+
+	public void setPfcurrent(String pfcurrent) {
+		this.pfcurrent = pfcurrent;
+	}
+
+	public String getUnionid() {
+		return unionid;
+	}
+
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
+	}
+
+	public Integer getId() {
         return id;
     }
 

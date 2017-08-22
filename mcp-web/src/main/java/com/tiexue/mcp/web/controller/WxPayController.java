@@ -113,7 +113,7 @@ public class WxPayController {
 		if (userIdStr != null && !userIdStr.isEmpty()) {
 			int userId = Integer.parseInt(userIdStr);
 			WxUser userModel = userSer.selectByPrimaryKey(userId);
-			if(userModel==null)
+			if(userModel==null||userModel.getStatus()==EnumType.UserStatus_Quiet)
 				return "redirect:/wxUser/login";
 			WxUserDto userDto = userDtoFill(userModel);
 			request.setAttribute("user", userDto);
@@ -270,7 +270,7 @@ public class WxPayController {
 				Cookie _refCookie = new Cookie("_refpay", ""); // 创建一个Cookie对象，并将用户名保存到Cookie对象中
 				_refCookie.setMaxAge(5*60); // 设置Cookie的过期之前的时间，单位为秒
 				response.addCookie(_refCookie); // 通过response的addCookie()方法将此Cookie对象保存到客户端的Cookie中
-				
+				logger.error("pay 支付成功:"+ref);
 				return "redirect:" + ref;
 			}
 			logger.error("pay _refpay:"+ref);

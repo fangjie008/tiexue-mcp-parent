@@ -36,7 +36,7 @@ public class UserConsServiceImpl implements IUserConsService {
 		ResultMsg resultMsg = new ResultMsg();
 		// 用户信息
 		WxUser userModel = wxUserService.selectByPrimaryKey(userId);
-		if (userModel == null) {
+		if (userModel == null||userModel.getStatus()==EnumType.UserStatus_Quiet) {
 			resultMsg.setStatus(false);
 			resultMsg.setMsg("跳转到登录页面");
 			resultMsg.setNum(EnumType.ResultNum_Login);
@@ -89,7 +89,7 @@ public class UserConsServiceImpl implements IUserConsService {
 			boolean dealRes = wxUserService.updateCoin(userModel, cons);
 			if (dealRes) {
 				resultMsg.setStatus(true);
-				resultMsg.setMsg("支付成功");
+				resultMsg.setMsg("消费成功");
 			} else {
 				resultMsg.setStatus(false);
 				resultMsg.setMsg("自动扣款失败跳转到扣费页面");

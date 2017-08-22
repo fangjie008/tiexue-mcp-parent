@@ -163,13 +163,18 @@ public class EnumType {
     
     //用户状态常量
     public static final int UserStatus_Normal=0;
-    public static final int UserStatus_Delete=1;
+    /**
+     * 静默登录
+     */
+    public static final int UserStatus_Quiet=1;
+    public static final int UserStatus_Delete=2;
     /**
      * 用户状态
      */
     public static Map<Integer,String> UserStatus=new HashMap<Integer,String>(){
     	{
     		put(UserStatus_Normal,"正常");
+    		put(UserStatus_Quiet,"静默");
     		put(UserStatus_Delete,"删除");
     	}
     };

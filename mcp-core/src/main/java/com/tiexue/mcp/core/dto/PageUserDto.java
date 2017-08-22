@@ -11,6 +11,8 @@ public class PageUserDto {
     private String name;
 
     private String openid;
+    
+    private String status;
 
 	public String getId() {
 		return id;
@@ -34,6 +36,14 @@ public class PageUserDto {
 
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

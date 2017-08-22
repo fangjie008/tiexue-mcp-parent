@@ -23,7 +23,9 @@
     <result column="LastActiveTime" jdbcType="TIMESTAMP" property="lastactivetime" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
-
+    <result column="PfFrom" property="pffrom" jdbcType="VARCHAR" />
+    <result column="PfCurrent" property="pfcurrent" jdbcType="VARCHAR" />
+    <result column="Unionid" property="unionid" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.WxUser">
     <result column="AutoPurchase" jdbcType="LONGVARCHAR" property="autopurchase" />
@@ -31,7 +33,7 @@
   <sql id="Base_Column_List">
     Id, Name, HeaderIcon, Signature, Pwd, Sex, City, Province, UserType, Coin, Deadline, 
     DeviceCode, Status, Mobile, OpenId, WeixinToken, Token,FromName, LastActiveTime, CreateTime, 
-    UpdateTime
+    UpdateTime, PfFrom, PfCurrent,Unionid
   </sql>
   <sql id="Blob_Column_List">
     AutoPurchase
@@ -102,8 +104,17 @@
       <if test="updatetime != null">
         UpdateTime,
       </if>
-      <if test="autopurchase != null">
+     <if test="pffrom != null" >
+        PfFrom,
+      </if>
+      <if test="pfcurrent != null" >
+        PfCurrent,
+      </if>
+      <if test="autopurchase != null" >
         AutoPurchase,
+      </if>
+       <if test="unionid != null" >
+        Unionid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -170,8 +181,17 @@
       <if test="updatetime != null">
         #{updatetime,jdbcType=TIMESTAMP},
       </if>
-      <if test="autopurchase != null">
+	  <if test="pffrom != null" >
+        #{pffrom,jdbcType=VARCHAR},
+      </if>
+      <if test="pfcurrent != null" >
+        #{pfcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="autopurchase != null" >
         #{autopurchase,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -240,6 +260,18 @@
       </if>
       <if test="autopurchase != null">
         AutoPurchase = #{autopurchase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pffrom != null" >
+        PfFrom=#{pffrom,jdbcType=VARCHAR},
+      </if>
+      <if test="pfcurrent != null" >
+        PfCurrent=#{pfcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="autopurchase != null" >
+        AutoPurchase#{autopurchase,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="unionid != null" >
+        Unionid=#{unionid,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

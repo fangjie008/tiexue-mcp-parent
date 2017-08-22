@@ -22,7 +22,7 @@
 </header>
 <dl class="user_area wrap">
 	<dt><span class="ico32 user"></span>
-	<c:if test="${pageUser!=null&&pageUser.id>0}">
+	<c:if test="${pageUser!=null&&pageUser.id>0&&pageUser.status<=0}">
 	<a href="<%=path%>/wxUser/content/?fm=${fromurl}">
 		<label>${pageUser.name}&nbsp;&nbsp;</label>
 		</a>

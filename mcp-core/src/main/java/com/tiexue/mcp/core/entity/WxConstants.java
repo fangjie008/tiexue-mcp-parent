@@ -16,6 +16,9 @@ public class WxConstants {
 	// 微信网页授权回调地址
 	public static final String WxRedirectUrl = "http://wx.top657.cn/wxUser/wxoauthcallback";
 
+	// 微信网页静默授权回调地址
+	public static final String WxHideRedirectUrl = "http://wx.top657.cn/autologin/wxoauthcallback";
+		
 	// 微信网页授权语言编码
 	public static final String WxSnsLang = "zh_CN";
 

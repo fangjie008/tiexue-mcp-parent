@@ -93,6 +93,57 @@ public class WxUserServiceImpl implements IWxUserService{
 	public WxUser getModelByOpenId(String openId){
 		return userMapper.getModelByOpenId(openId);
 	}
+	@Override
+	public WxUser saveLoginMsgQuiet(SnsToken user,String fm){
+		if(user==null)
+			return null;
+	    WxUser wxUser;
+	    wxUser=getModelByOpenId(user.getOpenid());
+	    if(wxUser!=null&&wxUser.getId()>0){
+	    	wxUser.setWeixintoken(user.getAccess_token());
+	    	wxUser.setToken(user.getRefresh_token());
+	    	wxUser.setLastactivetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	        updateByPrimaryKey(wxUser);
+	        return wxUser;
+	    }else{
+	    	if(fm==null)
+	    		fm="";
+	    	wxUser=new WxUser();
+	    	wxUser.setAutopurchase("");
+	    	wxUser.setCity("");
+	    	wxUser.setCoin(0);
+	    	wxUser.setPwd("");
+	    	wxUser.setCreatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	wxUser.setDeadline(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	wxUser.setDevicecode("");
+	    	wxUser.setHeadericon("");
+	    	wxUser.setLastactivetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	wxUser.setMobile("");
+	    	wxUser.setName("匿名_"+DateUtil.date2Str(new Date(), "yyyyMMddHHmmssSSS"));
+	    	wxUser.setOpenid(user.getOpenid());
+	    	wxUser.setProvince("");
+	    	wxUser.setSex(0);
+	    	wxUser.setSignature("");
+	    	wxUser.setStatus(EnumType.UserStatus_Quiet);
+	    	wxUser.setWeixintoken(user.getAccess_token());
+	    	wxUser.setToken(user.getRefresh_token());
+	    	wxUser.setUpdatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	wxUser.setUsertype(EnumType.UserType_Normal);
+	    	wxUser.setFromname(fm);
+	       	wxUser.setPfcurrent("");
+	    	wxUser.setPffrom("");
+	    	wxUser.setUnionid("");
+	    	int wxUserId= insert(wxUser);
+	    	
+	    	if(wxUser.getId()==null){
+	    		logger.error("保存登录信息后返回的Id为null");
+	    		wxUser.setId(0);
+	    	}
+	    	//logger.error("保存登录信息后返回的Id："+wxUser.toString());
+	    	//wxUser.setId(wxUserId);
+	        return wxUser;
+	    }
+	}
 	
 	@Override
 	public WxUser saveLoginMsg(SnsToken user,User wxSnsUser,String fm){
@@ -104,6 +155,20 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setWeixintoken(user.getAccess_token());
 	    	wxUser.setToken(user.getRefresh_token());
 	    	wxUser.setLastactivetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	wxUser.setStatus(EnumType.UserStatus_Normal);
+	    	if(wxUser.getName().isEmpty()||wxUser.getName().contains("匿名_")){
+	    		wxUser.setName(wxSnsUser.getNickname().replaceAll("[\\x{10000}-\\x{10FFFF}]", ""));
+	    	}
+	    	if(wxUser.getName()==null||wxUser.getName().isEmpty()||"".contains(wxUser.getName())){
+	    		wxUser.setName("wc_"+DateUtil.date2Str(new Date(), "yyyyMMddHHmmssSSS"));
+	    	}
+	    	if(wxUser.getCity().isEmpty())
+	    		wxUser.setCity(wxSnsUser.getCity());
+	    	if(wxUser.getHeadericon().isEmpty())
+	    		wxUser.setHeadericon(wxSnsUser.getHeadimgurl());
+	    	if(wxUser.getProvince().isEmpty())
+	    		wxUser.setProvince(wxSnsUser.getProvince());
+	    	wxUser.setSex(wxSnsUser.getSex());
 	        updateByPrimaryKey(wxUser);
 	        return wxUser;
 	    }else{
@@ -134,6 +199,9 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setUpdatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
 	    	wxUser.setUsertype(EnumType.UserType_Normal);
 	    	wxUser.setFromname(fm);
+	       	wxUser.setPfcurrent("");
+	    	wxUser.setPffrom("");
+	    	wxUser.setUnionid("");
 	    	int wxUserId=insert(wxUser);
 	    	
 	    	if(wxUser.getId()==null){
@@ -147,7 +215,7 @@ public class WxUserServiceImpl implements IWxUserService{
 	}
 	
 	public String setLoginInCookie(WxUser wxUser){
-		String wx_gzh_token=wxUser.getOpenid()+","+wxUser.getId()+","+wxUser.getName();
+		String wx_gzh_token=wxUser.getOpenid()+","+wxUser.getId()+","+wxUser.getName()+","+wxUser.getStatus();
 		wx_gzh_token= CyptoUtils.encode(EnumType.Des_Key,wx_gzh_token);
 		return wx_gzh_token;
 	}
@@ -169,6 +237,11 @@ public class WxUserServiceImpl implements IWxUserService{
 			pageUser.setOpenid(tokens[0]);
 			pageUser.setId(tokens[1]);
 			pageUser.setName("匿名用户");
+		}
+		if(tokens.length>=4){
+			pageUser.setStatus(tokens[3]);
+		}else{
+			pageUser.setStatus("0");
 		}
 		return pageUser;
 	}

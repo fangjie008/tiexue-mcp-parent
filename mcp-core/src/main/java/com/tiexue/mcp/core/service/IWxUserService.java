@@ -53,6 +53,14 @@ public interface IWxUserService {
     WxUser saveLoginMsg(SnsToken user,User wxSnsUser,String fm);
    
     /**
+     * 保存登录信息(静默)
+     * @param user
+     * @param wxSnsUser
+     * @return
+     */
+    WxUser saveLoginMsgQuiet(SnsToken user,String fm);
+    
+    /**
      * 生成登录后的cookie
      * @param wxUser
      * @return

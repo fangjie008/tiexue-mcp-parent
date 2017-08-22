@@ -66,13 +66,17 @@ public class WxUserController {
 				userIdStr = pageUser.getId();
 			}
 		}
+		logger.error("wxuser/content start");
 		String fm = request.getParameter("fm");
 		int userId=0;
 		if(userIdStr!=null&&!userIdStr.isEmpty())
 			userId=Integer.parseInt(userIdStr);
+		if(userId==0){
+			return "redirect:/wxUser/login";
+		}
 		WxUser userModel = userSer.selectByPrimaryKey(userId);
-		if(userModel==null)
-			return "redirect:login";
+		if(userModel==null||userModel.getStatus()==EnumType.UserStatus_Quiet)
+			return "redirect:/wxUser/login";
 		WxUserDto userDtoModel = userDtoFill(userModel);
 		request.setAttribute("user", userDtoModel);
 		if(userModel!=null&&userDtoModel!=null){
@@ -94,7 +98,7 @@ public class WxUserController {
 		String fm = request.getParameter("fm");
 		if (null != refer && !refer.isEmpty()) {
 			Cookie _refCookie = new Cookie("_ref", refer); // 创建一个Cookie对象，并将用户名保存到Cookie对象中
-			_refCookie.setMaxAge(15*60); // 设置Cookie的过期之前的时间，单位为秒
+			_refCookie.setMaxAge(2*60); // 设置Cookie的过期之前的时间，单位为秒
 			response.addCookie(_refCookie); // 通过response的addCookie()方法将此Cookie对象保存到客户端的Cookie中
 		}
 		request.setAttribute("fromurl", fm);
