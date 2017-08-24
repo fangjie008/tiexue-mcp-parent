@@ -46,6 +46,6 @@ public interface IWxBookrackService {
 	     * @param chapterTitle
 	     * @return
 	     */
-	    boolean saveBookrack(int userId,int bookId,String bookName,Integer chapterId,String chapterTitle);
+	    boolean saveBookrack(int userId,int bookId,String bookName,Integer chapterId,String chapterTitle,String wx_gzh_sign);
 
 }

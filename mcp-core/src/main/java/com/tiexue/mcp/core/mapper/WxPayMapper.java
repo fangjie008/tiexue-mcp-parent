@@ -31,14 +31,14 @@ public interface WxPayMapper {
         "WxOrderNum, PayChannel, ",
         "PayType, Amount, ",
         "Count, CreateTime, ",
-        "Unit)",
+        "Unit,Sign)",
         "values (#{ordernum,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, ",
         "#{openid,jdbcType=VARCHAR}, #{bookid,jdbcType=INTEGER}, ",
         "#{chapterid,jdbcType=INTEGER}, #{orderstatus,jdbcType=INTEGER}, ",
         "#{wxordernum,jdbcType=VARCHAR}, #{paychannel,jdbcType=INTEGER}, ",
         "#{paytype,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, ",
         "#{count,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, ",
-        "#{unit,jdbcType=INTEGER})"
+        "#{unit,jdbcType=INTEGER},#{sign,jdbcType=VARCHAR})"
     })
     int insert(WxPay record);
 
@@ -47,7 +47,7 @@ public interface WxPayMapper {
     @Select({
         "select",
         "OrderNum, UserId, OpenId, BookId, ChapterId, OrderStatus, WxOrderNum, PayChannel, ",
-        "PayType, Amount, Count, CreateTime, Unit",
+        "PayType, Amount, Count, CreateTime, Unit,Sign",
         "from wxpay",
         "where OrderNum = #{ordernum,jdbcType=VARCHAR}"
     })
@@ -69,7 +69,8 @@ public interface WxPayMapper {
           "Amount = #{amount,jdbcType=INTEGER},",
           "Count = #{count,jdbcType=INTEGER},",
           "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
-          "Unit = #{unit,jdbcType=INTEGER}",
+          "Unit = #{unit,jdbcType=INTEGER},",
+          "Sign = #{sign,jdbcType=TIMESTAMP}",
         "where OrderNum = #{ordernum,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(WxPay record);

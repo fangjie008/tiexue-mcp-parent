@@ -66,7 +66,7 @@ public class WxBookrackServiceImpl implements IWxBookrackService {
 		return bookrackMapper.getListByUserId(userId, size);
 	}
 	@Override
-	public boolean saveBookrack(int userId,int bookId,String bookName,Integer chapterId,String chapterTitle){
+	public boolean saveBookrack(int userId,int bookId,String bookName,Integer chapterId,String chapterTitle,String wx_gzh_sign){
 		try {
 			if(bookName==null||bookName.isEmpty())
 				bookName="";
@@ -85,6 +85,7 @@ public class WxBookrackServiceImpl implements IWxBookrackService {
 				 rack.setCreatetime(new Date());
 				 rack.setLocation(0);
 				 rack.setUserid(userId);
+				 rack.setSign(wx_gzh_sign);
 				 return insert(rack)>0?true:false;
 			 }else{
 				 rack.setCreatetime(new Date());
@@ -94,6 +95,8 @@ public class WxBookrackServiceImpl implements IWxBookrackService {
 					 rack.setChapterid(chapterId);
 				 if(chapterTitle!="")
 					 rack.setChaptertitle(chapterTitle);
+//				 if(wx_gzh_sign!="")
+//					 rack.setSign(wx_gzh_sign);
 				 return updateByPrimaryKey(rack)>0?true:false;
 			 }
 		} catch (Exception e) {

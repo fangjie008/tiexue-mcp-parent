@@ -98,7 +98,8 @@ public class WxBookController {
 	
 	@RequestMapping("/detail")
 	public String detailInfo(HttpServletRequest request,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token) {
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign) {
 		String userIdStr = "";
 		String fm = request.getParameter("fm");
 		if (wx_gzh_token != "") {
@@ -131,7 +132,7 @@ public class WxBookController {
 		request.setAttribute("fromurl", fm);
 		//保存书架
         if(bookId>0&&userId>0){
-        	saveBookrack(bookId,userId,bookName);
+        	saveBookrack(bookId,userId,bookName,wx_gzh_sign);
         }
 		return "bookdetail";
 	}
@@ -264,8 +265,8 @@ public class WxBookController {
 	 * @param bookId
 	 * @param userId
 	 */
-	private void saveBookrack(int bookId,int userId,String bookName){
-		bookrackService.saveBookrack(userId, bookId, bookName, 0, "");
+	private void saveBookrack(int bookId,int userId,String bookName,String wx_gzh_sign){
+		bookrackService.saveBookrack(userId, bookId, bookName, 0, "",wx_gzh_sign);
 	}
 	
 

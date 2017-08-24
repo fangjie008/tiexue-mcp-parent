@@ -13,7 +13,7 @@ public interface IUserConsService {
 	 * @param chapterModel
 	 * @return 
 	 */
-	ResultMsg consDeal(int userId, int bookId, String bookName, WxChapter chapterModel);
+	ResultMsg consDeal(int userId, int bookId, String bookName, WxChapter chapterModel,String wx_gzh_sign);
 	/**
 	 * 直接付费
 	 * @param userId
@@ -21,5 +21,5 @@ public interface IUserConsService {
 	 * @param chapterId
 	 * @return
 	 */
-    boolean consumeRecord(int userId, int bookId, int chapterId,boolean autoPay);
+    boolean consumeRecord(int userId, int bookId, int chapterId,boolean autoPay,String wx_gzh_sign);
 }

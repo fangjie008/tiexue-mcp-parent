@@ -18,6 +18,8 @@ public class WxBookrack {
     private Integer userid;
 
     private Date createtime;
+    
+    private String sign;
 
     public Integer getId() {
         return id;
@@ -82,4 +84,14 @@ public class WxBookrack {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+    
+    
 }

@@ -1,6 +1,8 @@
 package com.tiexue.mcp.core.service;
 
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tiexue.mcp.core.dto.PageUserDto;
 import com.tiexue.mcp.core.entity.WxConsume;
 import com.tiexue.mcp.core.entity.WxUser;
@@ -45,6 +47,13 @@ public interface IWxUserService {
     WxUser getModelByOpenId(String openId);
     
     /**
+     * 根据用户微信unionId获取用户信息
+     * @param unionId
+     * @return
+     */
+    WxUser getModelByUnionId(String unionId);
+    
+    /**
      * 保存登录信息
      * @param user
      * @param wxSnsUser
@@ -73,5 +82,13 @@ public interface IWxUserService {
      * @return
      */
     PageUserDto getPageUserDto(String wx_gzh_token);
+    
+    /**
+     * 保存当前推广的fm参数
+     * @param id
+     * @param pfcurrent
+     * @return
+     */
+    int updatePfCurrent(@Param("id")Integer id,@Param("pfcurrent")String pfcurrent);
  
 }

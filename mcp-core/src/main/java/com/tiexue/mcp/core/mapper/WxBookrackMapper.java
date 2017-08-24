@@ -23,11 +23,11 @@ public interface WxBookrackMapper {
         "insert into wxbookrack (Id, BookId, ",
         "BookName, ChapterId, ",
         "ChapterTitle, Location, ",
-        "UserId, CreateTime)",
+        "UserId, CreateTime,Sign)",
         "values (#{id,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, ",
         "#{bookname,jdbcType=VARCHAR}, #{chapterid,jdbcType=INTEGER}, ",
         "#{chaptertitle,jdbcType=VARCHAR}, #{location,jdbcType=INTEGER}, ",
-        "#{userid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})"
+        "#{userid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP},#{sign,jdbcType=VARCHAR})"
     })
     int insert(WxBookrack record);
 
@@ -35,7 +35,7 @@ public interface WxBookrackMapper {
 
     @Select({
         "select",
-        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime",
+        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime,Sign",
         "from wxbookrack",
         "where Id = #{id,jdbcType=INTEGER}"
     })
@@ -52,7 +52,8 @@ public interface WxBookrackMapper {
           "ChapterTitle = #{chaptertitle,jdbcType=VARCHAR},",
           "Location = #{location,jdbcType=INTEGER},",
           "UserId = #{userid,jdbcType=INTEGER},",
-          "CreateTime = #{createtime,jdbcType=TIMESTAMP}",
+          "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
+          "Sign = #{sign,jdbcType=TIMESTAMP}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WxBookrack record);
@@ -60,7 +61,7 @@ public interface WxBookrackMapper {
     
     @Select({
         "select",
-        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime",
+        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime,Sign",
         "from wxbookrack",
         "where UserId = #{userId,jdbcType=INTEGER} and BookId = #{bookId,jdbcType=INTEGER} order by CreateTime desc LIMIT 0,1"
     })
@@ -70,7 +71,7 @@ public interface WxBookrackMapper {
     
     @Select({
         "select",
-        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime",
+        "Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime,Sign",
         "from wxbookrack",
         "where UserId = #{userId,jdbcType=INTEGER}  order by CreateTime desc LIMIT 0,1"
     })

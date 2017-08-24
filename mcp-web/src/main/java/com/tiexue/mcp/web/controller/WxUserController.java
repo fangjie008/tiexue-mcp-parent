@@ -161,6 +161,7 @@ public class WxUserController {
 	@RequestMapping("wxoauthcallback")
 	public String wxOAuthCallback(HttpServletRequest request, HttpServletResponse response,RedirectAttributes attr, 
 			@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign,
 			@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name) throws Exception {
 		try {
 			// 微信token
@@ -202,7 +203,7 @@ public class WxUserController {
 			logger.error("login  success ");
 			//同步书架信息
 			if(userId>0&&!rackCookie.isEmpty())
-				saveBookrack(userId,rackCookie);
+				saveBookrack(userId,rackCookie,wx_gzh_sign);
 		} catch (Exception e) {
 			logger.error("登录报错："+e.getMessage());
 			// TODO Auto-generated catch block
@@ -249,7 +250,7 @@ public class WxUserController {
 	 * @param bookId
 	 * @param userId
 	 */
-	private void saveBookrack(int userId,String rackCookie){
+	private void saveBookrack(int userId,String rackCookie,String wx_gzh_sign){
 		try {
 			int addNum=0;
 			List<bookrackCookieDto> cookies = JSON.parseArray(rackCookie, bookrackCookieDto.class);
@@ -277,7 +278,7 @@ public class WxUserController {
 							}
 					}
 					if(userId>0&&bookId>0)
-						bookrackService.saveBookrack(userId, bookId, bookName, chapterId, chapterTitle);
+						bookrackService.saveBookrack(userId, bookId, bookName, chapterId, chapterTitle,wx_gzh_sign);
 					
 				}
 			}

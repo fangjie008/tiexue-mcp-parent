@@ -24,11 +24,11 @@ public interface WxConsumeMapper {
         "insert into wxconsume (Id, UserId, ",
         "CostCoin, BookId, ",
         "BookName, CharpterId, ",
-        "CharpterTitle, CreateTime)",
+        "CharpterTitle, CreateTime,Sign)",
         "values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, ",
         "#{costcoin,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, ",
         "#{bookname,jdbcType=VARCHAR}, #{charpterid,jdbcType=INTEGER}, ",
-        "#{charptertitle,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})"
+        "#{charptertitle,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},#{sign,jdbcType=VARCHAR})"
     })
     int insert(WxConsume record);
 
@@ -36,7 +36,7 @@ public interface WxConsumeMapper {
 
     @Select({
         "select",
-        "Id, UserId, CostCoin, BookId, BookName, CharpterId, CharpterTitle, CreateTime",
+        "Id, UserId, CostCoin, BookId, BookName, CharpterId, CharpterTitle, CreateTime,Sign",
         "from wxconsume",
         "where Id = #{id,jdbcType=INTEGER}"
     })
@@ -53,7 +53,8 @@ public interface WxConsumeMapper {
           "BookName = #{bookname,jdbcType=VARCHAR},",
           "CharpterId = #{charpterid,jdbcType=INTEGER},",
           "CharpterTitle = #{charptertitle,jdbcType=VARCHAR},",
-          "CreateTime = #{createtime,jdbcType=TIMESTAMP}",
+          "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
+          "Sign = #{sign,jdbcType=TIMESTAMP}",
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(WxConsume record);

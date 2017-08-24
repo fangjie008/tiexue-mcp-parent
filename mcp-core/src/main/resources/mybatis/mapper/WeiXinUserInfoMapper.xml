@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.WeiXinUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WeiXinUserInfo" >
+    <id column="UUId" property="uuid" jdbcType="VARCHAR" />
+    <result column="OpenId" property="openid" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="subscribe_time" property="subscribeTime" jdbcType="VARCHAR" />
+    <result column="subscribeTime" property="subscribetime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="groupid" property="groupid" jdbcType="INTEGER" />
+    <result column="tagid_list" property="tagidList" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="RegisterInWeiXin" property="registerinweixin" jdbcType="INTEGER" />
+    <result column="RegisterTime" property="registertime" jdbcType="TIMESTAMP" />
+    <result column="OpenIdCategory" property="openidcategory" jdbcType="INTEGER" />
+    <result column="PfFrom" property="pffrom" jdbcType="VARCHAR" />
+    <result column="PfCurrent" property="pfcurrent" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tiexue.mcp.core.entity.WeiXinUserInfo" extends="BaseResultMap" >
+    <result column="headimgurl" property="headimgurl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UUId, OpenId, UserId, unionid, subscribe, nickname, sex, city, country, province, 
+    language, subscribe_time, subscribeTime, remark, groupid, tagid_list, CreateTime, 
+    RegisterInWeiXin, RegisterTime, OpenIdCategory, PfFrom, PfCurrent
+  </sql>
+  <sql id="Blob_Column_List" >
+    headimgurl
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WeiXinUserInfo" >
+    insert into WeiXinUserInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        UUId,
+      </if>
+      <if test="openid != null" >
+        OpenId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time,
+      </if>
+      <if test="subscribetime != null" >
+        subscribeTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="groupid != null" >
+        groupid,
+      </if>
+      <if test="tagidList != null" >
+        tagid_list,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="registerinweixin != null" >
+        RegisterInWeiXin,
+      </if>
+      <if test="registertime != null" >
+        RegisterTime,
+      </if>
+      <if test="openidcategory != null" >
+        OpenIdCategory,
+      </if>
+      <if test="pffrom != null" >
+        PfFrom,
+      </if>
+      <if test="pfcurrent != null" >
+        PfCurrent,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribetime != null" >
+        #{subscribetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="tagidList != null" >
+        #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerinweixin != null" >
+        #{registerinweixin,jdbcType=INTEGER},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openidcategory != null" >
+        #{openidcategory,jdbcType=INTEGER},
+      </if>
+      <if test="pffrom != null" >
+        #{pffrom,jdbcType=VARCHAR},
+      </if>
+      <if test="pfcurrent != null" >
+        #{pfcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WeiXinUserInfo" >
+    update WeiXinUserInfo
+    <set >
+      <if test="openid != null" >
+        OpenId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time = #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribetime != null" >
+        subscribeTime = #{subscribetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        groupid = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="tagidList != null" >
+        tagid_list = #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerinweixin != null" >
+        RegisterInWeiXin = #{registerinweixin,jdbcType=INTEGER},
+      </if>
+      <if test="registertime != null" >
+        RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openidcategory != null" >
+        OpenIdCategory = #{openidcategory,jdbcType=INTEGER},
+      </if>
+      <if test="pffrom != null" >
+        PfFrom = #{pffrom,jdbcType=VARCHAR},
+      </if>
+      <if test="pfcurrent != null" >
+        PfCurrent = #{pfcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where UUId = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -12,7 +12,7 @@
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, UserId, CostCoin, BookId, BookName, CharpterId, CharpterTitle, CreateTime
+    Id, UserId, CostCoin, BookId, BookName, CharpterId, CharpterTitle, CreateTime,Sign
   </sql>
   <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxConsume" >
     insert into wxconsume
@@ -41,6 +41,9 @@
       <if test="createtime != null" >
         CreateTime,
       </if>
+      <if test="sign != null">
+        Sign,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -67,6 +70,9 @@
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxConsume" >
@@ -92,6 +98,9 @@
       </if>
       <if test="createtime != null" >
         CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+     <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

@@ -18,8 +18,18 @@ public class WxConsume {
     private String charptertitle;
 
     private Date createtime;
+    
+    private String sign;
 
-    public Integer getId() {
+    public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -82,4 +92,5 @@ public class WxConsume {
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
     }
+    
 }

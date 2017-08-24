@@ -89,7 +89,7 @@ public class WxPayServiceImpl implements IWxPayService {
 	 */
 	@Override
 	public UnifiedorderResult createUnifiedorder(WxUser wxUser, int type, int money, int coin, int bookId,
-			int chapterId, String remoteAdd) {
+			int chapterId, String remoteAdd,String wx_gzh_sign) {
 		// type==1充值小说币 type==2 包年包月
 		if (type == 1) {
 			coin = money + coin;
@@ -110,6 +110,11 @@ public class WxPayServiceImpl implements IWxPayService {
 		wxPay.setUnit(EnumType.PayUnit_Month);
 		wxPay.setWxordernum("");
 		wxPay.setCreatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+		if (wx_gzh_sign == null || wx_gzh_sign.isEmpty()) {
+			wxPay.setSign(wxUser.getPfcurrent());
+		} else {
+			wxPay.setSign(wx_gzh_sign);
+		}
 		// todo:将订单数据插入数据库中
 		wxPayMapper.insert(wxPay);
 

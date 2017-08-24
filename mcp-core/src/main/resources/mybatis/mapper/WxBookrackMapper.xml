@@ -10,6 +10,7 @@
     <result column="Location" property="location" jdbcType="INTEGER" />
     <result column="UserId" property="userid" jdbcType="INTEGER" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="Sign" jdbcType="VARCHAR" property="sign" />
   </resultMap>
    <resultMap id="joinBookResultMap" type="com.tiexue.mcp.core.dto.WxBookrackDto" >
     <id column="Id" property="id" jdbcType="INTEGER" />
@@ -23,7 +24,7 @@
     <result column="CoverImgs" jdbcType="VARCHAR" property="coverimgs" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime
+    Id, BookId, BookName, ChapterId, ChapterTitle, Location, UserId, CreateTime,Sign
   </sql>
   <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxBookrack" >
     insert into wxbookrack
@@ -52,6 +53,9 @@
       <if test="createtime != null" >
         CreateTime,
       </if>
+      <if test="sign != null">
+        Sign,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -78,6 +82,9 @@
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxBookrack" >
@@ -103,6 +110,9 @@
       </if>
       <if test="createtime != null" >
         CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

@@ -50,7 +50,8 @@ public class WxBookrackController {
 	@RequestMapping("addBookrack")
 	@ResponseBody
 	public String insertBookrack(HttpServletRequest request, Integer bookId, String bookName,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token)
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign)
 			throws UnsupportedEncodingException {
 		String userIdStr = "";
 		int userId = 0;
@@ -85,6 +86,7 @@ public class WxBookrackController {
 				rack.setLocation(0);
 				rack.setCreatetime(time);
 				rack.setChaptertitle("");
+				rack.setSign(wx_gzh_sign);
 				int res = bookrackService.insert(rack);
 				getObj.put("ok", res > 0 ? true : false);
 				getObj.put("msg", "收藏成功");

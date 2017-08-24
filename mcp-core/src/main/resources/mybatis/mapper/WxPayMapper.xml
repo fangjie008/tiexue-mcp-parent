@@ -15,10 +15,11 @@
     <result column="Count" jdbcType="INTEGER" property="count" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="Unit" jdbcType="INTEGER" property="unit" />
+    <result column="Sign" jdbcType="VARCHAR" property="sign" />
   </resultMap>
   <sql id="Base_Column_List">
     OrderNum, UserId, OpenId, BookId, ChapterId, OrderStatus, WxOrderNum, PayChannel, 
-    PayType, Amount, Count, CreateTime, Unit
+    PayType, Amount, Count, CreateTime, Unit,Sign
   </sql>
   <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxPay">
     insert into wxpay
@@ -62,6 +63,9 @@
       <if test="unit != null">
         Unit,
       </if>
+      <if test="sign != null">
+        Sign,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ordernum != null">
@@ -103,6 +107,9 @@
       <if test="unit != null">
         #{unit,jdbcType=INTEGER},
       </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxPay">
@@ -143,6 +150,9 @@
       </if>
       <if test="unit != null">
         Unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
       </if>
     </set>
     where OrderNum = #{ordernum,jdbcType=VARCHAR}

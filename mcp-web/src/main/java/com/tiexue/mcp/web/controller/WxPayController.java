@@ -57,7 +57,8 @@ public class WxPayController {
 	// 查询带分页的充值记录
 	@RequestMapping("/index")
 	public String getList(HttpServletRequest request,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token) {
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign) {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
 			PageUserDto pageUser = userSer.getPageUserDto(wx_gzh_token);
@@ -148,7 +149,8 @@ public class WxPayController {
 	 */
 	@RequestMapping("ipay_now")
 	public String ipay_now(HttpServletRequest request, HttpServletResponse response,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token) {
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign) {
 
 		// todo:从用户登录信息获取用户openid
 		WxUser user = null;
@@ -196,7 +198,7 @@ public class WxPayController {
 		// 调用统一下单接口
 		String remoteIpAdd = request.getRemoteAddr();
 		UnifiedorderResult unifiedorderResult = wxPayService.createUnifiedorder(user, type, money,coin, bookId, chapterId,
-				remoteIpAdd);
+				remoteIpAdd,wx_gzh_sign);
 
 		String json = PayUtil.generateMchPayJsRequestJson(unifiedorderResult.getPrepay_id(), WxConstants.WxAppId,
 				WxConstants.WxMch_Key);

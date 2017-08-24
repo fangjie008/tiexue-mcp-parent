@@ -59,8 +59,9 @@ public class WxChapterSubController {
 	@RequestMapping("/index")
 	public String getContent(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attr,
 			@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token
-			,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign,
+			@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
 			throws UnsupportedEncodingException {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
@@ -100,7 +101,7 @@ public class WxChapterSubController {
 				chapterTitle=chapterModel.getTitle();
 			// 付费章节操作
 			if (chapterModel.getChaptertype() == 1) {
-				ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel);
+				ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel, wx_gzh_sign);
 				if (!resultMsg.getStatus()) {
 					switch (resultMsg.getNum()) {
 					case EnumType.ResultNum_Login:
@@ -137,7 +138,7 @@ public class WxChapterSubController {
 		}
 		//保存书架
         if(bookId>0&&userId>0){
-        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle);
+        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle, wx_gzh_sign);
         }
         //把小说来源公共号信息放到cookie中
 		if((from_name==null||from_name.isEmpty())&&fm!=null&&!fm.isEmpty()){
@@ -159,6 +160,7 @@ public class WxChapterSubController {
 	 @RequestMapping("/vip")
 	 public String getVipContent(HttpServletRequest request, RedirectAttributes attr,HttpServletResponse response,
 				@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
+				@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign,
 				@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token
 				,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
 				throws UnsupportedEncodingException {
@@ -201,7 +203,7 @@ public class WxChapterSubController {
 					chapterTitle=chapterModel.getTitle();
 				// 付费章节操作
 				if (chapterModel.getChaptertype() == 1) {
-					ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel);
+					ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel, wx_gzh_sign);
 					if (!resultMsg.getStatus()) {
 						switch (resultMsg.getNum()) {
 						case EnumType.ResultNum_Login:
@@ -238,7 +240,7 @@ public class WxChapterSubController {
 			}
 			//保存书架
 	        if(bookId>0&&userId>0){
-	        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle);
+	        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle, wx_gzh_sign);
 	        }
 	        //把小说来源公共号信息放到cookie中
 			if((from_name==null||from_name.isEmpty())&&fm!=null&&!fm.isEmpty()){
@@ -260,8 +262,9 @@ public class WxChapterSubController {
 	 */
 	@RequestMapping("/defualt")
 	public String getContentByBookId(HttpServletRequest request, RedirectAttributes attr,HttpServletResponse response,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token
-			,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign,
+			@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
 			throws UnsupportedEncodingException {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
@@ -294,7 +297,7 @@ public class WxChapterSubController {
 				chapterId = chapterModel.getId();
 				// 付费章节操作
 				if (chapterModel.getChaptertype() == 1) {
-					ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel);
+					ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel, wx_gzh_sign);
 					if (!resultMsg.getStatus()) {
 						switch (resultMsg.getNum()) {
 						case EnumType.ResultNum_Login:
@@ -335,8 +338,9 @@ public class WxChapterSubController {
 	@RequestMapping("/show")
 	public String getContentUnlogin(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attr,
 			@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token
-			,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign,
+			@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
 			throws UnsupportedEncodingException {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
@@ -379,7 +383,7 @@ public class WxChapterSubController {
 				chapterTitle=chapterModel.getTitle();
 			// 付费章节操作
 			if (chapterModel.getChaptertype() == 1) {
-				ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel);
+				ResultMsg resultMsg = userConsService.consDeal(userId, bookId, bookName, chapterModel, wx_gzh_sign);
 				if (!resultMsg.getStatus()) {
 					switch (resultMsg.getNum()) {
 					case EnumType.ResultNum_Login:
@@ -416,7 +420,7 @@ public class WxChapterSubController {
 		}
 		//保存书架
         if(bookId>0&&userId>0){
-        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle);
+        	saveBookrack(bookId,userId,bookName,chapterId,chapterTitle, wx_gzh_sign);
         }
         //把小说来源公共号信息放到cookie中
 		if((from_name==null||from_name.isEmpty())&&fm!=null&&!fm.isEmpty()){
@@ -533,8 +537,8 @@ public class WxChapterSubController {
 	 * @param bookId
 	 * @param userId
 	 */
-	private void saveBookrack(int bookId,int userId,String bookName,int chapterId,String chapterTitle){
-		bookrackService.saveBookrack(userId, bookId, bookName, chapterId, chapterTitle);
+	private void saveBookrack(int bookId,int userId,String bookName,int chapterId,String chapterTitle,String wx_gzh_sign){
+		bookrackService.saveBookrack(userId, bookId, bookName, chapterId, chapterTitle, wx_gzh_sign);
 	}
 
 }

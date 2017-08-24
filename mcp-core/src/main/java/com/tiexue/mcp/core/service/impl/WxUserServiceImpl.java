@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,8 +131,8 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setUpdatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
 	    	wxUser.setUsertype(EnumType.UserType_Normal);
 	    	wxUser.setFromname(fm);
-	       	wxUser.setPfcurrent("");
-	    	wxUser.setPffrom("");
+	       	wxUser.setPfcurrent(fm);
+	    	wxUser.setPffrom(fm);
 	    	wxUser.setUnionid("");
 	    	int wxUserId= insert(wxUser);
 	    	
@@ -169,6 +170,8 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	if(wxUser.getProvince().isEmpty())
 	    		wxUser.setProvince(wxSnsUser.getProvince());
 	    	wxUser.setSex(wxSnsUser.getSex());
+	    	if(wxUser.getUnionid().isEmpty())
+	    		wxUser.setUnionid(wxSnsUser.getUnionid()==null?"":wxSnsUser.getUnionid());
 	        updateByPrimaryKey(wxUser);
 	        return wxUser;
 	    }else{
@@ -199,9 +202,9 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setUpdatetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
 	    	wxUser.setUsertype(EnumType.UserType_Normal);
 	    	wxUser.setFromname(fm);
-	       	wxUser.setPfcurrent("");
-	    	wxUser.setPffrom("");
-	    	wxUser.setUnionid("");
+	       	wxUser.setPfcurrent(fm);
+	    	wxUser.setPffrom(fm);
+	    	wxUser.setUnionid(wxSnsUser.getUnionid()==null?"":wxSnsUser.getUnionid());
 	    	int wxUserId=insert(wxUser);
 	    	
 	    	if(wxUser.getId()==null){
@@ -245,5 +248,17 @@ public class WxUserServiceImpl implements IWxUserService{
 		}
 		return pageUser;
 	}
+
+	/**
+	 * 根据用户微信unionId获取用户信息
+	 */
+	@Override
+	public WxUser getModelByUnionId(String unionId) {
+		return userMapper.getModelByUnionId(unionId);
+	}
 	
+	@Override
+    public int updatePfCurrent(Integer id,String pfcurrent){
+		return userMapper.updatePfCurrent(id, pfcurrent);
+	}
 }

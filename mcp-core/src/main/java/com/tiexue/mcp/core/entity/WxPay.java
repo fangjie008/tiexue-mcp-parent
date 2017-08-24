@@ -28,8 +28,18 @@ public class WxPay {
     private Date createtime;
 
     private Integer unit;
+    
+    private String sign;
 
-    public String getOrdernum() {
+    public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	public String getOrdernum() {
         return ordernum;
     }
 

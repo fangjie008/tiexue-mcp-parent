@@ -135,6 +135,16 @@ public interface WxUserMapper {
     @ResultMap("ResultMapWithBLOBs")
     WxUser getModelByOpenId(String openId);
     
+    @Select({
+        "select",
+        "Id, Name, HeaderIcon, Signature, Pwd, Sex, City, Province, UserType, Coin, Deadline, ",
+        "DeviceCode, Status, Mobile, OpenId, WeixinToken, Token,FromName, LastActiveTime, CreateTime, ",
+        "UpdateTime, AutoPurchase,PfFrom,PfCurrent,Unionid",
+        "from wxuser",
+        "where Unionid = #{unionId,jdbcType=VARCHAR}"
+    })
+    @ResultMap("ResultMapWithBLOBs")   
+    WxUser getModelByUnionId(String unionId);
     
     
     
@@ -146,7 +156,13 @@ public interface WxUserMapper {
     })
     int updateCoin(@Param("id")Integer id,@Param("coin")Integer coin);
     
-    
+    @Update({
+        "update wxuser",
+        "set ",
+          "PfCurrent = #{pfcurrent,jdbcType=VARCHAR} ",
+        "where Id = #{id,jdbcType=INTEGER}"
+    })
+    int updatePfCurrent(@Param("id")Integer id,@Param("pfcurrent")String pfcurrent);
     
     
 }

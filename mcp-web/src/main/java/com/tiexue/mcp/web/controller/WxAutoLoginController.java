@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
-
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,11 +45,15 @@ public class WxAutoLoginController {
 	 * 将用户登录信息写入cookie及session,判断cookie中的_ref页面跳转回登录前网址,完成登录流程
 	 */
 	@RequestMapping("/logindo")
-	public String wxLoginDo(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr) {
-		String fm = request.getParameter("fm");
+	public String wxLoginDo(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr
+			,@RequestHeader("User-Agent") String userAgent) {
+		//非微信环境直接看
+//		if(userAgent!=null&&!userAgent.isEmpty()&&!userAgent.toLowerCase().contains("micromessenger")){
+//			return "redirect:" + ref;
+//		}
+
 		String oauthUrl = SnsAPI.connectOauth2Authorize(WxConstants.WxAppId, WxConstants.WxHideRedirectUrl, false,
 				WxConstants.WxOauthState);
-		attr.addAttribute("fm", fm);
 		logger.error("logindo start");
 		return "redirect:" + oauthUrl;
 	}
@@ -62,21 +66,13 @@ public class WxAutoLoginController {
 	@RequestMapping("wxoauthcallback")
 	public String wxOAuthCallback(HttpServletRequest request, HttpServletResponse response,RedirectAttributes attr, 
 			@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
-			@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name) throws Exception {
+			@CookieValue(value ="wx_gzh_sign",required = true, defaultValue = "")String wx_gzh_sign) throws Exception {
 		try {
 			// 微信token
 			SnsToken wxSnsToken = null;
-			String fm="";
 			String code = request.getParameter("code");
 			String state = request.getParameter("state");
-		    fm = request.getParameter("fm");
-			attr.addAttribute("fm", fm);
-			if(fm==null||fm.isEmpty()){
-				if(from_name!=null&&!from_name.isEmpty()){
-					fm=from_name;
-				}
-			}
-			
+		
 			int userId=0;
 			if (!state.equalsIgnoreCase(WxConstants.WxOauthState)) {
 				logger.error("微信登录异常：");
@@ -85,7 +81,7 @@ public class WxAutoLoginController {
 			// 获取access_token及openid等信息
 			wxSnsToken = SnsAPI.oauth2AccessToken(WxConstants.WxAppId, WxConstants.WxAppSecret, code);
 			// 根据access_token及openid等信息请求用户信息
-			WxUser resUxUser= userSer.saveLoginMsgQuiet(wxSnsToken,fm);
+			WxUser resUxUser= userSer.saveLoginMsgQuiet(wxSnsToken,wx_gzh_sign);
 			if(resUxUser!=null&&resUxUser.getId()>0){
 				userId=resUxUser.getId();
 				String wx_gzh_token=userSer.setLoginInCookie(resUxUser);
@@ -94,6 +90,8 @@ public class WxAutoLoginController {
 				token_cookie.setMaxAge(5*365*24*60*60); // 设置Cookie的过期之前的时间，单位为秒
 				token_cookie.setPath("/");
 				response.addCookie(token_cookie); // 通过response的addCookie()方法将此Cookie对象
+				
+				logger.error("导量登录成功后保存的fm参数"+wx_gzh_sign);
 			}else{
 				logger.error("用户数据保存失败");
 				return "redirect:login";
@@ -120,8 +118,6 @@ public class WxAutoLoginController {
 			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
 			@CookieValue(value = "_ref", required = true, defaultValue = "") String ref) {
 		try {
-			String fm = request.getParameter("fm");
-			attr.addAttribute("fm", fm);
 			// todo:判断是否登录,理论上到这里都是登录后的
 			// todo:跳转到登录前页面
 			if (ref!=""&&!ref.isEmpty()) {

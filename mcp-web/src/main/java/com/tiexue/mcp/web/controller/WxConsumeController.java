@@ -47,7 +47,8 @@ public class WxConsumeController {
 	
 	@RequestMapping("/index")
 	public String getList(HttpServletRequest request,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token) {
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign) {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
 			PageUserDto pageUser = userService.getPageUserDto(wx_gzh_token);
@@ -128,7 +129,8 @@ public class WxConsumeController {
 	@RequestMapping("handleOrder")
 	@ResponseBody
 	public String handleOrder(HttpServletRequest request,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token) {
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token,
+			@CookieValue(value = "wx_gzh_sign", required = true, defaultValue = "") String wx_gzh_sign) {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
 			PageUserDto pageUser = userService.getPageUserDto(wx_gzh_token);
@@ -153,7 +155,7 @@ public class WxConsumeController {
 		if (autopayStr != null && !autopayStr.isEmpty()){
 			autoPay = (Integer.parseInt(autopayStr)>0)?true:false;
 		}
-		Boolean result= userConsService.consumeRecord(userId, bookId, chapterId,autoPay);
+		Boolean result= userConsService.consumeRecord(userId, bookId, chapterId,autoPay,wx_gzh_sign);
 		getObj.put("ok", result);
 		return getObj.toString();
 	}

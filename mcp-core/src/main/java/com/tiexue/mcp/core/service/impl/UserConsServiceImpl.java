@@ -32,7 +32,7 @@ public class UserConsServiceImpl implements IUserConsService {
 	@Resource
 	WxChapterServiceImpl charpterSerImpl;
 	
-	public ResultMsg consDeal(int userId, int bookId, String bookName, WxChapter chapterModel) {
+	public ResultMsg consDeal(int userId, int bookId, String bookName, WxChapter chapterModel,String wx_gzh_sign) {
 		ResultMsg resultMsg = new ResultMsg();
 		// 用户信息
 		WxUser userModel = wxUserService.selectByPrimaryKey(userId);
@@ -41,6 +41,10 @@ public class UserConsServiceImpl implements IUserConsService {
 			resultMsg.setMsg("跳转到登录页面");
 			resultMsg.setNum(EnumType.ResultNum_Login);
 			return resultMsg;
+		}
+		if(wx_gzh_sign==null||wx_gzh_sign.isEmpty())
+		{
+			wx_gzh_sign=userModel.getPfcurrent();			
 		}
 		int count = consSerImpl.judgeConsume(userId, chapterModel.getId());
 		// 未消费
@@ -82,6 +86,7 @@ public class UserConsServiceImpl implements IUserConsService {
 			cons.setCostcoin(chapterModel.getPirce());
 			cons.setUserid(userId);
 			cons.setCreatetime(new Date());
+			cons.setSign(wx_gzh_sign);
 			// 更新小说币
 			userModel.setCoin(userModel.getCoin() - chapterModel.getPirce());
 			userModel.setUpdatetime(new Date());
@@ -100,9 +105,16 @@ public class UserConsServiceImpl implements IUserConsService {
 	}
 	
 	
-	public boolean consumeRecord(int userId, int bookId, int chapterId, boolean autoPay) {
+	public boolean consumeRecord(int userId, int bookId, int chapterId, boolean autoPay,String wx_gzh_sign) {
 		// 用户信息
 		WxUser userModel = wxUserService.selectByPrimaryKey(userId);
+		if (userModel == null) {			
+			return false;
+		}
+		if(wx_gzh_sign==null||wx_gzh_sign.isEmpty())
+		{
+			wx_gzh_sign=userModel.getPfcurrent();			
+		}
 		// 获取图书信息
 		WxBook book = bookSerImpl.selectByPrimaryKey(bookId);
 		// 章节数据
@@ -120,6 +132,7 @@ public class UserConsServiceImpl implements IUserConsService {
 		cons.setCostcoin(chapterModel.getPirce());
 		cons.setUserid(userId);
 		cons.setCreatetime(new Date());
+		cons.setSign(wx_gzh_sign);
 		// 更新小说币
 		userModel.setCoin(userModel.getCoin() - chapterModel.getPirce());
 		userModel.setUpdatetime(new Date());

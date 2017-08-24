@@ -45,8 +45,7 @@ public class WxOutShowController {
 	@RequestMapping("/index")
 	public String getContentUnlogin(HttpServletRequest request,HttpServletResponse response, RedirectAttributes attr,
 			@CookieValue(value = "defaultbookrack", required = true, defaultValue = "") String rackCookie,
-			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token
-			,@CookieValue(value ="from_name",required = true, defaultValue = "")String from_name)
+			@CookieValue(value = "wx_gzh_token", required = true, defaultValue = "") String wx_gzh_token)
 			throws UnsupportedEncodingException {
 		String userIdStr = "";
 		if (wx_gzh_token != "") {
@@ -64,6 +63,12 @@ public class WxOutShowController {
 		token_cookie.setMaxAge(2*60); // 设置Cookie的过期之前的时间，单位为秒
 		token_cookie.setPath("/");
 		response.addCookie(token_cookie); // 通过response的addCookie()方法将此Cookie对象
+		
+		Cookie sign_cookie = new Cookie("wx_gzh_sign", fm); // 创建一个Cookie对象，并将用户名保存到Cookie对象中
+		sign_cookie.setMaxAge(5 * 365 * 24 * 60 * 60); // 设置Cookie的过期之前的时间，单位为秒
+		sign_cookie.setPath("/");
+		response.addCookie(sign_cookie); // 通过response的addCookie()方法将此Cookie对象
+		logger.error("导量登录前的fm参数"+fm);
 		int userId = 0;
 		if (userIdStr != null && !userIdStr.isEmpty()) {
 			userId = Integer.parseInt(userIdStr);
@@ -71,6 +76,9 @@ public class WxOutShowController {
 		if(userId>=0){
 			WxUser userModel = userSer.selectByPrimaryKey(userId);
 			if(userModel!=null){
+				if(!userModel.getPfcurrent().equals(fm)){
+					userSer.updatePfCurrent(userModel.getId(),fm);
+				}
 				return "redirect:"+autofurl;
 			}
 		}

@@ -56,7 +56,7 @@ public interface IWxPayService {
 		 * @param remoteAdd
 		 * @return
 		 */
-		UnifiedorderResult createUnifiedorder(WxUser wxUser, int type,int money,int coin, int bookId, int chapterId, String remoteAdd);
+		UnifiedorderResult createUnifiedorder(WxUser wxUser, int type,int money,int coin, int bookId, int chapterId, String remoteAdd,String wx_gzh_sign);
 
 		/**
 		 * 处理支付成功请求
