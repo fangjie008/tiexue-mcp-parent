@@ -60,7 +60,10 @@ public class SyncWxUserInfo {
 				}
 			}
 			else{
-				logger.error("获取的followResult数据为空。");
+				if(followResult==null)
+					logger.error("获取的followResult数据为空。");
+				else
+					logger.error(String.format("获取数据错误信息：%s.错误码：%s",followResult.getErrmsg(),followResult.getErrcode()));
 			}
 		} catch (InterruptedException e) {
 			logger.error(String.format("同步公众号appId:%s。异常",appId)+e);
