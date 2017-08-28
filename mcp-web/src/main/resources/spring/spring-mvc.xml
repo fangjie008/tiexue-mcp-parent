@@ -13,6 +13,7 @@
 	<context:component-scan base-package="com.tiexue.mcp.web.controller" />
 
 
+
 	<!-- 默认的注解映射支持 -->
 	<mvc:annotation-driven />
 
@@ -28,6 +29,25 @@
 	<mvc:resources location="/static/" mapping="/static/**" />
 	<mvc:default-servlet-handler />
 
+	<mvc:interceptors>  
+	    <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->  
+	    <!--<bean class="com.tiexue.mcp.web.interceptor.WxInterceptor"/>   -->  
+	    <mvc:interceptor>
+	    <mvc:mapping path="/autologin/**"/>
+	    <mvc:mapping path="/wxbook/**"/>
+	    <mvc:mapping path="/wxBookrack/**"/>
+	    <mvc:mapping path="/wxcallback/**"/>
+	    <mvc:mapping path="/wxChapter/**"/>
+	    <mvc:mapping path="/wxChapterSub/**"/>
+	    <mvc:mapping path="/wxConsume/**"/>
+	    <mvc:mapping path="/outshow/**"/>
+	    <mvc:mapping path="/wxUser/**"/>
+	    <mvc:mapping path="/wxPresent/**"/>
+	    <mvc:exclude-mapping path="/include/**"/>
+	    <mvc:exclude-mapping path="/wxPay/**"/>
+	    <bean class="com.tiexue.mcp.web.interceptor.WxInterceptor"/>
+	    </mvc:interceptor>
+	</mvc:interceptors>  
 	<!-- 容器启动,执行的默认方法 
 	<bean id="wxAppInitServiceImpl" class="com.tiexue.mcp.core.service.impl.WxAppInitServiceImpl">
 	</bean>-->

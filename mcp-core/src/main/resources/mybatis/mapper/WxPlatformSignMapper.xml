@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiexue.mcp.core.mapper.WxPlatformSignMapper" >
+  <resultMap id="BaseResultMap" type="com.tiexue.mcp.core.entity.WxPlatformSign" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Sign" property="sign" jdbcType="VARCHAR" />
+    <result column="PlatformName" property="platformname" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="NovelId" property="novelid" jdbcType="INTEGER" />
+    <result column="MoneyAll" property="moneyall" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Sign, PlatformName, CreateTime, NovelId, MoneyAll
+  </sql>
+  <insert id="insertSelective" parameterType="com.tiexue.mcp.core.entity.WxPlatformSign" >
+    insert into wxplatformsign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="sign != null" >
+        Sign,
+      </if>
+      <if test="platformname != null" >
+        PlatformName,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="novelid != null" >
+        NovelId,
+      </if>
+      <if test="moneyall != null" >
+        MoneyAll,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="platformname != null" >
+        #{platformname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="novelid != null" >
+        #{novelid,jdbcType=INTEGER},
+      </if>
+      <if test="moneyall != null" >
+        #{moneyall,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tiexue.mcp.core.entity.WxPlatformSign" >
+    update wxplatformsign
+    <set >
+      <if test="sign != null" >
+        Sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="platformname != null" >
+        PlatformName = #{platformname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="novelid != null" >
+        NovelId = #{novelid,jdbcType=INTEGER},
+      </if>
+      <if test="moneyall != null" >
+        MoneyAll = #{moneyall,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

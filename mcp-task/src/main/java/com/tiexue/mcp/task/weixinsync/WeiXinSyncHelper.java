@@ -26,6 +26,7 @@ public class WeiXinSyncHelper {
 			//同步五彩读书网的用户
 			String wcduwToken= TokenManager.getToken(WcWxConstant.wxAppId);
 			if(wcduwToken!=null&&!wcduwToken.isEmpty()){
+				logger.error("五彩读书网用户开始更新.appId"+WcWxConstant.wxAppId);
 				syncWxUserInfo.syncWxUser(WcWxConstant.wxAppId, WcWxConstant.wxAppSecret,wcduwToken,"");
 				logger.error("五彩读书网用户更新成功");
 			}else {
@@ -35,6 +36,7 @@ public class WeiXinSyncHelper {
 			//同步五彩读书城的用户
 			String wcducToken= TokenManager.getToken(WxConstants.WxAppId);
 			if(wcducToken!=null&&!wcducToken.isEmpty()){
+				logger.error("五彩读书城用户开始更新。AppId:"+WxConstants.WxAppId);
 				syncWxUserInfo.syncWxUser(WxConstants.WxAppId, WxConstants.WxAppSecret,wcducToken,"");
 				logger.error("五彩读书城用户更新成功");
 			}else {
