@@ -42,6 +42,7 @@ text-align:center;
 				<th>小说名</th>
 				<th>浏览用户</th>
 				<th>关注公众号人数</th>
+				<th>充值人数</th>
 				<th>充值金额</th>
 				<th>消费金额</th>
 			</tr>
@@ -54,6 +55,7 @@ text-align:center;
 						<td>${payStats.title}</td>
 						<td>${payStats.anonymityLogin}</td>
 						<td>${payStats.followCount}</td>
+						<td>${payStats.payCount}</td>
 						<td>${payStats.totalPayMoney/100.00}</td>
 						<td>${payStats.totalConsumeMoney/100.00}</td>
 

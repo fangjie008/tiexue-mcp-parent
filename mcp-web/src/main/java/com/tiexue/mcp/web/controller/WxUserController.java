@@ -170,14 +170,11 @@ public class WxUserController {
 			String fm="";
 			String code = request.getParameter("code");
 			String state = request.getParameter("state");
-		    fm = request.getParameter("fm");
-			attr.addAttribute("fm", fm);
-			if(fm==null||fm.isEmpty()){
-				if(from_name!=null&&!from_name.isEmpty()){
-					fm=from_name;
-				}
-			}
 			
+			if(wx_gzh_sign!=null&&!wx_gzh_sign.isEmpty()){
+				fm=wx_gzh_sign;
+			}
+			attr.addAttribute("fm", fm);
 			int userId=0;
 			if (!state.equalsIgnoreCase(WxConstants.WxOauthState)) {
 				logger.error("登录异常：");

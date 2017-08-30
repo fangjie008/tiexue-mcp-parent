@@ -166,7 +166,7 @@ public interface WxUserMapper {
     
     
     @Select({
-    	" SELECT COUNT(1) FROM  wxuser WHERE PfFrom=#{sign}",
+    	" SELECT COUNT(1) FROM  wxuser WHERE PfFrom=#{sign} or PfCurrent=#{sign}",
     })
     int getLoginCount(@Param("sign") String sign);
     

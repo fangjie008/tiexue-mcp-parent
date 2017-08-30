@@ -104,6 +104,12 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setWeixintoken(user.getAccess_token());
 	    	wxUser.setToken(user.getRefresh_token());
 	    	wxUser.setLastactivetime(DateUtil.fomatCurrentDate("yyyy-MM-dd HH:mm:ss"));
+	    	if(fm!=null&&!fm.isEmpty()){
+		    	if(wxUser.getPffrom()==null||wxUser.getPffrom().isEmpty()||"".equals(wxUser.getPffrom())){
+		    		wxUser.setPffrom(fm);
+		    	}
+		    	wxUser.setPfcurrent(fm);
+	    	}
 	        updateByPrimaryKey(wxUser);
 	        return wxUser;
 	    }else{
@@ -172,6 +178,12 @@ public class WxUserServiceImpl implements IWxUserService{
 	    	wxUser.setSex(wxSnsUser.getSex());
 	    	if(wxUser.getUnionid().isEmpty())
 	    		wxUser.setUnionid(wxSnsUser.getUnionid()==null?"":wxSnsUser.getUnionid());
+	    	if(fm!=null&&!fm.isEmpty()){
+		    	if(wxUser.getPffrom()==null||wxUser.getPffrom().isEmpty()||"".equals(wxUser.getPffrom())){
+		    		wxUser.setPffrom(fm);
+		    	}
+		    	wxUser.setPfcurrent(fm);
+	    	}
 	        updateByPrimaryKey(wxUser);
 	        return wxUser;
 	    }else{

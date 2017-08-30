@@ -35,10 +35,12 @@ public class WxPayStatsServiceImpl implements IWxPayStatsService {
 		WxPayStatsDto resultDto=new  WxPayStatsDto();
 		int loginCount= iWxUserSer.getLoginCount(sign);
 		resultDto.setAnonymityLogin(loginCount);
-		int followCount=iWeiXinUserInfoSer.getFollowCount(sign);
-		resultDto.setFollowCount(followCount);
-		int totalPayMoney=iWxPaySer.getTotalPayMoneyBySign(sign);
-		resultDto.setTotalPayMoney(totalPayMoney);
+		Integer followCount=iWeiXinUserInfoSer.getFollowCount(sign);
+		resultDto.setFollowCount(followCount==null?0:followCount);
+		Integer totalPayMoney=iWxPaySer.getTotalPayMoneyBySign(sign);
+		resultDto.setTotalPayMoney(totalPayMoney==null?0:totalPayMoney);
+		Integer payCount=iWxPaySer.getPayCountBySign(sign);
+		resultDto.setPayCount(payCount==null?0:payCount);
 		WxPlatformSign wxPlatformSign= iWxPlatformSignSer.getModelBySign(sign);
 		if(wxPlatformSign!=null){
 			resultDto.setNovelId(wxPlatformSign.getNovelid());

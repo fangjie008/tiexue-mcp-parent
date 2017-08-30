@@ -106,4 +106,8 @@ public interface WxPayMapper {
     
     @Select({"select IFNULL(SUM(Amount),0) from wxpay where OrderStatus=3 and Sign= #{sign} "})
   	Integer getTotalPayMoneyBySign(String sign);
+    
+    @Select({" SELECT COUNT(1) FROM ( "+
+    	" SELECT userId FROM wxpay WHERE OrderStatus=3 and Sign= #{sign} GROUP BY userId ) a "})
+  	Integer getPayCountBySign(String sign);
 }

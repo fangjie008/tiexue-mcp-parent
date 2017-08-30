@@ -313,4 +313,9 @@ public class WxPayServiceImpl implements IWxPayService {
 	public Integer getTotalPayMoneyBySign(String sign) {
 		return wxPayMapper.getTotalPayMoneyBySign(sign);
 	}
+
+	@Override
+	public Integer getPayCountBySign(String sign) {
+		return wxPayMapper.getPayCountBySign(sign);
+	}
 }

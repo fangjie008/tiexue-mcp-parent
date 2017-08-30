@@ -88,5 +88,12 @@ public interface IWxPayService {
 		 * @return
 		 */
 		Integer getTotalPayMoneyBySign(String sign);
+		
+		/**
+		 * 获取充值人数
+		 * @param sign
+		 * @return
+		 */
+		Integer getPayCountBySign(String sign);
 
 }
