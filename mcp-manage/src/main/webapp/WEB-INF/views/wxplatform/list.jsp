@@ -45,7 +45,8 @@
 				<th>ID</th>
 				<th>推广标识</th>
 				<th>推广公共号</th>
-				<th>关联小说id</th>
+				<th>小说id</th>
+				<th>小说名</th>
 				<th>推广费用</th>
 				<th>备注</th>
 				<th>操作</th>
@@ -57,6 +58,7 @@
 					 <td>${info.sign}</td>
 					<td>${info.platformname}</td>
 					<td>${info.novelid}</td>
+					<td>${info.novelname}</td>
 					<td>${info.moneyall}</td>
 					<td>${info.remark}</td>
 					<td>

@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-
+import com.tiexue.mcp.core.entity.WxBook;
 import com.tiexue.mcp.core.entity.WxPlatformSign;
+import com.tiexue.mcp.core.service.IWxBookService;
 import com.tiexue.mcp.core.service.IWxPlatformSignService;
 import com.tiexue.mcp.manage.dto.Paging;
 import com.tiexue.mcp.manage.dto.ResultMsg;
@@ -26,6 +27,8 @@ public class WxPlatformSignController {
 	private static Logger logger=Logger.getLogger(WxPlatformSignController.class);
 	@Resource
 	IWxPlatformSignService iWxPlatformSignSer;
+	@Resource
+	IWxBookService iWxBookService;
 	private final int psize=20;
 	@RequestMapping("list")
 	public String getList(HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +45,13 @@ public class WxPlatformSignController {
 				pStart=pStart-psize;
 			}
 			List<WxPlatformSign> platformSigns= iWxPlatformSignSer.getListByPage("1=1",pStart,psize);
+			if(platformSigns!=null&&platformSigns.size()>0){
+				for (WxPlatformSign wxPlatformSign : platformSigns) {
+					WxBook wxBook= iWxBookService.selectByPrimaryKey(wxPlatformSign.getNovelid());
+					if(wxBook!=null)
+					 wxPlatformSign.setNovelname(wxBook.getName());
+				}
+			}
 			Paging paging=new Paging();
 			paging.setPcount(pcount);
 			paging.setPsize(psize);
@@ -49,7 +59,7 @@ public class WxPlatformSignController {
 			if(pindex>paging.getPtotalpages()){
 				pindex=paging.getPtotalpages();
 			}
-				paging.setPindex(pindex);
+			paging.setPindex(pindex);
 			request.setAttribute("platformSigns",platformSigns);
 			request.setAttribute("paging",paging);
 		} catch (Exception e) {
@@ -82,8 +92,8 @@ public class WxPlatformSignController {
 			String sign = request.getParameter("sign");
 			String platformname = request.getParameter("platformname");
 			String novelidStr = request.getParameter("novelid");
-			String moneyallStr = request.getParameter("novelid");
-			String remark = request.getParameter("moneyall");
+			String moneyallStr = request.getParameter("moneyall");
+			String remark = request.getParameter("remark");
 			Integer novelId=0;
 			long moneyall=0;
 			// 更新

@@ -16,8 +16,18 @@ public class WxPlatformSign {
     private Long moneyall;
 
     private String remark;
+    
+    private String novelname;
 
-    public Integer getId() {
+    public String getNovelname() {
+		return novelname;
+	}
+
+	public void setNovelname(String novelname) {
+		this.novelname = novelname;
+	}
+
+	public Integer getId() {
         return id;
     }
 
