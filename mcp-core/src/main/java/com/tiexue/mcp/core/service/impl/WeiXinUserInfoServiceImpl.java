@@ -179,6 +179,11 @@ public class WeiXinUserInfoServiceImpl implements IWeiXinUserInfoService {
 		}
 	}
 
+	@Override
+	public int getFollowCount(String sign) {
+		return weiXinUserInfoMapper.getFollowCount(sign);
+	}
+
 
 
 }

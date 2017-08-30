@@ -102,4 +102,8 @@ public interface WxPayMapper {
         + "</script>")
     List<WxPay> getPaysByBookId(@Param("bookId")int bookId,@Param("startTime")Date startTime
     		,@Param("endTime")Date endTime,@Param("userIds")List<Integer> userIds);
+    
+    
+    @Select({"select IFNULL(SUM(Amount),0) from wxpay where OrderStatus=3 and Sign= #{sign} "})
+  	Integer getTotalPayMoneyBySign(String sign);
 }

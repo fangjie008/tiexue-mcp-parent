@@ -15,6 +15,8 @@ public class WxPlatformSign {
 
     private Long moneyall;
 
+    private String remark;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class WxPlatformSign {
 
     public void setMoneyall(Long moneyall) {
         this.moneyall = moneyall;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

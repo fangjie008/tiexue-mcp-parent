@@ -1,4 +1,4 @@
-package com.tiexue.cms.core.cache;
+package com.tiexue.mcp.core.cache;
 
 public class CacheKey {
 

@@ -165,4 +165,10 @@ public interface WxUserMapper {
     int updatePfCurrent(@Param("id")Integer id,@Param("pfcurrent")String pfcurrent);
     
     
+    @Select({
+    	" SELECT COUNT(1) FROM  wxuser WHERE PfFrom=#{sign}",
+    })
+    int getLoginCount(@Param("sign") String sign);
+    
+    
 }

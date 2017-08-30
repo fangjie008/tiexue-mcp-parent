@@ -81,6 +81,7 @@ public class McpBaseInfoController {
 	 * 新增或修改信息
 	 */
 	@RequestMapping("/add.do")
+	@RequiresRoles("baseInfo")
 	public String addbaseInfo(HttpServletRequest request,HttpServletResponse response){
 	    String cpidStr=request.getParameter("cpid");
 	    String pindexStr=request.getParameter("pindex");
@@ -102,6 +103,7 @@ public class McpBaseInfoController {
 	 * 新增或修改信息
 	 */
 	@RequestMapping("/edit")
+	@RequiresRoles("baseInfo")
 	public String editbaseInfo(HttpServletRequest request,HttpServletResponse response){
 	    String cpidStr=request.getParameter("cpid");
 	    try {
@@ -122,6 +124,7 @@ public class McpBaseInfoController {
 	 * @param response
 	 * @return
 	 */
+	@RequiresRoles("baseInfo")
 	@RequestMapping(value="/save.do",method=RequestMethod.POST)
     @ResponseBody
 	public String saveData(HttpServletRequest request,HttpServletResponse response,McpBaseInfoDto mcpBaseInfoDto){
@@ -182,6 +185,7 @@ public class McpBaseInfoController {
 	 * @param response
 	 * @return
 	 */
+	@RequiresRoles("baseInfo")
 	@RequestMapping(value="/deleteModel.do",method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteModel(HttpServletRequest request,HttpServletResponse response){
@@ -208,7 +212,7 @@ public class McpBaseInfoController {
 		return jObject.toJSONString();
 	}
 	
-	
+	@RequiresRoles("baseInfo")
 	@RequestMapping(value="/checkName",method=RequestMethod.POST)
 	@ResponseBody
 	public String checkName(HttpServletRequest request,HttpServletResponse response){

@@ -3,6 +3,7 @@ package com.tiexue.mcp.core.service;
 import java.util.Date;
 import java.util.List;
 
+
 import com.tiexue.mcp.core.entity.WxPay;
 import com.tiexue.mcp.core.entity.WxUser;
 
@@ -80,5 +81,12 @@ public interface IWxPayService {
 	     * @return
 	     */
 		List<WxPay> getPaysByBookId(int bookId,Date startTime,Date endTime);
+		
+		/**
+		 * 根据推广标记查找充值金额
+		 * @param Sign
+		 * @return
+		 */
+		Integer getTotalPayMoneyBySign(String sign);
 
 }

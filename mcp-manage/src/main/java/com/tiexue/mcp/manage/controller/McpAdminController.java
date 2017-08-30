@@ -24,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tiexue.mcp.base.config.CustomizedPropertyConfigurer;
+import com.tiexue.mcp.core.define.McpAdminType;
 import com.tiexue.mcp.core.entity.McpAdmin;
 import com.tiexue.mcp.core.service.IMcpAdminService;
+import com.tiexue.mcp.manage.dto.ResultMsg;
+import com.tiexue.mcp.manage.util.TransToPage;
 
 @Controller
 @RequestMapping("admin")
@@ -97,6 +101,7 @@ public class McpAdminController {
 	 * 查询用户列表
 	 **/
 	// @RequiresRoles("admin")
+	@RequiresRoles("admin")
 	@RequestMapping("list")
 	public String getList(Model model) {
 		model.addAttribute("userList", mcpAdminSer.getList());
@@ -108,7 +113,9 @@ public class McpAdminController {
 	 **/
 	// @RequiresRoles("admin")
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String showAddUser() {
+	public String showAddUser(HttpServletRequest request) {
+		String type= TransToPage.mapToOptions(true, 0,McpAdminType.AdminTypeMap);
+		request.setAttribute("type", type);
 		return "mcpAdmin/add";
 	}
 
@@ -117,18 +124,46 @@ public class McpAdminController {
 	 **/
 	// @RequiresRoles("admin")
 	@RequestMapping(value = "doAddUser", method = RequestMethod.POST)
+	@ResponseBody
 	public String doAddUser(String username, String password, String intro, String roles,
-			RedirectAttributes redirectAttributes) {
-		McpAdmin user = new McpAdmin();
-		user.setName(username);
-		user.setIntro(intro);
-		user.setPassword(password);
-		user.setAuth(roles);
-
-		mcpAdminSer.addUser(user);
-
-		redirectAttributes.addAttribute("msg", "新增成功");
-		return "redirect:/admin/list";
+			Integer type) {
+		ResultMsg resultMsg = new ResultMsg();
+		resultMsg.setOk(false);
+		try {
+			McpAdmin user = new McpAdmin();
+			user.setName(username);
+			user.setIntro(intro);
+			user.setPassword(password);
+			user.setAuth(roles);
+			user.setType(type);
+			mcpAdminSer.addUser(user);
+			resultMsg.setOk(true);
+			resultMsg.setMsg("保存成功");
+		} catch (Exception e) {
+			logger.debug(" doAddUser execption:"+e);
+			resultMsg.setMsg("保存失败");
+		}
+		
+		return JSON.toJSONString(resultMsg);
+	}
+	@RequestMapping("checkName")
+	@ResponseBody
+	public String checkName(HttpServletRequest request,String username){
+		ResultMsg resultMsg = new ResultMsg();
+		resultMsg.setOk(false);
+		try {
+			if(username!=null){
+			 McpAdmin admin= mcpAdminSer.getByName(username);
+			 if(admin!=null&&admin.getName()!=null)
+				 resultMsg.setOk(true);
+			}
+			resultMsg.setMsg("用户已存在");
+		} catch (Exception e) {
+			logger.debug(" checkName exception:"+e);
+			resultMsg.setMsg("查询失败");
+		}
+		
+		return JSON.toJSONString(resultMsg);
 	}
 
 	/**
@@ -137,7 +172,12 @@ public class McpAdminController {
 	@RequiresRoles("admin")
 	@RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+		McpAdmin mcpAdmin= mcpAdminSer.getById(id);
 		model.addAttribute("mcpAdmin", mcpAdminSer.getById(id));
+		if(mcpAdmin!=null){
+			String type= TransToPage.mapToOptions(true, mcpAdmin.getType(),McpAdminType.AdminTypeMap);
+			model.addAttribute("type", type);
+		}
 		return "mcpAdmin/edit";
 	}
 

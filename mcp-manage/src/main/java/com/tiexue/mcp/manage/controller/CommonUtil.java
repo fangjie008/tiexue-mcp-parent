@@ -37,7 +37,7 @@ public class CommonUtil {
 	}
 	
 	/**
-	 * 如果登录用户是合作者返回合作者的Id(CPId)
+	 * 返回登录后信息
 	 * @return
 	 */
 	public static McpShiroSubject getMcpShiroSubject(){

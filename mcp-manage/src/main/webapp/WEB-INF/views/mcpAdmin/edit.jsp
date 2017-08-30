@@ -35,7 +35,14 @@
 				<input type="text" id="auth" name="auth" value="${mcpAdmin.auth}" autocomplete="off" class="layui-input">
 			</div>
 		</div>
-
+			<div class="layui-form-item">
+			<label class='layui-form-label'>用户类型：</label>
+			<div class="layui-input-inline">
+			<select id="type" name="type" lay-verify="required" lay-search="">
+             ${type}
+            </select>
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<label class='layui-form-label'>备注</label>
 			<div class="layui-input-inline">

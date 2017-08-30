@@ -53,4 +53,13 @@ public interface IWxConsumeService {
 	  	Integer getCostCoinByBookId(Integer bookId,Date startTime,Date endTime);
 	  	
 	  	List<Integer> getConsumeUserIdByBookId(int bookId,Date startTime,Date endTime);
+	  	
+	  	
+	  	/**
+	  	 * 根据推广标记和小说Id获取
+	  	 * @param bookId
+	  	 * @param sign
+	  	 * @return
+	  	 */
+	  	Integer getSumCostcoinByBookIdAndSign(int bookId,String sign);
 }

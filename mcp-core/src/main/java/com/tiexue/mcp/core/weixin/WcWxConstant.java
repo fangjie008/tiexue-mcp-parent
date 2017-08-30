@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
-import com.tiexue.cms.core.cache.CacheKey;
-import com.tiexue.cms.core.cache.MemoryCache;
+import com.tiexue.mcp.core.cache.CacheKey;
+import com.tiexue.mcp.core.cache.MemoryCache;
 
 /**
  * 获取五彩读书网公共号信息的类

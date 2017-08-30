@@ -1,4 +1,4 @@
-package com.tiexue.cms.core.cache;
+package com.tiexue.mcp.core.cache;
 
 
 import java.util.Iterator;

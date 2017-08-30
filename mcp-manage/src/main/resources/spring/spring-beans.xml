@@ -50,6 +50,24 @@
 
 	<import resource="classpath*:spring/spring-mybatis.xml" />
 	<import resource="classpath*:spring/spring-shiro.xml" />
+	
+	<mvc:interceptors>  
+	    <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->  
+	    <!--<bean class="com.tiexue.mcp.web.interceptor.WxInterceptor"/>   -->  
+	    <mvc:interceptor>
+	    <mvc:mapping path="/mcpbaseinfo/**"/>
+	    <mvc:mapping path="/mcpbook/**"/>
+	    <mvc:mapping path="/mcpchapter/**"/>
+	    <mvc:mapping path="/mcphome/**"/>
+	    <mvc:mapping path="/mcppay/**"/>
+	    <mvc:mapping path="/mcpsettlement/**"/>
+	    <mvc:mapping path="/platform/**"/>
+	    <mvc:mapping path="/outshow/**"/>
+	    <mvc:exclude-mapping path="/include/**"/>
+	    <mvc:exclude-mapping path="/admin/**"/>
+	    <bean class="com.tiexue.mcp.manage.interceptor.LoginInterceptor"/>
+	    </mvc:interceptor>
+	</mvc:interceptors>  
 </beans>
 						
 						

@@ -1,7 +1,7 @@
 package com.tiexue.mcp.core.service;
 
 
-import org.apache.ibatis.annotations.Param;
+
 
 import com.tiexue.mcp.core.dto.PageUserDto;
 import com.tiexue.mcp.core.entity.WxConsume;
@@ -89,6 +89,13 @@ public interface IWxUserService {
      * @param pfcurrent
      * @return
      */
-    int updatePfCurrent(@Param("id")Integer id,@Param("pfcurrent")String pfcurrent);
+    int updatePfCurrent(Integer id,String pfcurrent);
+    
+    /**
+     * 获取推广带来的登录用户
+     * @param sign
+     * @return
+     */
+    int getLoginCount(String sign);
  
 }

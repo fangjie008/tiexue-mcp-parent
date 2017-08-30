@@ -261,4 +261,9 @@ public class WxUserServiceImpl implements IWxUserService{
     public int updatePfCurrent(Integer id,String pfcurrent){
 		return userMapper.updatePfCurrent(id, pfcurrent);
 	}
+
+	@Override
+	public int getLoginCount(String sign) {
+		return userMapper.getLoginCount(sign);
+	}
 }

@@ -24,4 +24,11 @@ public interface IWeiXinUserInfoService {
 	     * @return
 	     */
 	    int saveWerXinUser(User user,int openIdCategory);
+	    
+	    /**
+	     * 获取推广带来的关注公共号用户
+	     * @param sign
+	     * @return
+	     */
+	    int getFollowCount(String sign);
 }

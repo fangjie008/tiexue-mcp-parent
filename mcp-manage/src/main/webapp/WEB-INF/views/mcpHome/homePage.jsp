@@ -49,6 +49,10 @@
                     <dl class="layui-nav-child">
                        <c:choose>
                        <c:when test="${userType==1}">
+                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/wxplatform/list">
+	                        <i class="layui-icon">&#xe621;</i>推广管理</a></dd>
+	                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/paystats/index">
+	                        <i class="layui-icon">&#xe621;</i>推广统计</a></dd>
                        <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/mcpbaseinfo/list.do">
 	                        <i class="layui-icon">&#xe621;</i>基础信息</a></dd>
 	                         <dd class="layui-nav-item"><a href="javascript:;" href-url="<%=path%>/admin/list">

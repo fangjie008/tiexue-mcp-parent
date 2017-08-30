@@ -5,6 +5,7 @@ import com.tiexue.mcp.core.entity.WxUser;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -123,4 +124,11 @@ public interface WeiXinUserInfoMapper {
     })
     @ResultMap("ResultMapWithBLOBs")
     WeiXinUserInfo getModelByUnionId(String unionid);
+    
+    
+    @Select({
+    	" SELECT COUNT(1) FROM (SELECT unionId FROM wxuser WHERE PfFrom=#{sign} AND unionID IS NOT NULL AND unionID<>'') a ",
+    	" INNER  JOIN WeiXinUserInfo b  ON a.unionId=b.unionId "
+    })
+    int getFollowCount(@Param("sign") String sign);
 }

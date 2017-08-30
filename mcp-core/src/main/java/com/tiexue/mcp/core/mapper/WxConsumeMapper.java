@@ -121,4 +121,14 @@ public interface WxConsumeMapper {
 	"SELECT DISTINCT userId   FROM wxconsume WHERE bookid = #{bookId} ",
 	"AND CreateTime>#{startTime} AND createtime<#{endTime} GROUP BY userId",})
 	List<Integer> getConsumeUserIdByBookId(@Param("bookId")int bookId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+    
+    
+    @Select({
+        "select",
+        " IFNULL(SUM(costcoin),0) ",
+        "from wxconsume",
+        "where bookId=#{bookId} and sign=#{sign} "
+    })
+  	Integer getSumCostcoinByBookIdAndSign(@Param("bookId")int bookId,@Param("sign") String sign);
+    
 }
